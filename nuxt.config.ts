@@ -55,7 +55,7 @@ export default defineNuxtConfig({
 
   fonts: {
     families: [
-      { name: "Inter", provider: "google" },
+      { name: "Plus Jakarta Sans", provider: "google" },
       // { name: 'Other Font', src: 'https://example.com/font.woff2', weight: 'bold' },
     ],
   },

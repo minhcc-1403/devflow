@@ -10,8 +10,8 @@ const props = defineProps<Props>();
 
 <template>
   <div :class="props.class">
-    <h2 class="text-lg font-semibold md:text-xl lg:text-2xl">{{ title }}</h2>
-    <p v-if="description" class="mt-2 font-medium text-gray-400 md:text-sm">
+    <h2 class="text-2xl font-bold">{{ title }}</h2>
+    <p v-if="description" class="mt-2 text-sm font-normal text-gray-950">
       {{ description }}
     </p>
   </div>

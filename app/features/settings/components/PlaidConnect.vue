@@ -1,6 +1,5 @@
 <script setup lang="ts">
 /* eslint-disable */
-import PlaidLink from "vue-plaid-link2";
 import { useCreateLinkToken } from "~/features/settings/api/use-create-link-token";
 
 const { data, status, mutate } = useCreateLinkToken();
@@ -23,10 +22,6 @@ const onSuccess = (data: any) => {
 </script>
 
 <template>
-  <PlaidLink :token="token" :onSuccess="onSuccess" env="sandbox">
-    <button>Open Link Slot</button>
-  </PlaidLink>
-
   <Button
     size="sm"
     variant="ghost"

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useForm } from "vee-validate";
 import { otpApi } from "~/apis/pre-built/10-otp.api";
+import PasswordProgress from "~/components/Auth/PasswordProgress.vue";
 import { AccountTypeEnum, OtpTypeEnum, SendOtpToEnum } from "~/utils/enums";
 import { handleApiError } from "~/utils/helpers/error-handler.helper";
 import {
@@ -66,7 +67,6 @@ const onSubmit = handleSubmit(async (formValues) => {
     ...item,
     ...parseAuthKey(authKey),
     accountType: AccountTypeEnum.Local,
-    acceptTerms,
   });
 
   if (authUser.value) goToQueryFrom(query?.from as string);
@@ -84,21 +84,10 @@ watch(
 </script>
 
 <template>
-  <div class="w-full space-y-4">
-    <!-- Heading -->
-    <AuthHeading
-      title="Sign Up"
-      description="Your Social Campaigns"
-      class="text-center"
-    />
-
-    <!-- Login with Social -->
+  <div class="w-full space-y-6">
+    <AuthHeading title="Create an Account" description="Your Admin Dashboard" />
     <AuthSocialLogin />
-
-    <!-- Separator -->
-    <div class="py-2">
-      <Separator label="Or" />
-    </div>
+    <Separator label="or" />
 
     <!-- Form -->
     <form class="space-y-4 md:space-y-6" @submit="onSubmit">
@@ -123,7 +112,7 @@ watch(
             <Input
               class="py-5 opacity-90 md:text-sm"
               type="text"
-              placeholder="Email or Phone *"
+              placeholder="Email or phone *"
               v-bind="componentField"
             />
           </FormControl>
@@ -145,27 +134,7 @@ watch(
 
           <!-- Password requirements -->
           <div class="space-y-2 py-1">
-            <div class="flex items-center space-x-2">
-              <Progress
-                class="h-1 rounded-full bg-secondary"
-                :model-value="progress >= 25 ? 100 : 0"
-              />
-
-              <Progress
-                class="h-1 rounded-full bg-secondary"
-                :model-value="progress >= 50 ? 100 : 0"
-              />
-
-              <Progress
-                class="h-1 rounded-full bg-secondary"
-                :model-value="progress >= 75 ? 100 : 0"
-              />
-
-              <Progress
-                class="h-1 rounded-full bg-secondary"
-                :model-value="progress >= 100 ? 100 : 0"
-              />
-            </div>
+            <PasswordProgress :model-value="progress" />
 
             <p
               class="text-xs"
@@ -184,38 +153,10 @@ watch(
       <FormField v-slot="{ componentField }" name="otpCode">
         <FormItem>
           <FormControl>
-            <div class="relative h-full w-full items-center">
-              <Input
-                class="z-10 rounded-e-full py-5 opacity-90 md:text-sm"
-                type="text"
-                placeholder="OTP Code *"
-                v-bind="componentField"
-                :disabled="!isOTPSent || isOtpSubmitting"
-              />
-
-              <Button
-                class="absolute inset-y-0 end-0 z-20 h-full rounded-full bg-green-500 text-xs opacity-100 transition-opacity duration-300 hover:bg-green-500 hover:opacity-90"
-                :disabled="
-                  errors.authKey ||
-                  !values.authKey ||
-                  otpCodeExpiredCountDown ||
-                  isOtpSubmitting
-                "
-                @click="onSubmitOTP(values.authKey!)"
-              >
-                <Icon
-                  v-if="isOtpSubmitting"
-                  name="lucide:loader"
-                  class="mr-2 h-4 w-4 animate-spin"
-                />
-
-                {{
-                  otpCodeExpiredCountDown
-                    ? `Resend in ${otpCodeExpiredCountDown}`
-                    : "Send OTP"
-                }}
-              </Button>
-            </div>
+            <OtpVerification
+              :component-field="componentField"
+              :auth-key="errors.authKey ? undefined : values.authKey"
+            />
           </FormControl>
 
           <FormMessage class="opacity-85" />
@@ -268,9 +209,9 @@ watch(
       </div>
     </form>
 
-    <!-- Sign up navigation -->
+    <!-- Sign in navigation -->
     <div
-      class="flex flex-row items-center justify-center gap-2 font-medium md:text-sm"
+      class="flex flex-row items-center justify-center gap-2 text-sm font-medium"
     >
       <span class="text-gray-400">Already have an Account? </span>
       <Button

@@ -3,6 +3,8 @@ const firebaseAuth = useFirebaseAuth();
 const authStore = useAuthStore();
 const { authUser } = storeToRefs(authStore);
 
+const isMobile = useMediaQuery("(max-width: 1024px)");
+
 const loginWithGoogle = async (e: MouseEvent) => {
   const idToken = await firebaseAuth.loginWithGoogle(e);
 
@@ -14,24 +16,25 @@ const loginWithGoogle = async (e: MouseEvent) => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-x-3 gap-y-3 md:flex-row">
+  <div class="flex gap-x-5 gap-y-3">
     <Button
       variant="outline"
-      class="w-full py-5 text-center text-[13px] text-gray-600 hover:text-primary dark:text-gray-300 md:text-sm"
+      class="flex w-full items-center py-5 text-center text-sm text-gray-600 hover:text-primary dark:text-gray-300"
       @click="loginWithGoogle"
     >
-      <Icon name="flat-color-icons:google" size="15" class="mr-2" />
-      Sign in with Google
+      <Icon name="flat-color-icons:google" class="mr-2" />
+
+      {{ isMobile ? "Google" : "Sign in with Google" }}
     </Button>
 
     <Button
       variant="outline"
-      class="w-full py-5 text-center text-[13px] text-gray-600 hover:text-primary dark:text-gray-300 md:text-sm"
+      class="flex w-full items-center py-5 text-center text-sm text-gray-600 hover:text-primary dark:text-gray-300"
       disabled
     >
-      <Icon name="logos:apple" size="15" class="mr-2" />
+      <Icon name="logos:apple" class="mr-2" />
 
-      Sign in with Apple
+      {{ isMobile ? "Apple" : "Sign in with Apple" }}
     </Button>
   </div>
 </template>

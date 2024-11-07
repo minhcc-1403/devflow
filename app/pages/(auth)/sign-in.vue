@@ -22,18 +22,9 @@ const onSubmit = handleSubmit(async (values) => {
 
 <template>
   <div class="w-full space-y-8">
-    <!-- Heading -->
-    <AuthHeading
-      title="Sign In"
-      description="Your Social Campaigns"
-      class="text-center"
-    />
-
-    <!-- Login with Social -->
+    <AuthHeading title="Welcome back!" description="Your Admin Dashboard" />
     <AuthSocialLogin />
-
-    <!-- Separator -->
-    <Separator label="Or" />
+    <Separator label="or" />
 
     <!-- Form -->
     <form class="space-y-4 md:space-y-6" @submit="onSubmit">
@@ -47,7 +38,7 @@ const onSubmit = handleSubmit(async (values) => {
             <Input
               class="py-5 opacity-90 md:py-6 md:text-sm"
               type="text"
-              placeholder="Email or Phone"
+              placeholder="Email or phone *"
               v-bind="componentField"
             />
           </FormControl>
@@ -66,7 +57,7 @@ const onSubmit = handleSubmit(async (values) => {
             <Input
               class="py-5 opacity-90 md:py-6 md:text-sm"
               type="password"
-              placeholder="Password"
+              placeholder="Password *"
               v-bind="componentField"
             />
           </FormControl>
@@ -104,7 +95,7 @@ const onSubmit = handleSubmit(async (values) => {
 
     <!-- Sign up navigation -->
     <div
-      class="flex flex-row items-center justify-center gap-2 font-medium md:text-sm"
+      class="flex flex-row items-center justify-center gap-2 text-sm font-medium"
     >
       <span class="text-gray-400">Not a Member yet? </span>
       <Button

@@ -34,9 +34,9 @@ const onOpenDropdown = () => {
               width="16"
               height="16"
               class="rounded"
-            >
+            />
 
-            <span class="text-xs font-medium text-gray-800 md:text-sm">
+            <span class="text-sm font-medium text-gray-800">
               {{ localeSelected.label }}
             </span>
           </p>
@@ -57,9 +57,9 @@ const onOpenDropdown = () => {
         class="flex w-[200px] cursor-pointer items-center space-x-3 p-3"
         @click="onSelect(locale)"
       >
-        <img :src="locale.flag" width="20" height="20" class="rounded" >
+        <img :src="locale.flag" width="20" height="20" class="rounded" />
 
-        <span class="text-[11px] text-gray-800">
+        <span class="text-sm text-gray-800">
           {{ locale.label }}
         </span>
       </DropdownMenuItem>

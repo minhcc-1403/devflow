@@ -1,15 +1,8 @@
 <script setup lang="ts">
 import type { Locale } from "~/types/locale";
+import { languages } from "~/utils/constants";
 
-const languages: Locale[] = [
-  { label: "English", value: "en", flag: "/flags/united-states.svg" },
-  { label: "French", value: "fr", flag: "/flags/france.svg" },
-  { label: "German", value: "de", flag: "/flags/germany.svg" },
-  { label: "Spanish", value: "es", flag: "/flags/spain.svg" },
-  { label: "Japanese", value: "ja", flag: "/flags/japan.svg" },
-];
-
-const localeSelected = ref(languages[0]);
+const localeSelected = ref<Locale>(languages[0]!);
 
 const onLocaleSelect = (language: Locale) => {
   localeSelected.value = language;
@@ -17,69 +10,50 @@ const onLocaleSelect = (language: Locale) => {
 </script>
 
 <template>
-  <div
-    class="h-screen w-screen overflow-y-auto bg-[url('/auth-bg.jpg')] bg-cover bg-fixed bg-center bg-no-repeat dark:bg-[url('/auth-bg-dark.jpg')]"
-  >
-    <div
-      class="flex flex-col justify-center gap-8 px-8 py-10 md:h-full md:w-full md:items-center lg:flex-row lg:justify-evenly lg:px-14 lg:py-16"
-    >
-      <div
-        class="flex flex-col items-center justify-center gap-4 lg:items-start"
-      >
-        <!-- Logo -->
-        <NuxtLink to="/">
-          <img
-            src="https://preview.keenthemes.com/metronic8/demo1/assets/media/logos/custom-3.svg"
-            alt="Logo"
-          >
+  <div class="page">
+    <div class="page__content">
+      <!-- Logo -->
+      <div class="logo">
+        <NuxtLink to="/" class="logo__link">
+          <img src="/logo.svg" alt="Logo" />
         </NuxtLink>
 
-        <!-- Heading -->
-        <h2 class="md:text-md text-sm text-white lg:text-xl">
-          Branding tools designed for your business
-        </h2>
+        <div class="logo__bg">
+          <img
+            src="https://modernize-nuxt.adminmart.com/images/backgrounds/login-bg.svg"
+            alt="Login Background"
+          />
+        </div>
       </div>
 
       <!-- Form -->
-      <div
-        class="flex flex-col justify-center space-y-12 rounded-xl bg-white px-8 py-16 dark:bg-[#15171C] sm:px-14 md:h-full md:w-[600px] md:flex-1 md:px-20 lg:flex-initial lg:px-20 lg:py-12"
-      >
-        <div class="md:flex-1 md:content-center">
-          <slot />
-        </div>
+      <div class="form">
+        <div class="form__content">
+          <div class="form__slot">
+            <slot />
+          </div>
 
-        <!-- Footer -->
-        <div class="flex items-center justify-between">
-          <!-- language -->
-          <LocaleSelect
-            :locales="languages"
-            :locale-selected="localeSelected"
-            @on-select="onLocaleSelect"
-          />
+          <!-- Footer -->
+          <div class="footer">
+            <!-- language -->
+            <LocaleSelect
+              :locales="languages"
+              :locale-selected="localeSelected"
+              @on-select="onLocaleSelect"
+            />
 
-          <!-- items -->
-          <div class="flex items-center justify-end gap-x-3 md:gap-x-6">
-            <NuxtLink
-              to="/"
-              target="_blank"
-              class="text-xs text-primary transition-all hover:underline hover:opacity-90 md:text-sm"
-            >
-              Terms
-            </NuxtLink>
-            <NuxtLink
-              to="/"
-              target="_blank"
-              class="text-xs text-primary transition-all hover:underline hover:opacity-90 md:text-sm"
-            >
-              Plans
-            </NuxtLink>
-            <NuxtLink
-              to="/"
-              target="_blank"
-              class="text-xs text-primary transition-all hover:underline hover:opacity-90 md:text-sm"
-            >
-              Contact Us
-            </NuxtLink>
+            <!-- links -->
+            <div class="footer__links">
+              <NuxtLink to="/" target="_blank" class="footer__link"
+                >Terms</NuxtLink
+              >
+              <NuxtLink to="/" target="_blank" class="footer__link"
+                >Plans</NuxtLink
+              >
+              <NuxtLink to="/" target="_blank" class="footer__link"
+                >Contact Us</NuxtLink
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -87,4 +61,60 @@ const onLocaleSelect = (language: Locale) => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.page {
+  @apply h-screen w-screen overflow-y-auto;
+}
+
+.page__content {
+  @apply flex h-full w-full flex-col space-y-8 lg:flex-row lg:space-y-0;
+}
+
+.logo {
+  @apply relative left-0 right-0 top-0 px-6 py-4 pt-5 lg:bottom-0 lg:w-1/2;
+}
+
+.logo__link {
+  @apply relative z-10;
+}
+
+.logo__bg {
+  @apply hidden lg:absolute lg:left-1/2 lg:top-1/2 lg:z-10 lg:flex lg:-translate-x-1/2 lg:-translate-y-1/2 lg:transform lg:items-center lg:justify-center;
+}
+
+.logo::before {
+  background: radial-gradient(#d2f1df, #d3d7fa, #bad8f4) 0 0 / 400% 400%;
+  bottom: 0;
+  content: "";
+  height: 100%;
+  opacity: 0.3;
+  width: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+.form {
+  @apply lg:flex lg:w-1/2 lg:items-center lg:justify-center;
+}
+
+.form__content {
+  @apply flex flex-col justify-center px-6 lg:h-1/2;
+}
+
+.form__slot {
+  @apply lg:flex-1;
+}
+
+.footer {
+  @apply my-8 flex items-center justify-between lg:mt-12;
+}
+
+.footer__links {
+  @apply flex items-center justify-end gap-x-3 md:gap-x-6;
+}
+
+.footer__link {
+  @apply text-[13px] font-medium text-primary transition-all hover:underline hover:opacity-90 lg:text-sm;
+}
+</style>
