@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { useForm } from "vee-validate";
+import AuthHeading from "~/features/pre-built/auth/components/auth-heading.vue";
+import SocialLogin from "~/features/pre-built/auth/components/social-login.vue";
 import { LoginSchema } from "~/validations/auth.validation";
 
 definePageMeta({ layout: "auth", middleware: ["only-visitor"] });
 
+const router = useRouter();
 const query = useRoute().query;
-const { goToQueryFrom, goToResetPassword, goToSignUp } = useGoTo();
 const authStore = useAuthStore();
 const { loading, authUser } = storeToRefs(authStore);
 
@@ -16,14 +18,28 @@ const { isFieldDirty, handleSubmit } = useForm({
 const onSubmit = handleSubmit(async (values) => {
   await authStore.login(values);
 
-  if (authUser.value) goToQueryFrom(query?.from as string);
+  // Redirect to the previous page
+  if (authUser.value) {
+    const from = query.from as string | undefined;
+    if (!from) return router.push({ path: "/" });
+
+    const [path = "", queryString = {}] = from.split("?");
+    router.push({
+      path,
+      query: Object.fromEntries(new URLSearchParams(queryString)),
+    });
+  }
 });
+
+const navigateToForgotPass = () =>
+  router.push({ path: "/forgot-password", query });
+const navigateToSignUp = () => router.push({ path: "/sign-up", query });
 </script>
 
 <template>
   <div class="w-full space-y-8">
-    <AuthHeading title="Welcome back!" description="Your Admin Dashboard" />
-    <AuthSocialLogin />
+    <auth-heading title="Welcome back!" description="Your Admin Dashboard" />
+    <social-login :disabled="loading" />
     <Separator label="or" />
 
     <!-- Form -->
@@ -68,8 +84,8 @@ const onSubmit = handleSubmit(async (values) => {
             <Button
               type="button"
               variant="link"
-              class="font-normal text-primary md:text-sm"
-              @click="goToResetPassword(query)"
+              class="text-xs text-primary"
+              @click="navigateToForgotPass"
             >
               Forgot Password ?
             </Button>
@@ -102,7 +118,7 @@ const onSubmit = handleSubmit(async (values) => {
         type="button"
         variant="link"
         class="px-0 text-primary transition hover:underline hover:opacity-90"
-        @click="goToSignUp(query)"
+        @click="navigateToSignUp"
       >
         Sign up
       </Button>

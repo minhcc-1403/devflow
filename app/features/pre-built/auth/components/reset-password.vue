@@ -2,16 +2,13 @@
 import { useForm } from "vee-validate";
 import type { AuthUser } from "~/types/pre-built/1-auth";
 import type { VerifyOtp } from "~/types/pre-built/10-otp";
-import {
-  ResetPasswordSchema,
-  calculatePasswordStrength,
-} from "~/validations/auth.validation";
+import { ResetPasswordSchema } from "~/validations/auth.validation";
 
 interface Props {
   initialValues: VerifyOtp;
 }
 interface Emits {
-  (e: "onSubmitted", values: AuthUser): void;
+  (e: "submitted", values: AuthUser): void;
 }
 
 const props = defineProps<Props>();
@@ -30,20 +27,8 @@ const onSubmit = handleSubmit(async ({ password, isLogoutOthers }) => {
     isLogoutOthers,
   });
 
-  if (authUser.value) {
-    emits("onSubmitted", authUser.value);
-  }
+  if (authUser.value) emits("submitted", authUser.value);
 });
-
-const progress = ref(0);
-watch(
-  () => values.password,
-  (passwordInput) => {
-    if (passwordInput)
-      progress.value = calculatePasswordStrength(passwordInput);
-    else progress.value = 0;
-  },
-);
 </script>
 
 <template>
@@ -62,27 +47,7 @@ watch(
 
         <!-- Password requirements -->
         <div class="space-y-2 py-1">
-          <div class="flex items-center space-x-2">
-            <Progress
-              class="h-1 rounded-full bg-secondary"
-              :model-value="progress >= 25 ? 100 : 0"
-            />
-
-            <Progress
-              class="h-1 rounded-full bg-secondary"
-              :model-value="progress >= 50 ? 100 : 0"
-            />
-
-            <Progress
-              class="h-1 rounded-full bg-secondary"
-              :model-value="progress >= 75 ? 100 : 0"
-            />
-
-            <Progress
-              class="h-1 rounded-full bg-secondary"
-              :model-value="progress >= 100 ? 100 : 0"
-            />
-          </div>
+          <PasswordProgress :password="values.password" />
 
           <p
             class="text-xs"

@@ -1,4 +1,14 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+useHead({
+  title: "DevFlow",
+  meta: [
+    {
+      name: "DevFlow",
+      content: "A community for developers, ask questions and get answers.",
+    },
+  ],
+});
+</script>
 
 <template>
   <div>

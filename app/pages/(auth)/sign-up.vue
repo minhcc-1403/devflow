@@ -1,92 +1,56 @@
 <script setup lang="ts">
 import { useForm } from "vee-validate";
-import { otpApi } from "~/apis/pre-built/10-otp.api";
-import PasswordProgress from "~/components/Auth/PasswordProgress.vue";
+import AuthHeading from "~/features/pre-built/auth/components/auth-heading.vue";
+import SocialLogin from "~/features/pre-built/auth/components/social-login.vue";
 import { AccountTypeEnum, OtpTypeEnum, SendOtpToEnum } from "~/utils/enums";
-import { handleApiError } from "~/utils/helpers/error-handler.helper";
-import {
-  RegisterSchema,
-  calculatePasswordStrength,
-  parseAuthKey,
-} from "~/validations/auth.validation";
+import { RegisterSchema, parseAuthKey } from "~/validations/auth.validation";
 
 definePageMeta({ layout: "auth", middleware: "only-visitor" });
 
+const router = useRouter();
 const query = useRoute().query;
 const authStore = useAuthStore();
-const { goToQueryFrom, goToSignIn } = useGoTo();
 const { loading, authUser } = storeToRefs(authStore);
 
 const { handleSubmit, values, errors } = useForm({
   validationSchema: RegisterSchema,
 });
 
-const otpCodeExpiredCountDown = ref(0);
-const startCountDown = (seconds: number = 60) => {
-  otpCodeExpiredCountDown.value = seconds;
-
-  const interval = setInterval(() => {
-    if (otpCodeExpiredCountDown.value > 0) {
-      otpCodeExpiredCountDown.value--;
-    } else {
-      clearInterval(interval);
-    }
-  }, 1000);
-};
-
-const getOtpItemToSend = (authKey: string) => {
+const onSubmit = handleSubmit(async ({ authKey, ...values }) => {
   const { email, phone } = parseAuthKey(authKey);
-  return {
-    otpType: OtpTypeEnum.Register,
-    sendOtpTo: phone ? SendOtpToEnum.Phone : SendOtpToEnum.Email,
+
+  await authStore.register({
+    ...values,
     email,
     phone,
-  };
-};
-
-const isOTPSent = ref(false);
-const isOtpSubmitting = ref(false);
-const onSubmitOTP = async (authKey: string) => {
-  isOtpSubmitting.value = true;
-
-  try {
-    await otpApi.sendOtp(getOtpItemToSend(authKey));
-    startCountDown();
-  } catch (error) {
-    handleApiError(error);
-  }
-
-  isOtpSubmitting.value = false;
-  isOTPSent.value = true;
-};
-
-const onSubmit = handleSubmit(async (formValues) => {
-  const { authKey, acceptTerms, ...item } = formValues;
-  await authStore.register({
-    ...getOtpItemToSend(authKey),
-    ...item,
-    ...parseAuthKey(authKey),
     accountType: AccountTypeEnum.Local,
+    otpType: OtpTypeEnum.Register,
+    sendOtpTo: phone ? SendOtpToEnum.Phone : SendOtpToEnum.Email,
   });
 
-  if (authUser.value) goToQueryFrom(query?.from as string);
+  // Redirect to the previous page
+  if (authUser.value) {
+    const from = query.from as string | undefined;
+    if (!from) return router.push({ path: "/" });
+
+    const [path = "", queryString = {}] = from.split("?");
+    router.push({
+      path,
+      query: Object.fromEntries(new URLSearchParams(queryString)),
+    });
+  }
 });
 
-const progress = ref(0);
-watch(
-  () => values.password,
-  (passwordInput) => {
-    if (passwordInput)
-      progress.value = calculatePasswordStrength(passwordInput);
-    else progress.value = 0;
-  },
-);
+const navigateToSignIn = () => router.push({ path: "/sign-in", query });
 </script>
 
 <template>
   <div class="w-full space-y-6">
-    <AuthHeading title="Create an Account" description="Your Admin Dashboard" />
-    <AuthSocialLogin />
+    <auth-heading
+      title="Create an Account"
+      description="Your Admin Dashboard"
+    />
+    <social-login :disabled="loading" />
     <Separator label="or" />
 
     <!-- Form -->
@@ -134,7 +98,7 @@ watch(
 
           <!-- Password requirements -->
           <div class="space-y-2 py-1">
-            <PasswordProgress :model-value="progress" />
+            <password-progress :password="values.password" />
 
             <p
               class="text-xs"
@@ -152,12 +116,11 @@ watch(
 
       <FormField v-slot="{ componentField }" name="otpCode">
         <FormItem>
-          <FormControl>
-            <OtpVerification
-              :component-field="componentField"
-              :auth-key="errors.authKey ? undefined : values.authKey"
-            />
-          </FormControl>
+          <otp-verification-control
+            :component-field="componentField"
+            :auth-key="errors.authKey ? undefined : values.authKey"
+            :otp-type="OtpTypeEnum.Register"
+          />
 
           <FormMessage class="opacity-85" />
         </FormItem>
@@ -195,9 +158,7 @@ watch(
         <Button
           type="submit"
           class="user-select-none w-full py-5"
-          :disabled="
-            errors.otpCode || !values.otpCode || isOtpSubmitting || loading
-          "
+          :disabled="errors.otpCode || !values.otpCode || loading"
         >
           <Icon
             v-if="loading"
@@ -218,7 +179,7 @@ watch(
         type="button"
         variant="link"
         class="px-0 text-primary transition hover:underline hover:opacity-90"
-        @click="goToSignIn(query)"
+        @click="navigateToSignIn"
       >
         Sign In
       </Button>

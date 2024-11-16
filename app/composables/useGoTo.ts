@@ -21,7 +21,7 @@ export const useGoTo = () => {
   };
 
   const goToResetPassword = (query: Record<string, any> = {}) => {
-    return router.push({ path: "/reset-password", query });
+    return router.push({ path: "/forgot-password", query });
   };
 
   const goBack = () => {

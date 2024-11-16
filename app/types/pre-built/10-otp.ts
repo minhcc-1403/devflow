@@ -1,4 +1,4 @@
-import type { OtpTypeEnum, SendOtpToEnum } from "~/utils/enums/enums";
+import type { OtpTypeEnum, SendOtpToEnum } from "~/utils/enums";
 
 export type Otp = {
   phone?: string;

@@ -1,6 +1,23 @@
-div
 <script setup lang="ts">
-const progress = defineModel<number>({ required: true, type: Number });
+import { calculatePasswordStrength } from "~/validations/auth.validation";
+
+const props = defineProps<{
+  password?: string;
+}>();
+
+// const progress = defineModel<number>({ required: true, type: Number });
+
+const progress = ref(0);
+watch(
+  () => props.password,
+  () => {
+    if (props.password) {
+      progress.value = calculatePasswordStrength(props.password);
+    } else {
+      progress.value = 0;
+    }
+  },
+);
 </script>
 
 <template>

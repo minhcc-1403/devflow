@@ -1,17 +1,15 @@
 <script setup lang="ts">
+import AuthHeading from "~/features/pre-built/auth/components/auth-heading.vue";
+import ForgotPassword from "~/features/pre-built/auth/components/forgot-password.vue";
+import ResetPassword from "~/features/pre-built/auth/components/reset-password.vue";
 import type { VerifyOtp } from "~/types/pre-built/10-otp";
 
 definePageMeta({ layout: "auth", middleware: "only-visitor" });
 
+const router = useRouter();
 const query = useRoute().query;
 const isPasswordVisible = ref(false);
 const forgotValues = ref<VerifyOtp>();
-
-const { goToQueryFrom, goToSignIn } = useGoTo();
-
-const goBack = () => {
-  isPasswordVisible.value = false;
-};
 
 const onForgotSubmitted = (values: VerifyOtp) => {
   forgotValues.value = values;
@@ -19,21 +17,29 @@ const onForgotSubmitted = (values: VerifyOtp) => {
 };
 
 const onResetPasswordSubmitted = () => {
-  goToQueryFrom(query?.from as string);
+  const from = query.from as string | undefined;
+  if (!from) return router.push({ path: "/" });
+  const [path = "", queryString = ""] = from.split("?");
+  router.push({
+    path,
+    query: Object.fromEntries(new URLSearchParams(queryString)),
+  });
 };
+
+const navigateToSignIn = () => router.push({ path: "/sign-in", query });
+const goBack = () => (isPasswordVisible.value = false);
 </script>
 
 <template>
   <div class="w-full space-y-6">
     <!-- Heading -->
-    <AuthHeading
+    <auth-heading
       v-if="!isPasswordVisible"
       title="Forgot Password"
       description="Enter your email or phone to receive OTP code."
-      class="text-center"
     />
 
-    <AuthHeading
+    <auth-heading
       v-else
       title="Reset Password"
       description="Enter your password to reset."
@@ -41,17 +47,17 @@ const onResetPasswordSubmitted = () => {
     />
 
     <!-- Forgot Password -->
-    <AuthForgotPassword
+    <forgot-password
       v-if="!isPasswordVisible"
       :initial-values="forgotValues"
-      @on-submitted="onForgotSubmitted"
+      @submitted="onForgotSubmitted"
     />
 
     <!-- Reset Password -->
-    <AuthResetPassword
+    <reset-password
       v-if="isPasswordVisible && forgotValues?.otpCode"
       :initial-values="forgotValues"
-      @on-submitted="onResetPasswordSubmitted"
+      @submitted="onResetPasswordSubmitted"
     />
 
     <!-- Navigation -->
@@ -64,7 +70,7 @@ const onResetPasswordSubmitted = () => {
           type="button"
           variant="link"
           class="px-0 text-primary transition hover:underline hover:opacity-90"
-          @click="goToSignIn(query)"
+          @click="navigateToSignIn"
         >
           Sign In
         </Button>
