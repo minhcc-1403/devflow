@@ -15,6 +15,7 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@pinia/nuxt",
     "@vueuse/nuxt",
+    "@nuxt/image",
   ],
   shadcn: {
     prefix: "",
@@ -56,7 +57,10 @@ export default defineNuxtConfig({
   fonts: {
     families: [
       { name: "Plus Jakarta Sans", provider: "google" },
-      // { name: 'Other Font', src: 'https://example.com/font.woff2', weight: 'bold' },
+      { name: "Space Grotesk", provider: "google" },
     ],
+    experimental: {
+      processCSSVariables: true,
+    },
   },
 });

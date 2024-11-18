@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Navbar from "~/components/shared/Navbar.vue";
+
 useHead({
   title: "DevFlow",
   meta: [
@@ -11,11 +13,23 @@ useHead({
 </script>
 
 <template>
-  <div>
-    <Header />
+  <main class="bg-light850_dark100 relative">
+    <Navbar />
 
-    <main class="px-3 lg:px-14">
-      <slot />
-    </main>
-  </div>
+    <div class="flex">
+      Left Sidebar
+
+      <section
+        class="flex min-h-screen flex-1 flex-col px-6 pb-6 pt-36 max-md:pb-14 sm:px-14"
+      >
+        <div class="mx-auto w-full max-w-5xl">
+          <slot />
+        </div>
+      </section>
+
+      Right Sidebar
+    </div>
+
+    Toaster
+  </main>
 </template>

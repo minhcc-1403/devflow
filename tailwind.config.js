@@ -1,11 +1,10 @@
-const animate = require("tailwindcss-animate")
+const animate = require("tailwindcss-animate");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
   safelist: ["dark"],
   prefix: "",
-  
   theme: {
     container: {
       center: true,
@@ -49,6 +48,10 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        "accent-blue": "#1DA1F2",
+      },
+      fontFamily: {
+        spaceGrotesk: ["Space Grotesk", "sans-serif"],
       },
       borderRadius: {
         xl: "calc(var(--radius) + 4px)",
@@ -67,10 +70,10 @@ module.exports = {
         },
         "collapsible-down": {
           from: { height: 0 },
-          to: { height: 'var(--radix-collapsible-content-height)' },
+          to: { height: "var(--radix-collapsible-content-height)" },
         },
         "collapsible-up": {
-          from: { height: 'var(--radix-collapsible-content-height)' },
+          from: { height: "var(--radix-collapsible-content-height)" },
           to: { height: 0 },
         },
       },
@@ -83,4 +86,4 @@ module.exports = {
     },
   },
   plugins: [animate],
-}
+};

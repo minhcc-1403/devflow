@@ -36,7 +36,7 @@ const onOpenDropdown = () => {
               class="rounded"
             />
 
-            <span class="text-sm font-medium text-gray-800">
+            <span class="text-xs font-medium">
               {{ localeSelected.label }}
             </span>
           </p>
@@ -44,7 +44,7 @@ const onOpenDropdown = () => {
           <Icon
             :name="isShowDropdown ? `ion:chevron-up` : `ion:chevron-down`"
             size="16"
-            class="font-semibold text-gray-800"
+            class="font-semibold"
           />
         </div>
       </div>
@@ -59,7 +59,7 @@ const onOpenDropdown = () => {
       >
         <img :src="locale.flag" width="20" height="20" class="rounded" />
 
-        <span class="text-sm text-gray-800">
+        <span class="text-xs">
           {{ locale.label }}
         </span>
       </DropdownMenuItem>
