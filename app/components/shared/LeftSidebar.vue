@@ -5,7 +5,7 @@ const route = useRoute();
 
 <template>
   <section
-    class="bg-light900_dark200 light-border borer-r shadow-light-300 custom-scrollbar fixed left-0 top-0 flex h-screen flex-col justify-between overflow-y-auto p-6 pt-36 dark:shadow-none max-sm:hidden lg:w-[266px]"
+    class="custom-scrollbar background-light900_dark200 light-border shadow-light-300 sticky left-0 top-0 flex h-screen w-fit flex-col justify-between overflow-y-auto border-r p-6 pt-36 dark:shadow-none max-sm:hidden lg:w-[266px]"
   >
     <!-- Content -->
     <div class="flex flex-1 flex-col gap-6">

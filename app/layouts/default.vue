@@ -27,7 +27,7 @@ useHead({
         </div>
       </section>
 
-      Right Sidebar
+      <RightSidebar />
     </div>
 
     Toaster
