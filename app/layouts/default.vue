@@ -17,7 +17,7 @@ useHead({
     <Navbar />
 
     <div class="flex">
-      Left Sidebar
+      <LeftSidebar />
 
       <section
         class="flex min-h-screen flex-1 flex-col px-6 pb-6 pt-36 max-md:pb-14 sm:px-14"

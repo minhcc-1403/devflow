@@ -53,7 +53,7 @@ const route = useRoute();
 
       <!-- Footer -->
       <SheetClose as-child>
-        <div class="flex flex-col gap-3">
+        <div class="flex flex-col gap-3 pt-16">
           <NuxtLink to="/sign-in">
             <Button
               class="small-medium btn-secondary min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none"
@@ -70,8 +70,6 @@ const route = useRoute();
           </NuxtLink>
         </div>
       </SheetClose>
-
-      <UserMenu />
     </SheetContent>
   </Sheet>
 </template>
