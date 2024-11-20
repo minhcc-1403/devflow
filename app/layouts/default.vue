@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Navbar from "~/components/shared/Navbar.vue";
+import { useMediaQuery } from "@vueuse/core";
 
 useHead({
   title: "DevFlow",
@@ -10,6 +10,8 @@ useHead({
     },
   ],
 });
+
+const isMobile = useMediaQuery("(max-width: 1024px)");
 </script>
 
 <template>
@@ -27,7 +29,7 @@ useHead({
         </div>
       </section>
 
-      <RightSidebar />
+      <RightSidebar v-if="!isMobile" />
     </div>
 
     Toaster
