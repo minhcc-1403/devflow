@@ -7,9 +7,12 @@ import { cn } from "@/lib/utils";
     <div
       class="bg-light800_darkgradient relative flex min-h-[56px] grow items-center gap-1 rounded-xl px-4"
     >
-      <Icon
-        name="akar-icons:search"
-        class="size-6 cursor-pointer text-gray-700"
+      <NuxtImg
+        src="https://devflow-rose.vercel.app/assets/icons/search.svg"
+        alt="Search icon"
+        width="24"
+        height="24"
+        class="cursor-pointer"
       />
 
       <Input

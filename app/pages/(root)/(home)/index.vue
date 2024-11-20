@@ -16,6 +16,14 @@ definePageMeta({
   </div>
 
   <div class="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
-    LocalSearchbar Filters
+    <LocalSearchbar
+      route="/"
+      iconPosition="left"
+      imgSrc="https://devflow-rose.vercel.app/assets/icons/search.svg"
+      placeholder="Search for questions"
+      otherClasses="flex-1"
+    />
+
+    Filters
   </div>
 </template>
