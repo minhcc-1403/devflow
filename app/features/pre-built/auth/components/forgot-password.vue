@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { toTypedSchema } from "@vee-validate/zod";
 import { useForm } from "vee-validate";
 import { useCheckOtpValid } from "~/features/pre-built/otp/api/use-check-otp-valid";
 import type { VerifyOtp } from "~/types/pre-built/10-otp";
@@ -17,7 +18,7 @@ const emits = defineEmits<Emits>();
 
 const { mutateAsync, isPending } = useCheckOtpValid();
 const { handleSubmit, values, errors, setFieldError } = useForm({
-  validationSchema: ForgotSchema,
+  validationSchema: toTypedSchema(ForgotSchema),
   initialValues: {
     otpCode: "",
     authKey: props.initialValues?.email || props.initialValues?.phone,

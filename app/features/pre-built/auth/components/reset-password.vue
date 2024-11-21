@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { toTypedSchema } from "@vee-validate/zod";
 import { useForm } from "vee-validate";
 import type { AuthUser } from "~/types/pre-built/1-auth";
 import type { VerifyOtp } from "~/types/pre-built/10-otp";
@@ -17,7 +18,7 @@ const authStore = useAuthStore();
 const { loading, authUser } = storeToRefs(authStore);
 
 const { handleSubmit, values, errors } = useForm({
-  validationSchema: ResetPasswordSchema,
+  validationSchema: toTypedSchema(ResetPasswordSchema),
 });
 
 const onSubmit = handleSubmit(async ({ password, isLogoutOthers }) => {

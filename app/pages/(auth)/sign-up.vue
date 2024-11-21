@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { toTypedSchema } from "@vee-validate/zod";
 import { useForm } from "vee-validate";
 import AuthHeading from "~/features/pre-built/auth/components/auth-heading.vue";
 import SocialLogin from "~/features/pre-built/auth/components/social-login.vue";
@@ -13,7 +14,7 @@ const authStore = useAuthStore();
 const { loading, authUser } = storeToRefs(authStore);
 
 const { handleSubmit, values, errors } = useForm({
-  validationSchema: RegisterSchema,
+  validationSchema: toTypedSchema(RegisterSchema),
 });
 
 const onSubmit = handleSubmit(async ({ authKey, ...values }) => {
