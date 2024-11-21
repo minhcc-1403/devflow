@@ -29,3 +29,14 @@ export const formatPercentage = (
 
   return result;
 };
+
+export const formatAndDivideNumber = (num: number) => {
+  if (num > 1_000_000) {
+    const formattedNum = (num / 1_000_000).toFixed(1);
+    return `${formattedNum}M`;
+  } else if (num > 1_000) {
+    const formattedNum = (num / 1_000).toFixed(1);
+    return `${formattedNum}K`;
+  }
+  return num.toString();
+};
