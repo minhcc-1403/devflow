@@ -42,15 +42,15 @@ export default defineNuxtConfig({
   },
 
   components: [
-    {
-      path: "~/components/shared",
-      extensions: [".vue"],
-      prefix: "",
-    },
+    // {
+    //   path: "~/components/shared",
+    //   extensions: [".vue"],
+    //   pathPrefix: false,
+    // },
     {
       path: "~/components",
       extensions: [".vue"],
-      prefix: "",
+      pathPrefix: false, // Tắt chế độ thêm tiền tố thư mục vào tên component
     },
   ],
 

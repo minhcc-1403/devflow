@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { HomePageFilters } from "~/utils/constants/filters";
+
 definePageMeta({
   layout: "default",
 });
@@ -24,6 +26,12 @@ definePageMeta({
       otherClasses="flex-1"
     />
 
-    Filters
+    <Filter
+      :filters="HomePageFilters"
+      otherClasses="min-h-[56px] sm:min-w-[170px]"
+      containerClasses="hidden max-md:flex"
+    />
   </div>
+
+  <HomeFilters />
 </template>
