@@ -15,10 +15,10 @@ const isMobile = useMediaQuery("(max-width: 1024px)");
 </script>
 
 <template>
-  <main class="bg-light850_dark100 relative">
+  <main class="bg-light850_dark100 relative h-screen">
     <Navbar />
 
-    <div class="flex">
+    <div class="relative flex">
       <LeftSidebar />
 
       <section
@@ -31,7 +31,5 @@ const isMobile = useMediaQuery("(max-width: 1024px)");
 
       <RightSidebar v-if="!isMobile" />
     </div>
-
-    Toaster
   </main>
 </template>
