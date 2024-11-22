@@ -17,7 +17,7 @@ html {
     @apply flex items-center justify-start;
   }
   .card-wrapper {
-    @apply dark:dark-gradient shadow-light-100 bg-light-900 dark:shadow-dark-100;
+    @apply dark:dark-gradient bg-light-900 shadow-light-100 dark:shadow-dark-100;
   }
   .btn {
     @apply bg-[#F4F6F8] dark:bg-[#151821] !important;
@@ -29,7 +29,7 @@ html {
     @apply bg-[#DCE3F1] dark:bg-[#151821] !important;
   }
   .markdown {
-    @apply prose dark:prose-p:text-[#DCE3F1] dark:pros max-w-full;
+    @apply prose dark:prose-p:text-[#DCE3F1] dark:prose max-w-full;
   }
   .primary-gradient {
     background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%);

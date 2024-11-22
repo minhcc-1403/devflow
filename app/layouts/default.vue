@@ -15,7 +15,7 @@ const isMobile = useMediaQuery("(max-width: 1024px)");
 </script>
 
 <template>
-  <main class="bg-light850_dark100 relative h-screen">
+  <main class="bg-light850_dark100 relative">
     <Navbar />
 
     <div class="relative flex">

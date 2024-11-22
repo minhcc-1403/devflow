@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const firebaseAuth = useFirebaseAuth();
+const firebaseAuth = useFirebase();
 const authStore = useAuthStore();
 const { authUser } = storeToRefs(authStore);
 

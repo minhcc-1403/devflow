@@ -12,7 +12,7 @@ const app = initializeApp(JSON.parse(config.public.firebaseConfig));
 
 const auth = getAuth();
 
-export const useFirebaseAuth = () => {
+export const useFirebase = () => {
   /**
    * Google login
    */

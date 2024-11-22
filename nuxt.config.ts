@@ -29,6 +29,7 @@ export default defineNuxtConfig({
     app: {},
     public: {
       apiBase: "",
+      tinyEditorApiKey: "",
       firebaseConfig: JSON.stringify({
         apiKey: "AIzaSyBbLtFYvYm4Hsi5-Wm2HkO02dPkpywB0uo",
         authDomain: "neste-e98ac.firebaseapp.com",
