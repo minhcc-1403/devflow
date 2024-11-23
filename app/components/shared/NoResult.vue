@@ -2,8 +2,8 @@
 defineProps<{
   title: string;
   description: string;
-  link: string;
-  linkTitle: string;
+  link?: string;
+  linkTitle?: string;
 }>();
 </script>
 
@@ -30,7 +30,7 @@ defineProps<{
       {{ description }}
     </p>
 
-    <NuxtLink :to="link">
+    <NuxtLink v-if="link" :to="link">
       <Button
         class="paragraph-medium dark:bg-primary-500 mt-5 min-h-[46px] rounded-lg bg-main-500 px-4 py-3 text-light-900 hover:bg-main-500 dark:text-light-900"
         >{{ linkTitle }}</Button

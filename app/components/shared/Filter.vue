@@ -14,7 +14,7 @@ defineProps<{
   <div :class="`relative ${containerClasses}`">
     <Select>
       <SelectTrigger
-        :class="`${otherClasses} body-regular light-border bg-light800_dark300 text-dark500_light700 border px-5 py-2.5`"
+        :class="`${otherClasses} body-regular light-border bg-light800_dark300 text-dark500_light700 border border-none px-5 py-2.5`"
       >
         <div class="line-clamp-1 flex-1 text-left">
           <SelectValue placeholder="Select a Filter" />
