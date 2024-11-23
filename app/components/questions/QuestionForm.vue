@@ -2,17 +2,22 @@
 import Editor from "@tinymce/tinymce-vue";
 import { toTypedSchema } from "@vee-validate/zod";
 import { useForm, type FieldBindingObject } from "vee-validate";
-import { QuestionSchema } from "~/validations/question.validation";
+import { useQuestionCreate } from "~/api-hooks/question.vq";
+import { CreateQuestionSchema } from "~/validations/question.validation";
 
 const tinyEditorApiKey = useRuntimeConfig().public.tinyEditorApiKey;
 
+const type: "Edit" | "Create" = "Create";
+const { mutateAsync: createQuestion, isPending: isCreatePending } =
+  useQuestionCreate();
+
 const { handleSubmit, setFieldError, setFieldTouched, setFieldValue } = useForm(
   {
-    validationSchema: toTypedSchema(QuestionSchema),
+    validationSchema: toTypedSchema(CreateQuestionSchema),
     initialValues: {
       title: "",
       tags: [],
-      explanation: "",
+      content: "",
     },
   },
 );
@@ -40,8 +45,11 @@ const handleRemoveTag = (tag: string, field: FieldBindingObject) => {
   setFieldValue("tags", newTags);
 };
 
-const onSubmit = handleSubmit((values) => {
-  console.log({ values });
+const isSubmitting = ref(false);
+
+const onSubmit = handleSubmit(async (values) => {
+  await createQuestion(values);
+  navigateTo("/");
 });
 </script>
 
@@ -67,7 +75,7 @@ const onSubmit = handleSubmit((values) => {
       </FormItem>
     </FormField>
 
-    <FormField v-slot="{ componentField }" name="explanation">
+    <FormField v-slot="{ handleInput, value, validate }" name="content">
       <FormItem class="flex w-full flex-col gap-3">
         <FormLabel class="paragraph-semibold text-dark300_light900"
           >Detailed explanation of your problem
@@ -75,8 +83,14 @@ const onSubmit = handleSubmit((values) => {
         >
         <FormControl class="mt-3.5">
           <Editor
+            :model-value="value"
+            @update:model-value="
+              (e) => {
+                handleInput(e);
+                validate();
+              }
+            "
             :api-key="tinyEditorApiKey"
-            v-bind="componentField"
             :init="{
               height: 350,
               menubar: false,
@@ -101,7 +115,7 @@ const onSubmit = handleSubmit((values) => {
               toolbar:
                 'undo redo | codesample | bold italic forecolor | alignleft aligncenter | alignright alignjustify | numlist bullist',
               content_style:
-                'body { font-family: Plus Jakarta Sans, sans-serif; font-size:14px }',
+                'body { font-family: Plus Jakarta Sans, sans-serif; font-size:14px;  }',
             }"
             initial-value=""
             model-events="change keydown paste undo redo"
@@ -159,6 +173,18 @@ const onSubmit = handleSubmit((values) => {
       </FormItem>
     </FormField>
 
-    <Button type="submit"> Submit </Button>
+    <Button
+      type="submit"
+      class="primary-gradient w-fit !text-light-900"
+      :disabled="isSubmitting || isCreatePending"
+    >
+      <span v-if="type === 'Create'">
+        {{ isCreatePending ? "Posting..." : "Ask a Question" }}
+      </span>
+
+      <span v-else>
+        {{ isSubmitting ? "Editing..." : "Edit Question" }}
+      </span>
+    </Button>
   </form>
 </template>

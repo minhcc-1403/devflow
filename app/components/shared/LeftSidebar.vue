@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { sidebarLinks } from "~/utils/constants";
+
 const route = useRoute();
+const authStore = useAuthStore();
+const { authUser } = storeToRefs(authStore);
 </script>
 
 <template>
@@ -25,7 +28,16 @@ const route = useRoute();
       </NuxtLink>
     </div>
 
-    <div class="flex flex-col gap-3">
+    <Button
+      v-if="authUser?.user"
+      class="small-medium btn-secondary text-dark400_light800 min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none"
+      @click="authStore.logout()"
+    >
+      <Icon name="hugeicons:user-circle" class="size-5 lg:hidden" />
+      <span class="primary-text-gradient max-lg:hidden">Sign Out</span>
+    </Button>
+
+    <div v-else class="flex flex-col gap-3">
       <NuxtLink to="/sign-in">
         <Button
           class="small-medium btn-secondary text-dark400_light800 min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none"

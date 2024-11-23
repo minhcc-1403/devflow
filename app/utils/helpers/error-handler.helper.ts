@@ -1,3 +1,4 @@
+import { toast } from "~/components/ui/toast";
 import type { ErrorDetail } from "~/types/error-detail";
 import type { Exception } from "~/types/exception";
 import { ErrorTypeEnum } from "../enums";
@@ -11,7 +12,10 @@ const formatErrorMsg = (errorType: ErrorTypeEnum, details: ErrorDetail[]) => {
   return details?.[0]?.message || "Something went wrong!";
 };
 
-export const handleApiError = (error: any) => {
+export const handleApiError = (
+  error: any,
+  options: { isShowToast?: boolean } = { isShowToast: true },
+) => {
   let errorType = error.type,
     errorTitle = error.name;
 
@@ -27,7 +31,8 @@ export const handleApiError = (error: any) => {
     : error.errorMsg;
 
   // eslint-disable-next-line no-console
-  console.log("API ERROR :::::", { errorTitle, errorMsg });
+  if (options?.isShowToast)
+    toast({ title: errorTitle, description: errorMsg, variant: "destructive" });
 
   return {
     title: errorTitle,

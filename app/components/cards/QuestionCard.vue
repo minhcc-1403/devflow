@@ -1,45 +1,36 @@
 <script setup lang="ts">
 import { formatDistanceToNowStrict } from "date-fns";
+import type { Tag } from "~/types/2-tag.type";
+import type { User } from "~/types/pre-built/2-user";
 import { formatAndDivideNumber } from "~/utils/helpers/format.helper";
 
 defineProps<{
   _id: string;
   title: string;
-  tags: {
-    _id: string;
-    name: string;
-  }[];
-  author: {
-    _id: string;
-    fullName: string;
-    avatar: string;
-  };
+  tags: Tag[];
+  author: User;
   upvotes: number;
   views: number;
-  answers: Array<object>;
+  // answers: Array<object>;
   createdAt: Date;
 }>();
 </script>
 
 <template>
-  <div class="card-wrapper rounded-[10px] p-9 sm:px-11">
-    <div
-      class="flex flex-col-reverse items-start justify-between gap-5 sm:flex-row"
-    >
-      <div>
-        <span
-          class="subtle-regular text-dark400_light700 line-clamp-1 flex sm:hidden"
-          >{{ formatDistanceToNowStrict(createdAt, { addSuffix: true }) }}</span
-        >
+  <div class="card-wrapper rounded-[10px] p-9 shadow-md sm:px-11">
+    <div class="flex flex-col items-start justify-between sm:flex-row">
+      <span
+        class="subtle-regular text-dark400_light700 line-clamp-1 flex sm:hidden"
+        >{{ formatDistanceToNowStrict(createdAt, { addSuffix: true }) }}</span
+      >
 
-        <NuxtLink :to="`/question/${_id}`">
-          <h3
-            class="sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex-1"
-          >
-            {{ title }}
-          </h3>
-        </NuxtLink>
-      </div>
+      <NuxtLink :to="`/question/${_id}`">
+        <h3
+          class="sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex-1"
+        >
+          {{ title }}
+        </h3>
+      </NuxtLink>
     </div>
 
     <div class="mt-3.5 flex flex-wrap gap-2">
@@ -73,7 +64,7 @@ defineProps<{
       <Metric
         imgUrl="https://devflow-rose.vercel.app/assets/icons/message.svg"
         alt="message"
-        :value="formatAndDivideNumber(answers.length)"
+        :value="formatAndDivideNumber(upvotes)"
         title="Answers"
         textStyles="small-medium text-dark400_light800"
       />
