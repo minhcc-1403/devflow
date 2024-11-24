@@ -1,11 +1,10 @@
-import { QueryClient, useMutation, useQuery } from "@tanstack/vue-query";
+import { useMutation, useQuery } from "@tanstack/vue-query";
+import { queryClient } from "~/api-hooks/user.vq";
 import { questionApi } from "~/apis/devflow/1-question.api";
 import { toast } from "~/components/ui/toast";
 import type { QuestionLoadMore } from "~/types/1-question.type";
 import { handleApiError } from "~/utils/helpers/error-handler.helper";
 import type { CreateQuestion } from "~/validations/question.validation";
-
-const queryClient = new QueryClient();
 
 export const useQuestionCreate = () => {
   const mutation = useMutation({

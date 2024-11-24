@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useUsersLoadMore } from "~/api-hooks/user.vq";
+import { useUsersCommunity } from "~/api-hooks/user.vq";
 import { UserFilters } from "~/utils/constants/filters";
 
-const { users } = useUsersLoadMore();
+const { users } = useUsersCommunity();
 </script>
 
 <template>

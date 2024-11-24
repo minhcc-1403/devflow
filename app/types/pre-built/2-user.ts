@@ -1,3 +1,4 @@
+import type { Tag } from "~/types/2-tag.type";
 import type {
   AccountStatus,
   AccountTypeEnum,
@@ -22,6 +23,11 @@ export type User = {
   avatar?: string;
   fmcEnabled: boolean;
   status: AccountStatus;
+  topInteractedTags?: {
+    tag: Tag;
+    count: number;
+    authorId: string;
+  }[];
 };
 
 export type UpdatePassword = {

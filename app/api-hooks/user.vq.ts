@@ -2,19 +2,20 @@ import { QueryClient, useQuery } from "@tanstack/vue-query";
 import { userApi } from "~/apis/pre-built/2-user.api";
 import type { User } from "~/types/pre-built/2-user";
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
-export const useUsersLoadMore = () => {
-  const users = useState<User[]>("users_loaded", () => []);
-  const page = useState("user-page", () => 1);
+export const useUsersCommunity = () => {
+  const users = useState<User[]>("users_community", () => []);
+  const page = useState("users_community-page", () => 1);
 
   const query = useQuery({
-    queryKey: ["users_pagination", page],
+    queryKey: ["users_community_pagination", page],
     queryFn: () =>
       userApi.paginate({
         _page: page.value,
         _sort: "-createdAt",
         _limit: 5,
+        _fields: "_id,fullName,username,email,phone,avatar,topInteractedTags",
       }),
   });
 

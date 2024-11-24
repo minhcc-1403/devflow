@@ -18,10 +18,10 @@ defineProps<{
         <AvatarImage v-if="user.avatar" :src="user.avatar" alt="User avatar" />
         <AvatarFallback>{{
           user.fullName
-            .split(",")
-            .map((name) => name[0])
-            .join("")
-            .toUpperCase()
+            ?.split(",")
+            ?.map((name) => name[0])
+            ?.join("")
+            ?.toUpperCase()
         }}</AvatarFallback>
       </Avatar>
 
@@ -40,27 +40,22 @@ defineProps<{
       </div>
 
       <div class="mt-5">
-        <div class="flex items-center space-x-2">
+        <div
+          v-if="user.topInteractedTags?.length"
+          class="flex items-center space-x-2"
+        >
           <RenderTag
-            v-for="tag in [
-              {
-                _id: '1',
-                name: 'react',
-              },
-              {
-                _id: '2',
-                name: 'vuejs',
-              },
-              {
-                _id: '3',
-                name: 'angular',
-              },
-            ]"
-            :key="tag._id"
-            :_id="tag._id"
-            :name="tag.name"
+            v-for="item in user.topInteractedTags"
+            :key="item.tag._id"
+            :_id="item.tag._id"
+            :name="item.tag.name"
           />
         </div>
+        <Badge
+          v-else
+          class="bg-secondary text-secondary-foreground hover:bg-secondary/80"
+          >No tags yet</Badge
+        >
       </div>
     </article>
   </NuxtLink>
