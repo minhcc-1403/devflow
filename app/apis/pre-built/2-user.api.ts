@@ -2,7 +2,7 @@ import type { DeleteResult } from "~/types/delete-result";
 import type { PaginateResponse } from "~/types/paginate-response.type";
 import type { UpdatePassword, User } from "~/types/pre-built/2-user";
 import type { UpdateResult } from "~/types/update-result";
-import type { AccountStatus } from "~/utils/enums/enums";
+import type { AccountStatus } from "~/utils/enums";
 import { authFetch, guestFetch } from "~/utils/fetch";
 import type { FetchOptions, PaginationParams } from "~/utils/types/fetch.types";
 
