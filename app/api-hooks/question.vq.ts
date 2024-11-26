@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@tanstack/vue-query";
 import { queryClient } from "~/api-hooks/user.vq";
 import { questionApi } from "~/apis/devflow/1-question.api";
 import { toast } from "~/components/ui/toast";
-import type { QuestionLoadMore } from "~/types/1-question.type";
+import type { QuestionDetail, QuestionLoadMore } from "~/types/1-question.type";
 import { handleApiError } from "~/utils/helpers/error-handler.helper";
 import type { CreateQuestion } from "~/validations/question.validation";
 
@@ -62,4 +62,16 @@ export const useQuestionsLoadMore = () => {
     isLoading: query.isLoading,
     hasLoadMore,
   };
+};
+
+export const useQuestionDetail = (id: string) => {
+  const { data: question, isLoading } = useQuery<QuestionDetail>({
+    queryKey: ["question_detail", id],
+    queryFn: () =>
+      questionApi.getById(id, {
+        _populate: "authorId,tagIds",
+      }),
+  });
+
+  return { question, isLoading };
 };

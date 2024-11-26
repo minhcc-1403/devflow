@@ -17,3 +17,8 @@ export type QuestionLoadMore = Question & {
   authorId: User;
   tagIds: Tag[];
 };
+
+export type QuestionDetail = Question & {
+  authorId: User;
+  tagIds: Tag[];
+};

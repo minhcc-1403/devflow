@@ -1,0 +1,89 @@
+<script setup lang="ts">
+import { formatDistanceToNowStrict } from "date-fns";
+import { useQuestionDetail } from "~/api-hooks/question.vq";
+import { formatAndDivideNumber } from "~/utils/helpers/format.helper";
+
+const route = useRoute();
+const questionId = route.params.questionId;
+
+const { question } = useQuestionDetail(questionId as string);
+</script>
+
+<template>
+  <div class="flex-start w-full flex-col">
+    <div
+      class="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center sm:gap-2"
+    >
+      <NuxtLink
+        :to="`/profile/${question?.authorId._id}`"
+        class="flex items-center justify-start gap-2"
+      >
+        <Avatar width="22" height="22">
+          <AvatarImage
+            v-if="question?.authorId.avatar"
+            :src="question.authorId.avatar"
+            alt="User avatar"
+          />
+          <AvatarFallback>{{
+            question?.authorId.fullName
+              ?.split(",")
+              ?.map((name) => name[0])
+              ?.join("")
+              ?.toUpperCase()
+          }}</AvatarFallback>
+        </Avatar>
+
+        <p class="paragraph-semibold text-dark300_light700">
+          {{ question?.authorId.fullName }}
+        </p>
+      </NuxtLink>
+
+      <div class="flex justify-end">Voting</div>
+    </div>
+
+    <h2 class="h2-semibold text-dark200_light900 mt-3.5 w-full text-left">
+      {{ question?.title }}
+    </h2>
+  </div>
+
+  <div class="mb-8 mt-5 flex flex-wrap gap-4" v-if="question">
+    <Metric
+      imgUrl="https://devflow-rose.vercel.app/assets/icons/clock.svg"
+      alt="clock icon"
+      :value="`asked ${formatDistanceToNowStrict(question.createdAt, { addSuffix: true })}`"
+      title=" Asked"
+      textStyles="small-medium text-dark400_light800"
+    />
+
+    <Metric
+      imgUrl="https://devflow-rose.vercel.app/assets/icons/message.svg"
+      alt="message"
+      :value="formatAndDivideNumber(10)"
+      title="Answers"
+      textStyles="small-medium text-dark400_light800"
+    />
+
+    <Metric
+      imgUrl="https://devflow-rose.vercel.app/assets/icons/eye.svg"
+      alt="eye"
+      :value="formatAndDivideNumber(question.views)"
+      title="Views"
+      textStyles="small-medium text-dark400_light800"
+    />
+  </div>
+
+  <ParseHTML v-if="question" :data="question?.content" />
+
+  <div class="mt-8 flex flex-wrap gap-2">
+    <RenderTag
+      v-if="question"
+      v-for="tag in question.tagIds"
+      :key="tag._id"
+      :_id="tag._id"
+      :name="tag.name"
+      :showCount="false"
+    />
+  </div>
+</template>
+
+<style lang="scss" scoped></style>

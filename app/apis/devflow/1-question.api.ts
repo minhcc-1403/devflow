@@ -22,7 +22,7 @@ export const questionApi = {
     id: string,
     query?: PaginationParams,
     options?: FetchOptions,
-  ): Promise<Question> => {
+  ): Promise<any> => {
     return authFetch.get(`${QUESTION_URL}/${id}`, query, options);
   },
 
