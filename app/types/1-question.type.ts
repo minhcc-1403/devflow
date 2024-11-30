@@ -9,6 +9,7 @@ export type Question = {
   views: number;
   upvoteCount: number;
   downvoteCount: number;
+  answerCount: number;
   createdAt: string;
   updatedAt: string;
 };

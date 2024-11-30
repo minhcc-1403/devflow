@@ -4,8 +4,7 @@ import { toTypedSchema } from "@vee-validate/zod";
 import { useForm, type FieldBindingObject } from "vee-validate";
 import { useQuestionCreate } from "~/api-hooks/question.vq";
 import { CreateQuestionSchema } from "~/validations/question.validation";
-
-const tinyEditorApiKey = useRuntimeConfig().public.tinyEditorApiKey;
+const colorMode = useColorMode();
 
 const type: "Edit" | "Create" = "Create";
 const { mutateAsync: createQuestion, isPending: isCreatePending } =
@@ -90,7 +89,7 @@ const onSubmit = handleSubmit(async (values) => {
                 validate();
               }
             "
-            :api-key="tinyEditorApiKey"
+            :api-key="useRuntimeConfig().public.tinyEditorApiKey"
             :init="{
               height: 350,
               menubar: false,
@@ -115,7 +114,9 @@ const onSubmit = handleSubmit(async (values) => {
               toolbar:
                 'undo redo | codesample | bold italic forecolor | alignleft aligncenter | alignright alignjustify | numlist bullist',
               content_style:
-                'body { font-family: Plus Jakarta Sans, sans-serif; font-size:14px;  }',
+                'body { font-family: Plus Jakarta Sans, sans-serif; font-size:14px; }',
+              skin: colorMode.value === 'dark' ? 'oxide-dark' : 'oxide', // oxide
+              content_css: colorMode.value === 'dark' ? 'dark' : 'light',
             }"
             initial-value=""
             model-events="change keydown paste undo redo"

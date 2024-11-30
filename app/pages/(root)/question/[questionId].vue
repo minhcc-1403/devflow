@@ -58,7 +58,7 @@ const { question } = useQuestionDetail(questionId as string);
     <Metric
       imgUrl="https://devflow-rose.vercel.app/assets/icons/message.svg"
       alt="message"
-      :value="formatAndDivideNumber(10)"
+      :value="formatAndDivideNumber(question.answerCount)"
       title="Answers"
       textStyles="small-medium text-dark400_light800"
     />
@@ -83,6 +83,14 @@ const { question } = useQuestionDetail(questionId as string);
       :name="tag.name"
       :showCount="false"
     />
+  </div>
+
+  <div class="mt-8" v-if="question">
+    <AllAnswers :questionId="question._id" />
+  </div>
+
+  <div class="mt-8" v-if="question">
+    <AnswerForm :questionId="question._id" />
   </div>
 </template>
 

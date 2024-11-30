@@ -7,12 +7,14 @@ import type {
   ResetPasswordWithOtp,
   ResetPasswordWithToken,
 } from "~/types/pre-built/1-auth";
+import type { User } from "~/types/pre-built/2-user";
 import { AccountTypeEnum } from "~/utils/enums";
 import { handleApiError } from "~/utils/helpers/error-handler.helper";
 import { storageHelper } from "~/utils/helpers/storage.helper";
 
 export const useAuthStore = defineStore("auth", () => {
   const authUser = ref<AuthUser | null>(storageHelper.getAuth());
+  const user = ref<User | null>(storageHelper.getUser());
   const loading = ref<boolean>(false);
 
   const login = (input: Login) => authenticate(() => authApi.login(input));
@@ -78,9 +80,12 @@ export const useAuthStore = defineStore("auth", () => {
   const updateAuth = (data: AuthUser | null) => {
     if (data) {
       authUser.value = { ...authUser.value, ...data };
+      user.value = { ...user.value, ...data.user };
       storageHelper.setAuth(authUser.value);
+      storageHelper.setUser(authUser.value.user);
     } else {
       authUser.value = null;
+      user.value = null;
       storageHelper.clearAuth();
     }
 
@@ -108,6 +113,7 @@ export const useAuthStore = defineStore("auth", () => {
 
   return {
     authUser,
+    user,
     loading,
     login,
     register,
