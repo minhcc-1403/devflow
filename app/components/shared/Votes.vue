@@ -1,0 +1,102 @@
+<script setup lang="ts">
+import { UserQuestionActivityTypeEnum, VoteActionEnum } from "~/utils/enums";
+import { formatAndDivideNumber } from "~/utils/helpers/format.helper";
+
+interface Props {
+  type: UserQuestionActivityTypeEnum;
+  itemId: string;
+  upvoteCount: number;
+  downvoteCount: number;
+  hasUpvoted?: boolean;
+  hasDownvoted?: boolean;
+  hasSaved?: boolean;
+  isVoting?: boolean;
+}
+
+const emits = defineEmits<{
+  (
+    e: "onVote",
+    payload: {
+      action: VoteActionEnum;
+      itemId: string;
+    },
+  ): void;
+}>();
+const props = defineProps<Props>();
+
+const handleVote = (voteAction: VoteActionEnum) => {
+  emits("onVote", { action: voteAction, itemId: props.itemId });
+};
+</script>
+
+<template>
+  <div class="flex gap-5">
+    <div class="flex-center gap-2.5">
+      <button
+        class="cursor-pointer"
+        :disabled="isVoting"
+        @click="
+          handleVote(
+            hasUpvoted ? VoteActionEnum.Unvoted : VoteActionEnum.Upvote,
+          )
+        "
+      >
+        <NuxtImg
+          :src="`${hasUpvoted ? 'https://devflow-rose.vercel.app/assets/icons/upvoted.svg' : 'https://devflow-rose.vercel.app/assets/icons/upvote.svg'}`"
+          alt="upvote"
+          width="18"
+          height="18"
+        />
+      </button>
+
+      <div class="flex-center bg-light700_dark400 min-w-[18px] rounded-sm p-1">
+        <p class="subtle-medium text-dark400_light800">
+          {{ formatAndDivideNumber(upvoteCount) }}
+        </p>
+      </div>
+    </div>
+
+    <div class="flex-center gap-2.5">
+      <button
+        class="cursor-pointer"
+        :disabled="isVoting"
+        @click="
+          handleVote(
+            hasDownvoted ? VoteActionEnum.Unvoted : VoteActionEnum.Downvote,
+          )
+        "
+      >
+        <NuxtImg
+          :src="`${hasDownvoted ? 'https://devflow-rose.vercel.app/assets/icons/downvoted.svg' : 'https://devflow-rose.vercel.app/assets/icons/downvote.svg'}`"
+          alt="downvote"
+          width="18"
+          height="18"
+        />
+      </button>
+
+      <div class="flex-center bg-light700_dark400 min-w-[18px] rounded-sm p-1">
+        <p class="subtle-medium text-dark400_light800">
+          {{ formatAndDivideNumber(downvoteCount) }}
+        </p>
+      </div>
+    </div>
+
+    <button
+      v-if="type === UserQuestionActivityTypeEnum.Question"
+      class="cursor-pointer"
+      :disabled="isVoting"
+      @click="
+        handleVote(hasSaved ? VoteActionEnum.Unsaved : VoteActionEnum.Save)
+      "
+    >
+      <NuxtImg
+        :src="`${hasSaved ? 'https://devflow-rose.vercel.app/assets/icons/star-filled.svg' : 'https://devflow-rose.vercel.app/assets/icons/star-red.svg'}`"
+        alt="star"
+        width="18"
+        height="18"
+      />
+    </button>
+  </div>
+</template>
+
+<style lang="scss" scoped></style>

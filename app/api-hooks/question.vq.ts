@@ -65,7 +65,11 @@ export const useQuestionsLoadMore = () => {
 };
 
 export const useQuestionDetail = (id: string) => {
-  const { data: question, isLoading } = useQuery<QuestionDetail>({
+  const {
+    data: question,
+    isLoading,
+    refetch,
+  } = useQuery<QuestionDetail>({
     queryKey: ["question_detail", id],
     queryFn: () =>
       questionApi.getById(id, {
@@ -73,5 +77,5 @@ export const useQuestionDetail = (id: string) => {
       }),
   });
 
-  return { question, isLoading };
+  return { question, isLoading, refetch };
 };

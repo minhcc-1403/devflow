@@ -1,7 +1,7 @@
-import { useMutation, useQuery } from "@tanstack/vue-query";
-import { queryClient } from "~/api-hooks/user.vq";
-import { answerApi } from "~/apis/devflow/1-answer.api";
+import { QueryClient, useMutation, useQuery } from "@tanstack/vue-query";
+import { answerApi } from "~/apis/devflow/3-answer.api";
 import { toast } from "~/components/ui/toast";
+import type { VoteActionEnum } from "~/utils/enums";
 import { handleApiError } from "~/utils/helpers/error-handler.helper";
 import type { CreateAnswer } from "~/validations/answer.validation";
 
@@ -12,9 +12,31 @@ export const useAnswerCreate = () => {
       handleApiError(error);
     },
     onSuccess: (data) => {
-      console.log({ data });
       toast({ title: "Success", description: "Answer created successfully" });
-      queryClient.invalidateQueries({ queryKey: ["questions_pagination"] });
+      // queryClient.refetchQueries({ // handle reload answers
+      //   queryKey: ["answers_pagination"],
+      //   exact: false,
+      // });
+    },
+  });
+
+  return mutation;
+};
+
+export const useAnswerUpdateVote = () => {
+  const mutation = useMutation({
+    mutationFn: (input: { answerId: string; action: VoteActionEnum }) =>
+      answerApi.updateVote(input.action, input.answerId),
+    onError(error) {
+      handleApiError(error);
+    },
+    onSuccess: (data, variables) => {
+      toast({
+        title: "Success",
+        description: `${variables.action.slice(0, 1).toUpperCase() + variables.action.slice(1)} successfully`,
+      });
+
+      return data;
     },
   });
 
@@ -46,4 +68,16 @@ export const useAnswersPagination = (questionId: string) => {
     setLimit,
     isLoading,
   };
+};
+
+export const refreshAnswersPagination = (queryClient: QueryClient) => {
+  const queryCache = queryClient
+    .getQueryCache()
+    .getAll()
+    .find((query) => query.queryKey[0] === "answers_pagination");
+
+  if (queryCache?.queryKey)
+    queryClient.invalidateQueries({
+      queryKey: queryCache.queryKey,
+    });
 };

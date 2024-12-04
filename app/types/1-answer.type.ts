@@ -5,8 +5,8 @@ export type Answer = {
   authorId: User;
   questionId: string;
   content: string;
-  upvoteCount: number;
-  downvoteCount: number;
+  upvotes: string[];
+  downvotes: string[];
   createdAt: string;
   updatedAt: string;
 };

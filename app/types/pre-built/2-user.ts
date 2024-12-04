@@ -28,6 +28,7 @@ export type User = {
     count: number;
     authorId: string;
   }[];
+  questionsSaved?: string[];
 };
 
 export type UpdatePassword = {

@@ -1,12 +1,37 @@
 <script setup lang="ts">
 import { formatDistanceToNowStrict } from "date-fns";
 import { useQuestionDetail } from "~/api-hooks/question.vq";
+import { useUpdateUserQuestionActivity } from "~/api-hooks/user_question_activity.vp";
+import { toast } from "~/components/ui/toast";
+import { UserQuestionActivityTypeEnum, VoteActionEnum } from "~/utils/enums";
 import { formatAndDivideNumber } from "~/utils/helpers/format.helper";
 
 const route = useRoute();
 const questionId = route.params.questionId;
 
-const { question } = useQuestionDetail(questionId as string);
+const authStore = useAuthStore();
+const { user, myQuestionActivity } = storeToRefs(authStore);
+
+const { question, refetch } = useQuestionDetail(questionId as string);
+const { mutate: updateUserQuestionActivity, isPending } =
+  useUpdateUserQuestionActivity();
+
+const handleVote = (input: { action: VoteActionEnum; itemId: string }) => {
+  if (!user) {
+    return toast({
+      title: "Please login to vote",
+      description: "You need to be logged in to vote",
+      variant: "destructive",
+    });
+  }
+
+  updateUserQuestionActivity({
+    action: input.action,
+    questionId: input.itemId,
+  });
+
+  refetch();
+};
 </script>
 
 <template>
@@ -38,7 +63,24 @@ const { question } = useQuestionDetail(questionId as string);
         </p>
       </NuxtLink>
 
-      <div class="flex justify-end">Voting</div>
+      <div class="flex justify-end" v-if="question">
+        <Votes
+          :type="UserQuestionActivityTypeEnum.Question"
+          :itemId="question._id"
+          :userId="user?._id"
+          :upvoteCount="question.upvoteCount"
+          :hasUpvoted="
+            myQuestionActivity?.votedQuestions?.includes(question._id)
+          "
+          :downvoteCount="question.downvoteCount"
+          :hasDownvoted="
+            myQuestionActivity?.downVotedQuestions?.includes(question._id)
+          "
+          :hasSaved="myQuestionActivity?.savedQuestions?.includes(question._id)"
+          :isVoting="isPending"
+          @on-vote="handleVote"
+        />
+      </div>
     </div>
 
     <h2 class="h2-semibold text-dark200_light900 mt-3.5 w-full text-left">
@@ -85,12 +127,13 @@ const { question } = useQuestionDetail(questionId as string);
     />
   </div>
 
-  <div class="mt-8" v-if="question">
-    <AllAnswers :questionId="question._id" />
+  <div class="mt-20" v-if="question">
+    <AnswerForm :questionId="question._id" />
   </div>
 
+  <p class="my-8 border-t" />
   <div class="mt-8" v-if="question">
-    <AnswerForm :questionId="question._id" />
+    <AllAnswers :questionId="question._id" :userId="user?._id" />
   </div>
 </template>
 

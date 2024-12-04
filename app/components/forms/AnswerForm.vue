@@ -14,7 +14,7 @@ const { mutateAsync: createAnswer, isPending: isSubmitting } =
 
 const colorMode = useColorMode();
 
-const { handleSubmit } = useForm({
+const { handleSubmit, errors, setFieldError, resetField } = useForm({
   validationSchema: toTypedSchema(CreateAnswerSchema),
   initialValues: {
     content: "",
@@ -22,7 +22,13 @@ const { handleSubmit } = useForm({
   },
 });
 
-const onSubmit = handleSubmit(async (values) => await createAnswer(values));
+const editorRef = ref<any>(null);
+const onSubmit = handleSubmit(async (values) => {
+  await createAnswer(values);
+
+  resetField("content");
+  editorRef.value.focus();
+});
 </script>
 
 <template>
@@ -33,7 +39,6 @@ const onSubmit = handleSubmit(async (values) => await createAnswer(values));
       <h4 class="paragraph-semibold text-dark400_light800">
         Write your answer here
       </h4>
-
       <Button
         class="btn light-border-2 dark:text-primary-500 flex items-center gap-1.5 rounded-sm px-4 py-2.5 text-main-500 shadow-none"
       >
@@ -47,13 +52,20 @@ const onSubmit = handleSubmit(async (values) => await createAnswer(values));
         Generate an AI Answer</Button
       >
     </div>
-    <form @submit="onSubmit" class="flex w-full flex-col gap-10">
+    <form @submit="onSubmit" class="flex w-full flex-col gap-4">
       <FormField v-slot="{ handleInput, value, validate }" name="content">
         <FormItem class="flex w-full flex-col gap-3">
           <FormControl class="mt-3.5">
             <Editor
               :model-value="value"
-              @update:model-value="(e: any) => handleInput(e)"
+              @update:model-value="
+                (e: any) => {
+                  if (errors['content']) setFieldError('content', '');
+
+                  handleInput(e);
+                }
+              "
+              @init="(evt: any, editor: any) => (editorRef = editor)"
               @blur="validate"
               :api-key="useRuntimeConfig().public.tinyEditorApiKey"
               :init="{

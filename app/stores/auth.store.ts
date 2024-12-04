@@ -1,5 +1,7 @@
+import { userQuestionActivityApi } from "~/apis/devflow/4-user_question_activity.api";
 import { authApi } from "~/apis/pre-built/1-auth.api";
 import { toast } from "~/components/ui/toast";
+import type { UserQuestionActivity } from "~/types/3-user-question-activity.type";
 import type {
   AuthUser,
   Login,
@@ -15,6 +17,7 @@ import { storageHelper } from "~/utils/helpers/storage.helper";
 export const useAuthStore = defineStore("auth", () => {
   const authUser = ref<AuthUser | null>(storageHelper.getAuth());
   const user = ref<User | null>(storageHelper.getUser());
+  const myQuestionActivity = ref<UserQuestionActivity>();
   const loading = ref<boolean>(false);
 
   const login = (input: Login) => authenticate(() => authApi.login(input));
@@ -68,6 +71,7 @@ export const useAuthStore = defineStore("auth", () => {
       !authUser.value?.refreshToken?.token
     )
       return;
+
     sessionStorage.setItem("refreshed", "true");
     await getAuthFromRefreshToken(authUser.value.refreshToken.token);
   };
@@ -111,6 +115,21 @@ export const useAuthStore = defineStore("auth", () => {
     }
   };
 
+  const fetchMyQuestionActivity = async () => {
+    try {
+      const response =
+        await userQuestionActivityApi.getMyUserQuestionActivity();
+
+      setMyQuestionActivity(response);
+    } catch (error) {
+      handleApiError(error);
+    }
+  };
+
+  const setMyQuestionActivity = (input: UserQuestionActivity) => {
+    myQuestionActivity.value = input;
+  };
+
   return {
     authUser,
     user,
@@ -123,5 +142,8 @@ export const useAuthStore = defineStore("auth", () => {
     resetPasswordWithOtp,
     resetPasswordWithToken,
     refreshAuthFromSession,
+    myQuestionActivity,
+    fetchMyQuestionActivity,
+    setMyQuestionActivity,
   };
 });

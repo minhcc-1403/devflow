@@ -107,8 +107,15 @@ export enum ActionEnum {
 }
 
 // === Features ===
-export enum ListingStatus {
-  SoldOut = "SOLD_OUT",
-  Active = "ACTIVE",
-  ComingSoon = "COMING_SOON",
+export enum VoteActionEnum {
+  Upvote = "upvote",
+  Downvote = "downvote",
+  Save = "save",
+  Unsaved = "unsaved",
+  Unvoted = "unvoted",
+}
+
+export enum UserQuestionActivityTypeEnum {
+  Question = "QUESTION",
+  Answer = "ANSWER",
 }

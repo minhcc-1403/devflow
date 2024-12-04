@@ -1,14 +1,43 @@
 <script setup lang="ts">
+import { useQueryClient } from "@tanstack/vue-query";
 import { formatDistanceToNowStrict } from "date-fns";
-import { useAnswersPagination } from "~/api-hooks/answer.vq";
+import {
+  refreshAnswersPagination,
+  useAnswersPagination,
+  useAnswerUpdateVote,
+} from "~/api-hooks/answer.vq";
+import { toast } from "~/components/ui/toast";
 import { AnswerFilters } from "~/utils/constants/filters";
+import { UserQuestionActivityTypeEnum, VoteActionEnum } from "~/utils/enums";
 
 const props = defineProps<{
   questionId: string;
+  userId?: string;
 }>();
 
-const authStore = useAuthStore();
-const { user } = storeToRefs(authStore);
+const queryClient = useQueryClient();
+
+const { mutateAsync: updateAnswerVote, isPending } = useAnswerUpdateVote();
+
+const handleVote = async (input: {
+  action: VoteActionEnum;
+  itemId: string;
+}) => {
+  if (!props.userId) {
+    return toast({
+      title: "Please login to vote",
+      description: "You need to be logged in to vote",
+      variant: "destructive",
+    });
+  }
+
+  await updateAnswerVote({
+    answerId: input.itemId,
+    action: input.action,
+  });
+
+  refreshAnswersPagination(queryClient);
+};
 
 const { data: answersPagination } = useAnswersPagination(props.questionId);
 </script>
@@ -72,7 +101,20 @@ const { data: answersPagination } = useAnswersPagination(props.questionId);
             </div>
           </NuxtLink>
 
-          <div class="flex justify-end">VOTING</div>
+          <div class="flex justify-end">
+            <Votes
+              :type="UserQuestionActivityTypeEnum.Answer"
+              :itemId="answer._id"
+              :upvoteCount="answer.upvotes?.length || 0"
+              :hasUpvoted="userId ? answer.upvotes?.includes(userId) : false"
+              :downvoteCount="answer.downvotes?.length || 0"
+              :hasDownvoted="
+                userId ? answer.downvotes?.includes(userId) : false
+              "
+              :isVoting="isPending"
+              @onVote="handleVote"
+            />
+          </div>
         </div>
       </div>
 
