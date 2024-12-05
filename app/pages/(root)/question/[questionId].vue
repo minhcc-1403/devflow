@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { formatDistanceToNowStrict } from "date-fns";
+import { useViewQuestion } from "~/api-hooks/interaction.vp";
 import { useQuestionDetail } from "~/api-hooks/question.vq";
 import { useUpdateUserQuestionActivity } from "~/api-hooks/user_question_activity.vp";
 import { toast } from "~/components/ui/toast";
@@ -7,7 +8,7 @@ import { UserQuestionActivityTypeEnum, VoteActionEnum } from "~/utils/enums";
 import { formatAndDivideNumber } from "~/utils/helpers/format.helper";
 
 const route = useRoute();
-const questionId = route.params.questionId;
+const questionId = route.params.questionId as string;
 
 const authStore = useAuthStore();
 const { user, myQuestionActivity } = storeToRefs(authStore);
@@ -32,6 +33,8 @@ const handleVote = (input: { action: VoteActionEnum; itemId: string }) => {
 
   refetch();
 };
+
+callOnce(questionId, () => useViewQuestion(questionId));
 </script>
 
 <template>

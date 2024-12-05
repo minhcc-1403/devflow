@@ -3,14 +3,14 @@ import type { PaginateResponse } from "~/types/paginate-response.type";
 import { authFetch, guestFetch } from "~/utils/fetch";
 import type { FetchOptions, PaginationParams } from "~/utils/types/fetch.types";
 
-const QUESTION_URL = "/tags";
+const TAG_URL = "/tags";
 export const tagApi = {
   //  ----- Method: GET -----
   paginate: (
     query?: PaginationParams,
     options?: FetchOptions,
   ): Promise<PaginateResponse<Tag>> => {
-    return guestFetch.get(`${QUESTION_URL}/paginate`, query, options);
+    return guestFetch.get(`${TAG_URL}/paginate`, query, options);
   },
 
   getById: (
@@ -18,13 +18,13 @@ export const tagApi = {
     query?: PaginationParams,
     options?: FetchOptions,
   ): Promise<Tag> => {
-    return authFetch.get(`${QUESTION_URL}/${id}`, query, options);
+    return authFetch.get(`${TAG_URL}/${id}`, query, options);
   },
 
   getAll: (
     query?: PaginationParams,
     options?: FetchOptions,
   ): Promise<Tag[]> => {
-    return guestFetch.get(QUESTION_URL, query, options);
+    return guestFetch.get(TAG_URL, query, options);
   },
 };

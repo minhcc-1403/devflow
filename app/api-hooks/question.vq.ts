@@ -48,8 +48,50 @@ export const useQuestionsLoadMore = () => {
   };
 
   watch(query.data, () => {
-    console.log({ data: query.data.value });
+    if (query.data.value?.data?.length) {
+      const items = query.data.value.data as QuestionLoadMore[];
+      questions.value.push(...items);
+    }
+  });
 
+  return {
+    questions,
+    loadMore,
+    isLoading: query.isLoading,
+    hasLoadMore,
+  };
+};
+
+export const useQuestionsSavedLoadMore = (questionSavedIds: string[]) => {
+  const questions = useState<QuestionLoadMore[]>(
+    "question_saved_loaded",
+    () => [],
+  );
+  const page = useState("question_saved-page", () => 1);
+  const query = useQuery({
+    queryKey: ["question_saved_pagination", page, questionSavedIds],
+    queryFn: () =>
+      questionApi.paginate({
+        _id: questionSavedIds.join(","),
+        _page: page.value,
+        _sort: "-createdAt",
+        _populate: "tagIds,authorId",
+        _fields: "authorId._id,authorId.avatar,authorId.fullName,tagIds.name",
+        _limit: 5,
+      }),
+  });
+
+  const hasLoadMore = computed(
+    () => query.data.value?.paginationInfo?._hasNextPage,
+  );
+
+  const loadMore = () => {
+    if (hasLoadMore.value) {
+      page.value = query.data.value!.paginationInfo._nextPage!;
+    }
+  };
+
+  watch(query.data, () => {
     if (query.data.value?.data?.length) {
       const items = query.data.value.data as QuestionLoadMore[];
       questions.value.push(...items);
