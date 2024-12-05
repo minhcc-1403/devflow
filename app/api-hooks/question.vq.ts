@@ -121,3 +121,45 @@ export const useQuestionDetail = (id: string) => {
 
   return { question, isLoading, refetch };
 };
+
+export const useQuestionPagination = () => {
+  const filter = useState("question_pagination_filter", () => ({}));
+
+  const page = useState("question_pagination-page", () => 1);
+  const limit = useState("question_pagination-limit", () => 10);
+  const { data, isLoading } = useQuery({
+    queryKey: ["question_pagination", page, filter],
+    queryFn: () =>
+      questionApi.paginate({
+        ...filter.value,
+        _page: page.value,
+        _sort: "-createdAt",
+        _populate: "tagIds,authorId",
+        _fields: "authorId._id,authorId.avatar,authorId.fullName,tagIds.name",
+        _limit: 5,
+      }),
+    staleTime: 20000, // 20 seconds,
+  });
+
+  const questions = useState<QuestionLoadMore[]>(
+    "question_pagination_loaded",
+    () => [],
+  );
+  const paginationInfo = computed(() => data.value?.paginationInfo);
+
+  // Function to change page
+  const setPage = (newPage: number) => {
+    page.value = newPage;
+  };
+
+  // Function to change limit
+  const setLimit = (newLimit: number) => (limit.value = newLimit);
+
+  return {
+    isLoading,
+    questions,
+    paginationInfo,
+    setPage,
+    setLimit,
+  };
+};
