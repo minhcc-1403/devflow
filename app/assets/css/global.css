@@ -42,7 +42,7 @@ html {
     );
   }
   .tab {
-    @apply text-light-5 [#F4F6F8] min-h-full dark:bg-[#212734];
+    @apply min-h-full bg-[#F4F6F8] text-light-500 dark:bg-[#212734];
   }
 
   .active-theme {

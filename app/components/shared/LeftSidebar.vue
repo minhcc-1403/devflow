@@ -3,7 +3,7 @@ import { sidebarLinks } from "~/utils/constants";
 
 const route = useRoute();
 const authStore = useAuthStore();
-const { authUser } = storeToRefs(authStore);
+const { user } = storeToRefs(authStore);
 </script>
 
 <template>
@@ -13,7 +13,18 @@ const { authUser } = storeToRefs(authStore);
     <!-- Content -->
     <div class="flex flex-1 flex-col gap-6">
       <NuxtLink
-        v-for="item in sidebarLinks"
+        v-for="item in sidebarLinks.filter((link) => {
+          if (link.href === '/profile') {
+            if (user) {
+              link.href = `/profile/${user._id}`;
+              return true;
+            }
+
+            return false;
+          }
+
+          return true;
+        })"
         :key="item.href"
         :to="item.href"
         class="flex items-center justify-start gap-4 bg-transparent p-4"
@@ -29,7 +40,7 @@ const { authUser } = storeToRefs(authStore);
     </div>
 
     <Button
-      v-if="authUser?.user"
+      v-if="user"
       class="small-medium btn-secondary text-dark400_light800 min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none"
       @click="authStore.logout()"
     >

@@ -40,3 +40,8 @@ export const formatAndDivideNumber = (num: number) => {
   }
   return num.toString();
 };
+
+export const getJoinedDate = (createdAt: string) => {
+  const date = new Date(createdAt);
+  return format(date, "LLLL y");
+};

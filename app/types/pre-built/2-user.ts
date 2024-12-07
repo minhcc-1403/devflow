@@ -13,6 +13,7 @@ export type User = {
   userGroupIds?: string[] | UserGroup[];
   menuGroupId?: string;
   username?: string;
+  bio?: string;
   email?: string;
   phone?: string;
   socialID?: string;
@@ -28,7 +29,12 @@ export type User = {
     count: number;
     authorId: string;
   }[];
-  questionsSaved?: string[];
+
+  questionsCount?: number;
+  answersCount?: number;
+
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type UpdatePassword = {

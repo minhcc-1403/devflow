@@ -1,13 +1,56 @@
 <script setup lang="ts">
-import { useUsersCommunity } from "~/api-hooks/user.vq";
+import { userApi } from "~/apis/pre-built/2-user.api";
 import { UserFilters } from "~/utils/constants/filters";
 
-const { users } = useUsersCommunity();
+const filter = useState("users-community-filter", () => "");
+
+const { data, status } = useAsyncData(
+  `users-community`,
+  () => {
+    return userApi.paginate({
+      _id: filter.value,
+      _sort: "-createdAt",
+      _limit: 5,
+      _fields: "_id,fullName,username,email,phone,avatar,topInteractedTags",
+    });
+  },
+  {
+    getCachedData(key, nuxtApp) {
+      return nuxtApp.payload.data[key];
+    },
+    watch: [filter],
+  },
+);
+
+const toggleFilter = (value: string) => {
+  const filters = filter.value.split(",").filter(Boolean);
+  if (filters.includes(value)) {
+    filter.value = filters.filter((id) => id !== value).join(",");
+  } else {
+    filters.push(value);
+    filter.value = filters.join(",");
+  }
+
+  console.log(filter.value);
+};
 </script>
 
 <template>
   <div class="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row">
     <h1 class="h1-bold text-dark100_light900">All Users</h1>
+    {{ status }}
+    {{ data?.paginationInfo }}
+  </div>
+
+  <div class="flex items-center gap-2">
+    <Button
+      v-if="data?.data"
+      v-for="user in data?.data"
+      :key="user._id"
+      @click="() => toggleFilter(user._id!)"
+    >
+      {{ user.fullName }}
+    </Button>
   </div>
 
   <div class="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
@@ -25,20 +68,18 @@ const { users } = useUsersCommunity();
     />
   </div>
 
-  <section class="mt-12 grid grid-cols-3 gap-4 max-sm:grid-cols-1">
-    <UserCard
-      v-if="users.length"
-      v-for="user in users"
-      :key="user._id"
-      :user="user"
-    />
-
-    <NoResult
-      v-else
-      title="No users yet"
-      description="Join the community and be the first"
-      link="/sign-up"
-      link-title="Join to be the first"
-    />
+  <section
+    v-if="data?.data"
+    class="mt-12 grid grid-cols-3 gap-4 max-sm:grid-cols-1"
+  >
+    <UserCard v-for="user in data.data" :key="user._id" :user="user" />
   </section>
+
+  <NoResult
+    v-else
+    title="No users yet"
+    description="Join the community and be the first"
+    link="/sign-up"
+    link-title="Join to be the first"
+  />
 </template>
