@@ -41,8 +41,9 @@ html {
       rgba(19, 22, 28, 0.7) 100%
     );
   }
+
   .tab {
-    @apply min-h-full bg-[#F4F6F8] text-light-500 dark:bg-[#212734];
+    @apply min-h-full bg-light-800 text-light-500 dark:bg-dark-400;
   }
 
   .active-theme {

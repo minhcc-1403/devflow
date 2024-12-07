@@ -11,6 +11,18 @@ import type {
 const QUESTION_URL = "/questions";
 export const questionApi = {
   //  ----- Method: GET -----
+  paginateQuestionsAnsweredBy: (
+    userId: string,
+    query?: PaginationParams,
+    options?: FetchOptions,
+  ): Promise<PaginateResponse<Question>> => {
+    return guestFetch.get(
+      `${QUESTION_URL}/answered-by/${userId}/paginate`,
+      query,
+      options,
+    );
+  },
+
   paginate: (
     query?: PaginationParams,
     options?: FetchOptions,

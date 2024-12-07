@@ -106,9 +106,6 @@
   .bg-light700_dark300 {
     @apply bg-[#DCE3F1] dark:bg-[#151821];
   }
-  .bg-light800_dark400 {
-    @apply bg-[#F4F6F8] dark:bg-[#212734];
-  }
   .bg-light800_dark300 {
     @apply bg-[#F4F6F8] dark:bg-[#151821] !important;
   }

@@ -93,8 +93,13 @@ callOnce(userId, async () => {
         <TabsTrigger value="top-posts" class="tab">Top Posts</TabsTrigger>
         <TabsTrigger value="answers" class="tab"> Answers </TabsTrigger>
       </TabsList>
-      <TabsContent value="top-posts">POSTS</TabsContent>
-      <TabsContent value="answers">ANSWERS</TabsContent>
+
+      <TabsContent value="top-posts">
+        <QuestionTab :userId="userId" />
+      </TabsContent>
+      <TabsContent value="answers">
+        <AnswerTab :userId="userId" />
+      </TabsContent>
     </Tabs>
   </div>
 </template>
