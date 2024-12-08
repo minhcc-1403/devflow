@@ -12,7 +12,11 @@ const { promise, handleCancel, handleConfirm, title, description, isLoading } =
       </AlertDialogHeader>
 
       <AlertDialogFooter>
-        <AlertDialogCancel @click="handleCancel">Cancel</AlertDialogCancel>
+        <AlertDialogCancel
+          @click="handleCancel"
+          class="dark:bg-gray-100 hover:dark:text-gray-800"
+          >Cancel</AlertDialogCancel
+        >
         <AlertDialogAction :disabled="isLoading" @click="handleConfirm">
           <Icon
             v-if="isLoading"

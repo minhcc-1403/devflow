@@ -32,11 +32,7 @@ defineProps<{
         </h3>
       </NuxtLink>
 
-      <EditDeleteAction
-        v-if="userId === author._id"
-        type="Answer"
-        :itemId="_id"
-      />
+      <EditDeleteAction type="Answer" :itemId="_id" />
     </div>
 
     <div class="flex-between mt-6 w-full flex-wrap gap-3">

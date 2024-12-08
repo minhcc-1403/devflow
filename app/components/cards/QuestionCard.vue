@@ -36,6 +36,7 @@ defineProps<{
         v-if="userId === author._id"
         type="Question"
         :itemId="_id"
+        :userId="userId"
       />
     </div>
 

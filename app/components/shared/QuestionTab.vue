@@ -6,25 +6,23 @@ const props = defineProps<{
   userId: string;
 }>();
 
-const questions = useState<QuestionLoadMore[]>("questions", () => []);
-
-callOnce(`profile_questions_${props.userId}`, async () => {
-  const res = await questionApi.paginate({
-    _sort: "-createdAt",
-    _populate: "tagIds,authorId",
-    _fields: "authorId._id,authorId.avatar,authorId.fullName,tagIds.name",
-    _limit: 5,
-    authorId: props.userId,
-  });
-
-  questions.value = res.data as QuestionLoadMore[];
-});
+const { data: pagination } = useAsyncData(
+  `profile_questions_${props.userId}`,
+  () =>
+    questionApi.paginate<QuestionLoadMore>({
+      _sort: "-createdAt",
+      _populate: "tagIds,authorId",
+      _fields: "authorId._id,authorId.avatar,authorId.fullName,tagIds.name",
+      _limit: 5,
+      authorId: props.userId,
+    }),
+);
 </script>
 
 <template>
   <QuestionCard
-    v-if="questions.length"
-    v-for="question in questions"
+    v-if="pagination?.data.length"
+    v-for="question in pagination.data"
     :key="question._id"
     :_id="question._id"
     :title="question.title"
