@@ -6,6 +6,9 @@ const props = defineProps<{
 }>();
 const listEl = ref<HTMLElement | null>(null);
 
+const authStore = useAuthStore();
+const { user } = storeToRefs(authStore);
+
 const { questions, isLoading, hasLoadMore, loadMore } =
   useQuestionsSavedLoadMore(props.questionIds);
 

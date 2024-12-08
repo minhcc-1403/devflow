@@ -54,6 +54,7 @@ await callOnce(tagId, async () => {
         :upvotes="question.upvoteCount"
         :views="question.views"
         :createdAt="new Date(question.createdAt)"
+        :userId="question.authorId._id"
       />
 
       <QuestionCardLoading v-if="isLoading" v-for="i in 3" :key="i" />

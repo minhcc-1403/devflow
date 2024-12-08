@@ -33,6 +33,7 @@ callOnce(`profile_questions_${props.userId}`, async () => {
     :upvotes="question.upvoteCount"
     :views="question.views"
     :createdAt="new Date(question.createdAt)"
+    :userId="userId"
   />
 
   <NoResult

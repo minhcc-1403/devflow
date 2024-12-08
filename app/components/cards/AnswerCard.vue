@@ -12,7 +12,7 @@ defineProps<{
   upvotes: number;
   views: number;
   createdAt: Date;
-  userId?: string;
+  userId: string;
 }>();
 </script>
 
@@ -34,17 +34,8 @@ defineProps<{
 
       <EditDeleteAction
         v-if="userId === author._id"
-        type="Question"
+        type="Answer"
         :itemId="_id"
-      />
-    </div>
-
-    <div class="mt-3.5 flex flex-wrap gap-2">
-      <RenderTag
-        v-for="tag in tags"
-        :key="tag._id"
-        :_id="tag._id"
-        :name="tag.name"
       />
     </div>
 
@@ -53,7 +44,7 @@ defineProps<{
         imgUrl="https://devflow-rose.vercel.app/_next/image?url=https%3A%2F%2Fimg.clerk.com%2FeyJ0eXBlIjoiZGVmYXVsdCIsImlpZCI6Imluc18ybUE3bW9hZzBTQlhmZXpkVm5HNGp5Z1BFN1EiLCJyaWQiOiJ1c2VyXzJtQmJaQkxTNks5c1h4VkhuMEhHUHVOVXpMMyIsImluaXRpYWxzIjoiTUcifQ&w=16&q=75"
         alt="user"
         :value="author.fullName"
-        title="- asked 1 hour ago"
+        title="- answered 1 hour ago"
         textStyles="body-medium text-dark400_light700"
         isAuthor
         :href="`/profile/${author._id}`"
@@ -64,22 +55,6 @@ defineProps<{
         alt="Upvotes"
         :value="formatAndDivideNumber(upvotes)"
         title="Votes"
-        textStyles="small-medium text-dark400_light800"
-      />
-
-      <Metric
-        imgUrl="https://devflow-rose.vercel.app/assets/icons/message.svg"
-        alt="message"
-        :value="formatAndDivideNumber(upvotes)"
-        title="Answers"
-        textStyles="small-medium text-dark400_light800"
-      />
-
-      <Metric
-        imgUrl="https://devflow-rose.vercel.app/assets/icons/eye.svg"
-        alt="eye"
-        :value="formatAndDivideNumber(views)"
-        title="Views"
         textStyles="small-medium text-dark400_light800"
       />
     </div>

@@ -20,7 +20,7 @@ callOnce(`answered_questions_${props.userId}`, async () => {
 });
 </script>
 <template>
-  <QuestionCard
+  <AnswerCard
     v-if="questions.length"
     v-for="question in questions"
     :key="question._id"
@@ -31,6 +31,7 @@ callOnce(`answered_questions_${props.userId}`, async () => {
     :upvotes="question.upvoteCount"
     :views="question.views"
     :createdAt="new Date(question.createdAt)"
+    :userId="props.userId"
   />
 
   <NoResult
