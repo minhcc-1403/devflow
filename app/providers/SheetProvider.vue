@@ -5,5 +5,7 @@ onMounted(() => (isMounted.value = true));
 </script>
 
 <template>
-  <template v-if="isMounted"> </template>
+  <template v-if="isMounted">
+    <ConfirmDialog />
+  </template>
 </template>

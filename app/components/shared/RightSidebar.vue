@@ -1,93 +1,25 @@
 <script setup lang="ts">
-const topQuestions = [
-  {
-    _id: "1",
-    title:
-      "How to Ensure Unique User Profile with ON CONFLICT in PostgreSQL Using Drizzle ORM?",
-    tags: [
-      { _id: "1", name: "postgresql" },
-      { _id: "2", name: "drizzle" },
-    ],
-    author: {
-      _id: Math.random().toString(),
-      fullName: "John Doe",
-      avatar:
-        "https://devflow-rose.vercel.app/_next/image?url=https%3A%2F%2Fimg.clerk.com%2FeyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18ybUFCTWQxbDM0VXRLQjdEV3VjUUxpdk9VRkQifQ&w=32&q=75",
-    },
-    upvotes: 5,
-    views: 100,
-    answers: [],
-    createdAt: new Date("2023-07-17T10:00:00.000Z"),
-  },
-  {
-    _id: "2",
-    title: "What Are the Best Practices for Optimizing MongoDB Queries?",
-    tags: [
-      { _id: "3", name: "mongodb" },
-      { _id: "4", name: "optimization" },
-    ],
-    author: {
-      _id: Math.random().toString(),
-      fullName: "Jane Smith",
-      avatar:
-        "https://devflow-rose.vercel.app/_next/image?url=https%3A%2F%2Fimg.clerk.com%2FeyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18ybUFCTWQxbDM0VXRLQjdEV3VjUUxpdk9VRkQifQ&w=32&q=75",
-    },
-    upvotes: 10,
-    views: 250,
-    answers: [],
-    createdAt: new Date("2023-08-01T14:30:00.000Z"),
-  },
-  {
-    _id: "3",
-    title: "How to Handle Transactions in NestJS with TypeORM?",
-    tags: [
-      { _id: "5", name: "nestjs" },
-      { _id: "6", name: "typeorm" },
-    ],
-    author: {
-      _id: Math.random().toString(),
-      fullName: "Alice Johnson",
-      avatar:
-        "https://devflow-rose.vercel.app/_next/image?url=https%3A%2F%2Fimg.clerk.com%2FeyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18ybUFCTWQxbDM0VXRLQjdEV3VjUUxpdk9VRkQifQ&w=32&q=75",
-    },
-    upvotes: 7,
-    views: 180,
-    answers: [],
-    createdAt: new Date("2023-09-10T09:15:00.000Z"),
-  },
-];
-const tags = [
-  {
-    _id: "1",
-    name: "react",
-    totalQuestions: 10,
-  },
-  {
-    _id: "2",
-    name: "vuejs",
-    totalQuestions: 5,
-  },
-  {
-    _id: "3",
-    name: "angular",
-    totalQuestions: 3,
-  },
-  {
-    _id: "4",
-    name: "svelte",
-    totalQuestions: 2,
-  },
-  {
-    _id: "5",
-    name: "nextjs",
-    totalQuestions: 1,
-  },
-  {
-    _id: "6",
-    name: "nuxtjs",
-    totalQuestions: 1,
-  },
-];
+import { questionApi } from "~/apis/devflow/1-question.api";
+import { tagApi } from "~/apis/devflow/2-tag.api";
+import type { Question } from "~/types/1-question.type";
+import type { Tag } from "~/types/2-tag.type";
+
+const hotQuestions = useState<Question[]>("hot-question", () => []);
+const popularTags = useState<Tag[]>("popular-tags", () => []);
+
+callOnce("hot-question", async () => {
+  hotQuestions.value = await questionApi.getAll({
+    _limit: 5,
+    _sort: "-views,-upvoteCount",
+  });
+});
+
+callOnce("popular-tags", async () => {
+  popularTags.value = await tagApi.getAll({
+    _limit: 5,
+    _sort: "-questionCount,-followerCount",
+  });
+});
 </script>
 
 <template>
@@ -99,7 +31,7 @@ const tags = [
 
       <div class="mt-7 flex w-full flex-col gap-8">
         <NuxtLink
-          v-for="question in topQuestions"
+          v-for="question in hotQuestions"
           class="flex cursor-pointer items-center justify-between gap-7"
           :to="`/question/${question._id}`"
         >
@@ -125,12 +57,12 @@ const tags = [
       <h3 class="h3-bold text-dark200_light900">Popular Tags</h3>
       <div class="mt-7 flex flex-col gap-4">
         <RenderTag
-          v-for="tag in tags"
+          v-for="tag in popularTags"
           :key="tag._id"
           :_id="tag._id"
           :name="tag.name"
           :show-count="true"
-          :total-questions="tag.totalQuestions"
+          :total-questions="tag.questionCount"
         />
       </div>
     </div>
