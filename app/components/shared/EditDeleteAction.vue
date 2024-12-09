@@ -10,7 +10,10 @@ const props = defineProps<{
 
 const { confirm } = useConfirm();
 
-const handleEdit = () => {};
+const handleEdit = () => {
+  navigateTo(`/question/edit/${props.itemId}`);
+};
+
 const handleDelete = async () => {
   const ok = await confirm(
     `Are you sure you want to delete this ${props.type}?`,

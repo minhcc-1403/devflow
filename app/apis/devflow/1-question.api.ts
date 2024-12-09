@@ -30,11 +30,11 @@ export const questionApi = {
     return guestFetch.get(`${QUESTION_URL}/paginate`, query, options);
   },
 
-  getById: (
+  getById: <T>(
     id: string,
     query?: PaginationParams,
     options?: FetchOptions,
-  ): Promise<any> => {
+  ): Promise<T> => {
     return authFetch.get(`${QUESTION_URL}/${id}`, query, options);
   },
 

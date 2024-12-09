@@ -3,10 +3,20 @@ import Editor from "@tinymce/tinymce-vue";
 import { toTypedSchema } from "@vee-validate/zod";
 import { useForm, type FieldBindingObject } from "vee-validate";
 import { useQuestionCreate } from "~/api-hooks/question.vq";
-import { CreateQuestionSchema } from "~/validations/question.validation";
+import type { Tag } from "~/types/2-tag.type";
+import {
+  CreateQuestionSchema,
+  type UpdateQuestion,
+} from "~/validations/question.validation";
 const colorMode = useColorMode();
 
-const type: "Edit" | "Create" = "Create";
+const props = defineProps<{
+  type: "Edit" | "Create";
+  questionDetail?: UpdateQuestion & {
+    tagIds?: Tag[];
+  };
+}>();
+
 const { mutateAsync: createQuestion, isPending: isCreatePending } =
   useQuestionCreate();
 
@@ -14,9 +24,9 @@ const { handleSubmit, setFieldError, setFieldTouched, setFieldValue } = useForm(
   {
     validationSchema: toTypedSchema(CreateQuestionSchema),
     initialValues: {
-      title: "",
-      tags: [],
-      content: "",
+      title: props.questionDetail?.title || "",
+      tags: props.questionDetail?.tagIds?.map((tag) => tag.name) || [],
+      content: props.questionDetail?.content || "",
     },
   },
 );
@@ -47,8 +57,16 @@ const handleRemoveTag = (tag: string, field: FieldBindingObject) => {
 const isSubmitting = ref(false);
 
 const onSubmit = handleSubmit(async (values) => {
-  await createQuestion(values);
-  navigateTo("/");
+  switch (props.type) {
+    case "Create":
+      await createQuestion(values);
+      navigateTo("/");
+      break;
+
+    case "Edit":
+      isSubmitting.value = true;
+      break;
+  }
 });
 </script>
 
