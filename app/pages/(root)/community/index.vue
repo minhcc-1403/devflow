@@ -30,27 +30,12 @@ const toggleFilter = (value: string) => {
     filters.push(value);
     filter.value = filters.join(",");
   }
-
-  console.log(filter.value);
 };
 </script>
 
 <template>
   <div class="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row">
     <h1 class="h1-bold text-dark100_light900">All Users</h1>
-    {{ status }}
-    {{ data?.paginationInfo }}
-  </div>
-
-  <div class="flex items-center gap-2">
-    <Button
-      v-if="data?.data"
-      v-for="user in data?.data"
-      :key="user._id"
-      @click="() => toggleFilter(user._id!)"
-    >
-      {{ user.fullName }}
-    </Button>
   </div>
 
   <div class="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">

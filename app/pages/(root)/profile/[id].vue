@@ -72,7 +72,10 @@ callOnce(userId, async () => {
     </div>
 
     <div class="flex justify-end max-sm:mb-5 max-sm:w-full sm:mt-3">
-      <NuxtLink v-if="user._id === profile?._id" to="/profile/edit">
+      <NuxtLink
+        v-if="user._id === profile?._id"
+        :to="`/profile/edit/${userId}`"
+      >
         <Button
           variant="secondary"
           class="paragraph-medium text-dark300_light900 min-h-[46px] min-w-[175px] px-4"

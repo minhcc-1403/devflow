@@ -35,6 +35,8 @@ export type User = {
 
   createdAt: string;
   updatedAt: string;
+  portfolioWebsite?: string;
+  location?: string;
 };
 
 export type UpdatePassword = {

@@ -25,17 +25,20 @@ const { data } = useTagsPagination();
     />
   </div>
 
-  <section class="mt-12 grid grid-cols-3 gap-4 max-sm:grid-cols-1">
-    <div v-if="data?.data.length" v-for="tag in data.data" :key="tag._id">
+  <section
+    class="mt-12 grid grid-cols-3 gap-4 max-sm:grid-cols-1"
+    v-if="data?.data.length"
+  >
+    <div v-for="tag in data.data" :key="tag._id">
       <TagCard :_id="tag._id" :tag="tag" />
     </div>
-
-    <NoResult
-      v-else
-      title="No Tags Found"
-      description="It looks like there no tags found."
-      link="/ask-question"
-      link-title="Ask a question"
-    />
   </section>
+
+  <NoResult
+    v-else
+    title="No Tags Found"
+    description="It looks like there no tags found."
+    link="/ask-question"
+    link-title="Ask a question"
+  />
 </template>

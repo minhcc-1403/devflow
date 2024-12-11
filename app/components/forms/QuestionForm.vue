@@ -84,7 +84,7 @@ const onSubmit = handleSubmit(async (values) => {
             v-bind="componentField"
           />
         </FormControl>
-        <FormDescription class="body-regular mt-2.5 text-light-500">
+        <FormDescription class="body-regular mt-2.5 text-xs text-light-500">
           Be specific and imagine you’re asking a question to another person.
         </FormDescription>
 
@@ -140,7 +140,7 @@ const onSubmit = handleSubmit(async (values) => {
             model-events="change keydown paste undo redo"
           />
         </FormControl>
-        <FormDescription class="body-regular mt-2.5 text-light-500">
+        <FormDescription class="body-regular mt-2.5 text-xs text-light-500">
           Introduce the problem and explain on what you put in the title.
           Minimum 20 characters.
         </FormDescription>
@@ -183,7 +183,7 @@ const onSubmit = handleSubmit(async (values) => {
           </Badge>
         </div>
 
-        <FormDescription class="body-regular mt-2.5 text-light-500">
+        <FormDescription class="body-regular mt-2.5 text-xs text-light-500">
           Add up to 3 tags to describe what your question is about. You need to
           press enter to add a tag.
         </FormDescription>

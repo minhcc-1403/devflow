@@ -116,9 +116,7 @@ callOnce(questionId, () => useViewQuestion(questionId));
       textStyles="small-medium text-dark400_light800"
     />
   </div>
-
   <ParseHTML v-if="question" :data="question?.content" />
-
   <div class="mt-8 flex flex-wrap gap-2">
     <RenderTag
       v-if="question"

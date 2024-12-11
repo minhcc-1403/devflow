@@ -5,6 +5,7 @@ import type { UpdateResult } from "~/types/update-result";
 import type { AccountStatus } from "~/utils/enums";
 import { authFetch, guestFetch } from "~/utils/fetch";
 import type { FetchOptions, PaginationParams } from "~/utils/types/fetch.types";
+import type { UpdateUser } from "~/validations/user.validation";
 
 const USER_URL = "/users";
 
@@ -52,7 +53,7 @@ export const userApi = {
 
   updateById: (
     id: string,
-    body: User,
+    body: UpdateUser,
     options?: FetchOptions,
   ): Promise<User> => {
     return authFetch.patch(`${USER_URL}/${id}`, body, options);
