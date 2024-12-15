@@ -6,6 +6,14 @@ defineProps<{
   placeholder: string;
   otherClasses?: string;
 }>();
+const urlSearchParam = useUrlSearchParams();
+const search = ref(urlSearchParam.q?.toString() || "");
+
+const handleSearch = useDebounceFn((e: string | number) => {
+  search.value = e.toString();
+  urlSearchParam.q = search.value;
+  if (!search.value) delete urlSearchParam.q;
+}, 1000);
 </script>
 
 <template>
@@ -25,6 +33,8 @@ defineProps<{
       type="text"
       :placeholder="placeholder"
       class="paragraph-regular placeholder text-dark400_light700 border-none shadow-none outline-none focus:border-none focus:outline-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-transparent"
+      :model-value="search"
+      @update:model-value="handleSearch"
     />
 
     <NuxtImg
