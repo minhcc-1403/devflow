@@ -1,24 +1,74 @@
 <script setup lang="ts">
-import { useQueryClient } from "@tanstack/vue-query";
 import { formatDistanceToNowStrict } from "date-fns";
-import {
-  refreshAnswersPagination,
-  useAnswersPagination,
-  useAnswerUpdateVote,
-} from "~/api-hooks/answer.vq";
+import { answerApi } from "~/apis/devflow/3-answer.api";
 import { toast } from "~/components/ui/toast";
+import type { Answer } from "~/types/1-answer.type";
+import type { User } from "~/types/pre-built/2-user";
 import { AnswerFilters } from "~/utils/constants/filters";
 import { UserQuestionActivityTypeEnum, VoteActionEnum } from "~/utils/enums";
+import { handleApiError } from "~/utils/helpers/error-handler.helper";
 
 const props = defineProps<{
   questionId: string;
   userId?: string;
 }>();
 
-const queryClient = useQueryClient();
+const route = useRoute();
+const queryParams = computed(() => {
+  const filter = route.query.filter?.toString();
 
-const { mutateAsync: updateAnswerVote, isPending } = useAnswerUpdateVote();
+  const query = {};
+  switch (filter) {
+    case "highestUpvotes":
+      Object.assign(query, { _sort: "-upvotes" });
+      break;
 
+    case "lowestUpvotes":
+      Object.assign(query, { _sort: "upvotes" });
+      break;
+
+    case "recent":
+      Object.assign(query, { _sort: "-createdAt" });
+      break;
+
+    case "old":
+      Object.assign(query, { _sort: "createdAt" });
+      break;
+  }
+
+  return query;
+});
+
+const { data, refresh } = useAsyncData(
+  `answered_questions_${props.questionId}`,
+  () =>
+    answerApi.paginate<Answer & { authorId: User }>({
+      questionId: props.questionId,
+      _limit: 8,
+      _populate: "authorId",
+      _sort: "-upvotes",
+      ...queryParams.value,
+    }),
+  {
+    watch: [queryParams],
+  },
+);
+
+const action = ref(VoteActionEnum.Upvote);
+const upvoteId = ref();
+const {
+  execute: updateAnswerVote,
+  status,
+  error,
+} = useAsyncData(() => answerApi.updateVote(action.value, upvoteId.value), {
+  immediate: false,
+});
+
+watch(error, () => {
+  if (error.value) {
+    toast({ ...handleApiError(error.value), variant: "destructive" });
+  }
+});
 const handleVote = async (input: {
   action: VoteActionEnum;
   itemId: string;
@@ -31,34 +81,24 @@ const handleVote = async (input: {
     });
   }
 
-  await updateAnswerVote({
-    answerId: input.itemId,
-    action: input.action,
-  });
+  action.value = input.action;
+  upvoteId.value = input.itemId;
 
-  refreshAnswersPagination(queryClient);
+  await updateAnswerVote();
+  await refresh();
 };
-
-const { data: answersPagination } = useAnswersPagination(props.questionId);
 </script>
 
 <template>
-  <div
-    class="flex items-center justify-between"
-    v-if="answersPagination?.data.length"
-  >
+  <div class="flex items-center justify-between" v-if="data?.data.length">
     <h3 class="primary-text-gradient">
-      {{ answersPagination?.paginationInfo._totalData }} Answers
+      {{ data?.paginationInfo._totalData }} Answers
     </h3>
 
     <Filter :filters="AnswerFilters" />
   </div>
 
-  <div
-    v-if="answersPagination?.data.length"
-    v-for="answer in answersPagination.data"
-    :key="answer._id"
-  >
+  <div v-if="data?.data.length" v-for="answer in data.data" :key="answer._id">
     <article class="light-border border-b py-10">
       <div class="flex items-center justify-between">
         <div
@@ -111,7 +151,7 @@ const { data: answersPagination } = useAnswersPagination(props.questionId);
               :hasDownvoted="
                 userId ? answer.downvotes?.includes(userId) : false
               "
-              :isVoting="isPending"
+              :isVoting="status === 'pending'"
               @onVote="handleVote"
             />
           </div>

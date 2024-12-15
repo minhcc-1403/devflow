@@ -1,8 +1,49 @@
 <script setup lang="ts">
-import { useTagsPagination } from "~/api-hooks/tag.vq";
+import { tagApi } from "~/apis/devflow/2-tag.api";
+import type { Tag } from "~/types/2-tag.type";
 import { TagFilters } from "~/utils/constants/filters";
 
-const { data } = useTagsPagination();
+const route = useRoute();
+const queryParams = computed(() => {
+  const q = route.query.q?.toString();
+  const filter = route.query.filter?.toString();
+
+  const query = {};
+  if (q)
+    Object.assign(query, {
+      name: new RegExp(q, "i").toString(),
+    });
+
+  switch (filter) {
+    case "popular":
+      Object.assign(query, { _sort: "-questionCount" });
+      break;
+
+    case "recent":
+      Object.assign(query, { _sort: "-createdAt" });
+      break;
+
+    case "name":
+      Object.assign(query, { _sort: "name" });
+      break;
+
+    case "old":
+      Object.assign(query, { _sort: "createdAt" });
+      break;
+  }
+
+  return query;
+});
+
+const { data } = useAsyncData(
+  () =>
+    tagApi.paginate<Tag>({
+      ...queryParams.value,
+    }),
+  {
+    watch: [queryParams],
+  },
+);
 </script>
 
 <template>

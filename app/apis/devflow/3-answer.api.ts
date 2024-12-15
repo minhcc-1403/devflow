@@ -12,10 +12,10 @@ import type {
 const ANSWER_URL = "/answers";
 export const answerApi = {
   //  ----- Method: GET -----
-  paginate: (
+  paginate: <T>(
     query?: PaginationParams,
     options?: FetchOptions,
-  ): Promise<PaginateResponse<Answer>> => {
+  ): Promise<PaginateResponse<T>> => {
     return guestFetch.get(`${ANSWER_URL}/paginate`, query, options);
   },
 

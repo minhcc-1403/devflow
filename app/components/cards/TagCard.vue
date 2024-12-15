@@ -18,10 +18,7 @@ defineProps<{
       </div>
 
       <p class="small-regular text-dark500_light700 mt-4">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam fugit
-        doloremque ut eveniet eligendi optio error obcaecati cumque soluta
-        magnam adipisci voluptatibus odio nobis, dignissimos velit ratione
-        accusamus aperiam sint?
+        {{ tag.description }}
       </p>
 
       <p class="small-medium text-dark500_light500 mt-3.5">

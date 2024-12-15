@@ -1,13 +1,62 @@
 <script setup lang="ts">
 import { useQuestionsSavedLoadMore } from "~/api-hooks/question.vq";
+import { questionApi } from "~/apis/devflow/1-question.api";
+import type { QuestionLoadMore } from "~/types/1-question.type";
 
 const props = defineProps<{
   questionIds: string[];
 }>();
 const listEl = ref<HTMLElement | null>(null);
 
-const authStore = useAuthStore();
-const { user } = storeToRefs(authStore);
+const route = useRoute();
+const queryParams = computed(() => {
+  const q = route.query.q?.toString();
+  const filter = route.query.filter?.toString();
+
+  const query = {};
+  if (q)
+    Object.assign(query, {
+      "_oneOf.title": new RegExp(q, "i").toString(),
+      "_oneOf.content": new RegExp(q, "i").toString(),
+    });
+
+  switch (filter) {
+    case "most_recent":
+      Object.assign(query, { _sort: "-createdAt" });
+      break;
+
+    case "oldest":
+      Object.assign(query, { _sort: "createdAt" });
+      break;
+
+    case "most_voted":
+      Object.assign(query, { _sort: "-upvoteCount" });
+      break;
+
+    case "most_viewed":
+      Object.assign(query, { _sort: "-views" });
+      break;
+
+    case "most_answered":
+      Object.assign(query, { _sort: "-answerCount" });
+      break;
+  }
+
+  return query;
+});
+const { data } = useAsyncData(
+  () =>
+    questionApi.paginate<QuestionLoadMore>({
+      _id: props.questionIds.join(","),
+      _populate: "tagIds,authorId",
+      _fields: "authorId._id,authorId.avatar,authorId.fullName,tagIds.name",
+      _limit: 5,
+      ...queryParams.value,
+    }),
+  {
+    watch: [queryParams],
+  },
+);
 
 const { questions, isLoading, hasLoadMore, loadMore } =
   useQuestionsSavedLoadMore(props.questionIds);
@@ -23,9 +72,9 @@ useInfiniteScroll(listEl, loadMore, { distance: 5 });
       :key="i"
     />
 
-    <template v-else-if="questions.length">
+    <template v-else-if="data?.data.length">
       <QuestionCard
-        v-for="question in questions"
+        v-for="question in data.data"
         :key="question._id"
         :_id="question._id"
         :title="question.title"

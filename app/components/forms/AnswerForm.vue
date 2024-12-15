@@ -28,6 +28,8 @@ const onSubmit = handleSubmit(async (values) => {
 
   resetField("content");
   editorRef.value.focus();
+
+  refreshNuxtData(`answered_questions_${props.questionId}`);
 });
 </script>
 

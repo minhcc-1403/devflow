@@ -10,8 +10,10 @@ const queryParams = computed(() => {
   const query = {};
   if (q)
     Object.assign(query, {
-      "_oneOf.title": new RegExp(q, "i").toString(),
-      "_oneOf.content": new RegExp(q, "i").toString(),
+      "_oneOf.fullName": new RegExp(q, "i").toString(),
+      "_oneOf.phone": new RegExp(q, "i").toString(),
+      "_oneOf.email": new RegExp(q, "i").toString(),
+      "_oneOf.username": new RegExp(q, "i").toString(),
     });
 
   switch (filter) {

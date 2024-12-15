@@ -6,10 +6,10 @@ import type { FetchOptions, PaginationParams } from "~/utils/types/fetch.types";
 const TAG_URL = "/tags";
 export const tagApi = {
   //  ----- Method: GET -----
-  paginate: (
+  paginate: <T>(
     query?: PaginationParams,
     options?: FetchOptions,
-  ): Promise<PaginateResponse<Tag>> => {
+  ): Promise<PaginateResponse<T>> => {
     return guestFetch.get(`${TAG_URL}/paginate`, query, options);
   },
 
