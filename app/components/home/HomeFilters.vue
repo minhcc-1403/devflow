@@ -1,17 +1,14 @@
 <script setup lang="ts">
 import { HomePageFilters } from "~/utils/constants/filters";
 
-const urlSearchParam = useUrlSearchParams();
-const active = ref(urlSearchParam.tag?.toString() || "");
+const router = useRouter();
+const route = useRoute();
+
+const active = ref(route.query.filter?.toString() || undefined);
 
 const handleTypeClick = (item: string) => {
-  if (active.value === item) {
-    delete urlSearchParam.tag;
-    active.value = "";
-  } else {
-    urlSearchParam.tag = item;
-    active.value = item;
-  }
+  active.value = active.value === item ? undefined : item;
+  router.push({ query: { ...route.query, filter: active.value } });
 };
 </script>
 

@@ -2,7 +2,54 @@
 const listEl = ref<HTMLElement | null>(null);
 
 import { useQuestionsLoadMore } from "~/api-hooks/question.vq";
+import { questionApi } from "~/apis/devflow/1-question.api";
+import type { QuestionLoadMore } from "~/types/1-question.type";
 import { HomePageFilters } from "~/utils/constants/filters";
+
+const route = useRoute();
+const queryParams = computed(() => {
+  const q = route.query.q?.toString();
+  const filter = route.query.filter?.toString();
+
+  const query = {};
+  if (q)
+    Object.assign(query, {
+      "_oneOf.title": new RegExp(q, "i").toString(),
+      "_oneOf.content": new RegExp(q, "i").toString(),
+    });
+
+  switch (filter) {
+    case "newest":
+      Object.assign(query, { _sort: "-createdAt" });
+      break;
+
+    case "recommended":
+      // handle fetch recommended questions
+      break;
+
+    case "frequent":
+      Object.assign(query, { _sort: "-views" });
+
+      break;
+    case "unanswered":
+      Object.assign(query, { answerCount: 0 });
+      break;
+  }
+
+  return query;
+});
+const { data } = useAsyncData(
+  () =>
+    questionApi.paginate<QuestionLoadMore>({
+      _populate: "tagIds,authorId",
+      _fields: "authorId._id,authorId.avatar,authorId.fullName,tagIds.name",
+      _limit: 5,
+      ...queryParams.value,
+    }),
+  {
+    watch: [queryParams],
+  },
+);
 
 const { questions, isLoading, hasLoadMore, loadMore } = useQuestionsLoadMore();
 
@@ -12,6 +59,7 @@ useInfiniteScroll(listEl, loadMore, { distance: 5 });
 <template>
   <div class="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row">
     <h1 class="h1-bold text-dark100_light900">All Questions</h1>
+    {{ queryParams }}
 
     <NuxtLink to="/ask-question" class="flex justify-end max-sm:w-full">
       <Button class="primary-gradient min-h-[46px] px-4 py-3 text-gray-100"
@@ -45,9 +93,9 @@ useInfiniteScroll(listEl, loadMore, { distance: 5 });
       :key="i"
     />
 
-    <template v-else-if="questions.length">
+    <template v-else-if="data?.data?.length">
       <QuestionCard
-        v-for="question in questions"
+        v-for="question in data.data"
         :key="question._id"
         :_id="question._id"
         :title="question.title"

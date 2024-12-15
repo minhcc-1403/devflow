@@ -6,13 +6,15 @@ defineProps<{
   placeholder: string;
   otherClasses?: string;
 }>();
-const urlSearchParam = useUrlSearchParams();
-const search = ref(urlSearchParam.q?.toString() || "");
+const route = useRoute();
+const search = ref(route.query.q?.toString() || undefined);
 
 const handleSearch = useDebounceFn((e: string | number) => {
-  search.value = e.toString();
-  urlSearchParam.q = search.value;
-  if (!search.value) delete urlSearchParam.q;
+  search.value = e.toString() || undefined;
+
+  useRouter().push({
+    query: { ...route.query, q: search.value },
+  });
 }, 1000);
 </script>
 
