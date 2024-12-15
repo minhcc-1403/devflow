@@ -8,11 +8,24 @@ defineProps<{
   otherClasses?: string;
   containerClasses?: string;
 }>();
+
+const router = useRouter();
+const route = useRoute();
+
+const selectedValue = ref(route.query.filter?.toString() || undefined);
+
+const handleFilterChange = (item: string) => {
+  selectedValue.value = item;
+  router.push({ query: { ...route.query, filter: selectedValue.value } });
+};
 </script>
 
 <template>
   <div :class="`relative ${containerClasses}`">
-    <Select>
+    <Select
+      :model-value="selectedValue"
+      @update:model-value="handleFilterChange"
+    >
       <SelectTrigger
         :class="`${otherClasses} body-regular light-border bg-light800_dark300 text-dark500_light700 border border-none px-5 py-2.5`"
       >

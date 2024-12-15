@@ -29,8 +29,8 @@ const queryParams = computed(() => {
 
     case "frequent":
       Object.assign(query, { _sort: "-views" });
-
       break;
+
     case "unanswered":
       Object.assign(query, { answerCount: 0 });
       break;

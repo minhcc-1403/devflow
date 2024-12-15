@@ -2,35 +2,47 @@
 import { userApi } from "~/apis/pre-built/2-user.api";
 import { UserFilters } from "~/utils/constants/filters";
 
-const filter = useState("users-community-filter", () => "");
+const route = useRoute();
+const queryParams = computed(() => {
+  const q = route.query.q?.toString();
+  const filter = route.query.filter?.toString();
 
-const { data, status } = useAsyncData(
-  `users-community`,
+  const query = {};
+  if (q)
+    Object.assign(query, {
+      "_oneOf.title": new RegExp(q, "i").toString(),
+      "_oneOf.content": new RegExp(q, "i").toString(),
+    });
+
+  switch (filter) {
+    case "new_users":
+      Object.assign(query, { _sort: "-createdAt" });
+      break;
+
+    case "old_users":
+      Object.assign(query, { _sort: "createdAt" });
+      break;
+
+    case "top_contributors":
+      Object.assign(query, { _sort: "-reputation" });
+      break;
+  }
+
+  return query;
+});
+
+const { data } = useAsyncData(
   () => {
     return userApi.paginate({
-      _id: filter.value,
-      _sort: "-createdAt",
       _limit: 5,
       _fields: "_id,fullName,username,email,phone,avatar,topInteractedTags",
+      ...queryParams.value,
     });
   },
   {
-    getCachedData(key, nuxtApp) {
-      return nuxtApp.payload.data[key];
-    },
-    watch: [filter],
+    watch: [queryParams],
   },
 );
-
-const toggleFilter = (value: string) => {
-  const filters = filter.value.split(",").filter(Boolean);
-  if (filters.includes(value)) {
-    filter.value = filters.filter((id) => id !== value).join(",");
-  } else {
-    filters.push(value);
-    filter.value = filters.join(",");
-  }
-};
 </script>
 
 <template>
