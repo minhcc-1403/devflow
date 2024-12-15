@@ -12,13 +12,19 @@ const route = useRoute();
 const queryParams = computed(() => {
   const q = route.query.q?.toString();
   const filter = route.query.filter?.toString();
+  const page = route.query._page?.toString() || undefined;
 
   const query = {};
-  if (q)
+  if (q) {
     Object.assign(query, {
       "_oneOf.title": new RegExp(q, "i").toString(),
       "_oneOf.content": new RegExp(q, "i").toString(),
     });
+  }
+
+  if (page) {
+    Object.assign(query, { _page: page });
+  }
 
   switch (filter) {
     case "most_recent":
@@ -90,6 +96,11 @@ useInfiniteScroll(listEl, loadMore, { distance: 5 });
     </template>
 
     <QuestionCardLoading v-if="isLoading" v-for="i in 3" :key="i" />
+
+    <PaginationInfo
+      v-if="data?.paginationInfo && data?.paginationInfo._totalPages > 1"
+      :data="data.paginationInfo"
+    />
   </div>
 </template>
 
