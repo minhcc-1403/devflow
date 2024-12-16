@@ -1,5 +1,20 @@
 <script setup lang="ts">
 import { cn } from "@/lib/utils";
+
+const route = useRoute();
+const search = ref(route.query.global?.toString() || undefined);
+const isOpen = ref(false);
+
+const handleSearch = useDebounceFn((e: string | number) => {
+  search.value = e.toString() || undefined;
+
+  if (!isOpen.value) isOpen.value = true;
+  if (!search.value && isOpen.value) isOpen.value = false;
+
+  useRouter().push({
+    query: { ...route.query, global: search.value },
+  });
+}, 300);
 </script>
 
 <template>
@@ -16,6 +31,8 @@ import { cn } from "@/lib/utils";
       />
 
       <Input
+        :model-value="search"
+        @update:model-value="handleSearch"
         placeholder="Search..."
         :class="
           cn(
@@ -24,5 +41,7 @@ import { cn } from "@/lib/utils";
         "
       />
     </div>
+
+    <GlobalResult v-if="isOpen" />
   </div>
 </template>

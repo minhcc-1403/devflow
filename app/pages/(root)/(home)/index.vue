@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const listEl = ref<HTMLElement | null>(null);
 
-import { useQuestionsLoadMore } from "~/api-hooks/question.vq";
 import { questionApi } from "~/apis/devflow/1-question.api";
 import type { QuestionLoadMore } from "~/types/1-question.type";
 import { HomePageFilters } from "~/utils/constants/filters";
@@ -10,13 +9,19 @@ const route = useRoute();
 const queryParams = computed(() => {
   const q = route.query.q?.toString();
   const filter = route.query.filter?.toString();
+  const page = route.query._page?.toString() || undefined;
 
   const query = {};
-  if (q)
+  if (q) {
     Object.assign(query, {
       "_oneOf.title": new RegExp(q, "i").toString(),
       "_oneOf.content": new RegExp(q, "i").toString(),
     });
+  }
+
+  if (page) {
+    Object.assign(query, { _page: page });
+  }
 
   switch (filter) {
     case "newest":
@@ -38,7 +43,8 @@ const queryParams = computed(() => {
 
   return query;
 });
-const { data } = useAsyncData(
+
+const { data, status } = useAsyncData(
   () =>
     questionApi.paginate<QuestionLoadMore>({
       _populate: "tagIds,authorId",
@@ -47,19 +53,31 @@ const { data } = useAsyncData(
       ...queryParams.value,
     }),
   {
+    getCachedData(key, nuxtApp) {
+      const res = nuxtApp.payload.data[key];
+
+      if (res) {
+        useRouter().push({
+          query: {
+            _page: res.paginationInfo._page,
+          },
+        });
+      }
+
+      return res;
+    },
     watch: [queryParams],
   },
 );
 
-const { questions, isLoading, hasLoadMore, loadMore } = useQuestionsLoadMore();
+// const { questions, isLoading, hasLoadMore, loadMore } = useQuestionsLoadMore();
 
-useInfiniteScroll(listEl, loadMore, { distance: 5 });
+// useInfiniteScroll(listEl, loadMore, { distance: 5 });
 </script>
 
 <template>
   <div class="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row">
     <h1 class="h1-bold text-dark100_light900">All Questions</h1>
-    {{ queryParams }}
 
     <NuxtLink to="/ask-question" class="flex justify-end max-sm:w-full">
       <Button class="primary-gradient min-h-[46px] px-4 py-3 text-gray-100"
@@ -88,7 +106,7 @@ useInfiniteScroll(listEl, loadMore, { distance: 5 });
 
   <div class="mt-10 flex w-full flex-col gap-6">
     <QuestionCardLoading
-      v-if="!questions.length && isLoading"
+      v-if="!data?.data.length && status === 'pending'"
       v-for="i in 3"
       :key="i"
     />
@@ -107,7 +125,10 @@ useInfiniteScroll(listEl, loadMore, { distance: 5 });
       />
 
       <!-- Load more -->
-      <span v-show="hasLoadMore && !isLoading" ref="listEl" />
+      <span
+        v-show="data.paginationInfo._nextPage && status === 'pending'"
+        ref="listEl"
+      />
     </template>
 
     <NoResult
@@ -120,6 +141,7 @@ useInfiniteScroll(listEl, loadMore, { distance: 5 });
       linkTitle="Ask a Question"
     />
 
-    <QuestionCardLoading v-if="isLoading" v-for="i in 3" :key="i" />
+    <!-- <QuestionCardLoading v-if="status === 'pending'" v-for="i in 3" :key="i" /> -->
+    <PaginationInfo v-if="data?.paginationInfo" :data="data.paginationInfo" />
   </div>
 </template>
