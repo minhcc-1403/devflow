@@ -70,7 +70,7 @@ const renderLink = (type: string, id: string) => "";
   <div
     class="absolute top-full z-10 mt-3 w-full rounded-xl bg-light-800 py-5 shadow-sm dark:bg-dark-400"
   >
-    <p class="text-dark300_light900 paragraph-semibold px-5">Filters</p>
+    <GlobalFilters />
 
     <div class="my-5 h-[1px] bg-light-700/50 dark:bg-dark-500/50" />
 
