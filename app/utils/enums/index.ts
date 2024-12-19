@@ -119,3 +119,10 @@ export enum UserQuestionActivityTypeEnum {
   Question = "QUESTION",
   Answer = "ANSWER",
 }
+
+export enum SearchableTypesEnum {
+  Question = "question",
+  User = "user",
+  Answer = "answer",
+  Tag = "tag",
+}

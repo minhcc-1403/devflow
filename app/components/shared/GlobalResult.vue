@@ -1,69 +1,57 @@
 <script setup lang="ts">
-import { questionApi } from "~/apis/devflow/1-question.api";
+import { generalApi } from "~/apis/devflow/0-general.api";
+import { SearchableTypesEnum } from "~/utils/enums";
 
 const route = useRoute();
 
 const queryParams = computed(() => {
   const global = route.query.global?.toString();
-  const type = route.query.type?.toString();
+  const type = route.query.type?.toString() as SearchableTypesEnum;
 
-  const query = {};
-  if (global) {
-    Object.assign(query, {
-      "_oneOf.title": new RegExp(global, "i").toString(),
-      "_oneOf.content": new RegExp(global, "i").toString(),
-    });
-  }
-
-  switch (type) {
-    case "newest":
-      Object.assign(query, { _sort: "-createdAt" });
-      break;
-
-    case "recommended":
-      // handle fetch recommended questions
-      break;
-
-    case "frequent":
-      Object.assign(query, { _sort: "-views" });
-      break;
-
-    case "unanswered":
-      Object.assign(query, { answerCount: 0 });
-      break;
-  }
-
-  return query;
+  return {
+    global,
+    type,
+  };
 });
 
 const { data, status } = useAsyncData(
   () => {
-    return questionApi.getAll(queryParams.value);
+    return generalApi.globalSearch<
+      {
+        searchType: SearchableTypesEnum;
+        _id: string;
+        title: string;
+      }[]
+    >(queryParams.value.global!, queryParams.value.type);
   },
   {
     watch: [queryParams],
   },
 );
 
-const results = ref([
-  {
-    type: "question",
-    id: "1",
-    title: "Next.js",
-  },
-  {
-    type: "tag",
-    id: "2",
-    title: "Nextjs",
-  },
-  {
-    type: "user",
-    id: "3",
-    title: "John Doe",
-  },
-]);
+const renderLink = (type: SearchableTypesEnum, id: string) => {
+  const queryString = Object.entries(queryParams.value)
+    .map(([key, value]) => value && `${key}=${value}`)
+    .filter(Boolean)
+    .join("&");
 
-const renderLink = (type: string, id: string) => "";
+  switch (type) {
+    case SearchableTypesEnum.Question:
+      return `/question/${id}?${queryString}`;
+
+    case SearchableTypesEnum.Answer:
+      return `/question/${id}?${queryString}`;
+
+    case SearchableTypesEnum.User:
+      return `/profile/${id}?${queryString}`;
+
+    case SearchableTypesEnum.Tag:
+      return `/tags/${id}?${queryString}`;
+
+    default:
+      return `/?${queryString}`;
+  }
+};
 </script>
 
 <template>
@@ -92,10 +80,10 @@ const renderLink = (type: string, id: string) => "";
       <!-- Results -->
       <div v-else class="flex flex-col gap-2">
         <NuxtLink
-          v-if="results?.length"
-          v-for="(item, index) in results"
-          :key="`${item.type}-${item.id}-${index}`"
-          :to="renderLink(item.type, item.id)"
+          v-if="data?.length"
+          v-for="(item, index) in data"
+          :key="`${item.searchType}-${item._id}-${index}`"
+          :to="renderLink(item.searchType, item._id)"
           class="flex w-full cursor-pointer items-start gap-3 px-5 py-2.5 hover:bg-light-700/50 dark:hover:bg-dark-500/50"
         >
           <NuxtImg
@@ -110,7 +98,7 @@ const renderLink = (type: string, id: string) => "";
               {{ item.title }}
             </p>
             <p class="text-light400_light500 mt-1 text-xs font-bold capitalize">
-              {{ item.type }}
+              {{ item.searchType }}
             </p>
           </div>
         </NuxtLink>

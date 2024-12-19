@@ -2,23 +2,43 @@
 import { cn } from "@/lib/utils";
 
 const route = useRoute();
-const search = ref(route.query.global?.toString() || undefined);
-const isOpen = ref(false);
+const search = computed(() => route.query?.global?.toString());
+const isOpen = computed(() => !!route.query?.global?.toString());
 
 const handleSearch = useDebounceFn((e: string | number) => {
-  search.value = e.toString() || undefined;
-
-  if (!isOpen.value) isOpen.value = true;
-  if (!search.value && isOpen.value) isOpen.value = false;
+  const value = e.toString() || undefined;
 
   useRouter().push({
-    query: { ...route.query, global: search.value },
+    query: { ...route.query, global: value },
   });
-}, 300);
+}, 500);
+
+const searchContainerRef = ref<HTMLElement | null>(null);
+
+const handleOutsideClick = (event: any) => {
+  if (
+    searchContainerRef.value &&
+    // @ts-ignore
+    !searchContainerRef.value.contains(event.target)
+  ) {
+    useRouter().push({
+      query: { ...route.query, global: undefined, type: undefined },
+    });
+  }
+};
+
+watch(isOpen, () => {
+  isOpen.value
+    ? document.addEventListener("click", handleOutsideClick)
+    : document.removeEventListener("click", handleOutsideClick);
+});
 </script>
 
 <template>
-  <div class="relative w-full max-w-[600px] max-lg:hidden">
+  <div
+    class="relative w-full max-w-[600px] max-lg:hidden"
+    ref="searchContainerRef"
+  >
     <div
       class="bg-light800_darkgradient relative flex min-h-[56px] grow items-center gap-1 rounded-xl px-4"
     >
