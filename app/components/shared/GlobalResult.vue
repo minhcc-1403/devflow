@@ -16,13 +16,10 @@ const queryParams = computed(() => {
 
 const { data, status } = useAsyncData(
   () => {
-    return generalApi.globalSearch<
-      {
-        searchType: SearchableTypesEnum;
-        _id: string;
-        title: string;
-      }[]
-    >(queryParams.value.global!, queryParams.value.type);
+    return generalApi.globalSearch(
+      queryParams.value.global!,
+      queryParams.value.type,
+    );
   },
   {
     watch: [queryParams],

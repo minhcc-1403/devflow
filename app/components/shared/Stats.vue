@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import type { UserBadgeCounts } from "~/types/0-general.type";
 import { formatAndDivideNumber } from "~/utils/helpers/format.helper";
 
 defineProps<{
   questionsCount?: number;
   answersCount?: number;
+  userBadgeCounts?: UserBadgeCounts;
 }>();
 </script>
 
@@ -32,19 +34,19 @@ defineProps<{
 
       <StatsCard
         img-url="https://devflow-rose.vercel.app/assets/icons/gold-medal.svg"
-        :value="0"
+        :value="userBadgeCounts?.badgeCounts.gold || 0"
         title="Gold Badges"
       />
 
       <StatsCard
         img-url="https://devflow-rose.vercel.app/assets/icons/silver-medal.svg"
-        :value="0"
+        :value="userBadgeCounts?.badgeCounts.silver || 0"
         title="Silver Badges"
       />
 
       <StatsCard
         img-url="https://devflow-rose.vercel.app/assets/icons/bronze-medal.svg"
-        :value="0"
+        :value="userBadgeCounts?.badgeCounts.bronze || 0"
         title="Bronze Badges"
       />
     </div>

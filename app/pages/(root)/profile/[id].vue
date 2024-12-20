@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { generalApi } from "~/apis/devflow/0-general.api";
 import { userApi } from "~/apis/pre-built/2-user.api";
+import type { UserBadgeCounts } from "~/types/0-general.type";
 import type { User } from "~/types/pre-built/2-user";
 import { getJoinedDate } from "~/utils/helpers/format.helper";
 
@@ -9,8 +11,11 @@ const profile = useState<User | null>(`profile_${userId}`, () => null);
 const authStore = useAuthStore();
 const { user } = storeToRefs(authStore);
 
+const userBadgeCounts = ref<UserBadgeCounts>();
+
 callOnce(userId, async () => {
   profile.value = await userApi.getById(userId);
+  userBadgeCounts.value = await generalApi.getUserBadgeCounts(userId);
 });
 </script>
 
@@ -90,6 +95,7 @@ callOnce(userId, async () => {
     <Stats
       :questions-count="profile?.questionsCount"
       :answers-count="profile?.answersCount"
+      :user-badge-counts="userBadgeCounts"
     />
 
     <div class="mt-10 flex gap-10">
