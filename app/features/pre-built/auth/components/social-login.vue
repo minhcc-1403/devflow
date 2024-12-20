@@ -33,8 +33,8 @@ const loginWithGoogle = async (e: MouseEvent) => {
     <Button
       variant="outline"
       class="flex w-full items-center py-5 text-center text-sm text-gray-600 hover:text-primary dark:text-gray-300"
-      @click="loginWithGoogle"
       :disabled="disabled"
+      @click="loginWithGoogle"
     >
       <Icon name="flat-color-icons:google" class="mr-2" />
 

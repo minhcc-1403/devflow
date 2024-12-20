@@ -13,8 +13,8 @@ const { promise, handleCancel, handleConfirm, title, description, isLoading } =
 
       <AlertDialogFooter>
         <AlertDialogCancel
-          @click="handleCancel"
           class="dark:bg-gray-100 hover:dark:text-gray-800"
+          @click="handleCancel"
           >Cancel</AlertDialogCancel
         >
         <AlertDialogAction :disabled="isLoading" @click="handleConfirm">

@@ -47,7 +47,7 @@ const onSubmit = handleSubmit(async () => {
 </script>
 
 <template>
-  <form @submit="onSubmit" class="flex w-full flex-col gap-10">
+  <form class="flex w-full flex-col gap-10" @submit="onSubmit">
     <FormField v-slot="{ componentField }" name="fullName">
       <FormItem class="space-y-3.5">
         <FormLabel class="paragraph-semibold text-dark300_light900"

@@ -33,6 +33,7 @@ onMounted(() => {
 });
 </script>
 
+/* eslint-disable vue/no-v-html */
 <template>
   <p v-html="data" />
 </template>

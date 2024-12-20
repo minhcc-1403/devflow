@@ -2,34 +2,31 @@
 import Editor from "@tinymce/tinymce-vue";
 import { toTypedSchema } from "@vee-validate/zod";
 import { useForm, type FieldBindingObject } from "vee-validate";
-import { useQuestionCreate } from "~/api-hooks/question.vq";
-import type { Tag } from "~/types/2-tag.type";
+import { questionApi } from "~/apis/devflow/1-question.api";
+import { toast } from "~/components/ui/toast";
+import type { QuestionDetail } from "~/types/1-question.type";
 import {
   CreateQuestionSchema,
-  type UpdateQuestion,
+  type CreateQuestion,
 } from "~/validations/question.validation";
 const colorMode = useColorMode();
 
 const props = defineProps<{
   type: "Edit" | "Create";
-  questionDetail?: UpdateQuestion & {
-    tagIds?: Tag[];
-  };
+  questionDetail?: QuestionDetail;
 }>();
 
-const { mutateAsync: createQuestion, isPending: isCreatePending } =
-  useQuestionCreate();
+const initialValues = {
+  title: props.questionDetail?.title || "",
+  tags: props.questionDetail?.tagIds?.map((tag) => tag.name) || [],
+  content: props.questionDetail?.content || "",
+};
 
-const { handleSubmit, setFieldError, setFieldTouched, setFieldValue } = useForm(
-  {
+const { handleSubmit, setFieldError, setFieldTouched, setFieldValue, values } =
+  useForm({
     validationSchema: toTypedSchema(CreateQuestionSchema),
-    initialValues: {
-      title: props.questionDetail?.title || "",
-      tags: props.questionDetail?.tagIds?.map((tag) => tag.name) || [],
-      content: props.questionDetail?.content || "",
-    },
-  },
-);
+    initialValues,
+  });
 
 const tagValue = ref("");
 const handleAddTag = (field: FieldBindingObject) => {
@@ -54,24 +51,40 @@ const handleRemoveTag = (tag: string, field: FieldBindingObject) => {
   setFieldValue("tags", newTags);
 };
 
-const isSubmitting = ref(false);
+const { execute, status } = useAsyncData(
+  `${props.type}_question`,
+  async () => {
+    switch (props.type) {
+      case "Create": {
+        const res = await questionApi.create(values as CreateQuestion);
 
-const onSubmit = handleSubmit(async (values) => {
-  switch (props.type) {
-    case "Create":
-      await createQuestion(values);
-      navigateTo("/");
-      break;
+        toast({
+          title: "Success",
+          description: "Question created successfully",
+        });
+        navigateTo("/");
+        refreshNuxtData("questions");
 
-    case "Edit":
-      isSubmitting.value = true;
-      break;
-  }
-});
+        return res;
+      }
+
+      case "Edit":
+        return questionApi.updateById(
+          props.questionDetail!._id as string,
+          values,
+        );
+    }
+  },
+  {
+    immediate: false,
+  },
+);
+
+const onSubmit = handleSubmit(() => execute());
 </script>
 
 <template>
-  <form @submit="onSubmit" class="flex w-full flex-col gap-10">
+  <form class="flex w-full flex-col gap-10" @submit="onSubmit">
     <FormField v-slot="{ componentField }" name="title">
       <FormItem class="flex w-full flex-col">
         <FormLabel class="paragraph-semibold text-dark300_light900"
@@ -101,12 +114,6 @@ const onSubmit = handleSubmit(async (values) => {
         <FormControl class="mt-3.5">
           <Editor
             :model-value="value"
-            @update:model-value="
-              (e) => {
-                handleInput(e);
-                validate();
-              }
-            "
             :api-key="useRuntimeConfig().public.tinyEditorApiKey"
             :init="{
               height: 350,
@@ -138,6 +145,12 @@ const onSubmit = handleSubmit(async (values) => {
             }"
             initial-value=""
             model-events="change keydown paste undo redo"
+            @update:model-value="
+              (e) => {
+                handleInput(e);
+                validate();
+              }
+            "
           />
         </FormControl>
         <FormDescription class="body-regular mt-2.5 text-xs text-light-500">
@@ -173,12 +186,12 @@ const onSubmit = handleSubmit(async (values) => {
             {{ tag }}
 
             <NuxtImg
-              @click="handleRemoveTag(tag, field)"
               src="https://devflow-rose.vercel.app/assets/icons/close.svg"
               alt="Close icon"
               width="12"
               height="12"
               class="cursor-pointer object-contain invert-0 dark:invert"
+              @click="handleRemoveTag(tag, field)"
             />
           </Badge>
         </div>
@@ -195,14 +208,18 @@ const onSubmit = handleSubmit(async (values) => {
     <Button
       type="submit"
       class="primary-gradient w-fit !text-light-900"
-      :disabled="isSubmitting || isCreatePending"
+      :disabled="
+        status === 'pending' ||
+        JSON.stringify(initialValues).split('').sort().join('') ===
+          JSON.stringify(values).split('').sort().join('')
+      "
     >
       <span v-if="type === 'Create'">
-        {{ isCreatePending ? "Posting..." : "Ask a Question" }}
+        {{ status === "pending" ? "Posting..." : "Ask a Question" }}
       </span>
 
       <span v-else>
-        {{ isSubmitting ? "Editing..." : "Edit Question" }}
+        {{ status === "pending" ? "Editing..." : "Edit Question" }}
       </span>
     </Button>
   </form>

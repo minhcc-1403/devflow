@@ -1,14 +1,11 @@
 <script setup lang="ts">
 import { formatDistanceToNowStrict } from "date-fns";
-import { useViewQuestion } from "~/api-hooks/interaction.vp";
 import { questionApi } from "~/apis/devflow/1-question.api";
+import { interactionApi } from "~/apis/devflow/3-interaction.api";
 import { toast } from "~/components/ui/toast";
 import type { QuestionDetail } from "~/types/1-question.type";
-import {
-  ActionEnum,
-  UserQuestionActivityTypeEnum,
-  VoteActionEnum,
-} from "~/utils/enums";
+import type { ActionEnum, VoteActionEnum } from "~/utils/enums";
+import { UserQuestionActivityTypeEnum } from "~/utils/enums";
 import { handleApiError } from "~/utils/helpers/error-handler.helper";
 import { formatAndDivideNumber } from "~/utils/helpers/format.helper";
 
@@ -63,104 +60,107 @@ const handleSave = async ({ action }: { action: ActionEnum }) => {
     });
 };
 
-callOnce(questionId, () => useViewQuestion(questionId));
+callOnce(questionId, () => user && interactionApi.viewQuestion(questionId));
 </script>
 
 <template>
-  <div class="flex-start w-full flex-col">
-    <div
-      class="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center sm:gap-2"
-    >
-      <NuxtLink
-        :to="`/profile/${question?.authorId._id}`"
-        class="flex items-center justify-start gap-2"
+  <div>
+    <div class="flex-start w-full flex-col">
+      <div
+        class="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center sm:gap-2"
       >
-        <Avatar width="22" height="22">
-          <AvatarImage
-            v-if="question?.authorId.avatar"
-            :src="question.authorId.avatar"
-            alt="User avatar"
+        <NuxtLink
+          :to="`/profile/${question?.authorId._id}`"
+          class="flex items-center justify-start gap-2"
+        >
+          <Avatar width="22" height="22">
+            <AvatarImage
+              v-if="question?.authorId.avatar"
+              :src="question.authorId.avatar"
+              alt="User avatar"
+            />
+            <AvatarFallback>{{
+              question?.authorId.fullName
+                ?.split(",")
+                ?.map((name) => name[0])
+                ?.join("")
+                ?.toUpperCase()
+            }}</AvatarFallback>
+          </Avatar>
+
+          <p class="paragraph-semibold text-dark300_light700">
+            {{ question?.authorId.fullName }}
+          </p>
+        </NuxtLink>
+
+        <div v-if="question" class="flex justify-end">
+          <Votes
+            :type="UserQuestionActivityTypeEnum.Question"
+            :item-id="question._id"
+            :user-id="user?._id"
+            :upvote-count="question.upvoteCount"
+            :has-upvoted="user?.upvoteQuestionIds?.includes(question._id)"
+            :downvote-count="question.downvoteCount"
+            :has-downvoted="user?.downvoteQuestionIds?.includes(question._id)"
+            :has-saved="user?.savedQuestionIds?.includes(question._id)"
+            :is-voting="isVoting"
+            @on-vote="handleVote"
+            @on-save="handleSave"
           />
-          <AvatarFallback>{{
-            question?.authorId.fullName
-              ?.split(",")
-              ?.map((name) => name[0])
-              ?.join("")
-              ?.toUpperCase()
-          }}</AvatarFallback>
-        </Avatar>
-
-        <p class="paragraph-semibold text-dark300_light700">
-          {{ question?.authorId.fullName }}
-        </p>
-      </NuxtLink>
-
-      <div class="flex justify-end" v-if="question">
-        <Votes
-          :type="UserQuestionActivityTypeEnum.Question"
-          :itemId="question._id"
-          :userId="user?._id"
-          :upvoteCount="question.upvoteCount"
-          :hasUpvoted="user?.upvoteQuestionIds?.includes(question._id)"
-          :downvoteCount="question.downvoteCount"
-          :hasDownvoted="user?.downvoteQuestionIds?.includes(question._id)"
-          :hasSaved="user?.savedQuestionIds?.includes(question._id)"
-          :isVoting="isVoting"
-          @on-vote="handleVote"
-          @on-save="handleSave"
-        />
+        </div>
       </div>
+
+      <h2 class="h2-semibold text-dark200_light900 mt-3.5 w-full text-left">
+        {{ question?.title }}
+      </h2>
     </div>
 
-    <h2 class="h2-semibold text-dark200_light900 mt-3.5 w-full text-left">
-      {{ question?.title }}
-    </h2>
-  </div>
+    <div v-if="question" class="mb-8 mt-5 flex flex-wrap gap-4">
+      <Metric
+        img-url="https://devflow-rose.vercel.app/assets/icons/clock.svg"
+        alt="clock icon"
+        :value="`asked ${formatDistanceToNowStrict(question.createdAt, { addSuffix: true })}`"
+        title=" Asked"
+        text-styles="small-medium text-dark400_light800"
+      />
 
-  <div class="mb-8 mt-5 flex flex-wrap gap-4" v-if="question">
-    <Metric
-      imgUrl="https://devflow-rose.vercel.app/assets/icons/clock.svg"
-      alt="clock icon"
-      :value="`asked ${formatDistanceToNowStrict(question.createdAt, { addSuffix: true })}`"
-      title=" Asked"
-      textStyles="small-medium text-dark400_light800"
-    />
+      <Metric
+        img-url="https://devflow-rose.vercel.app/assets/icons/message.svg"
+        alt="message"
+        :value="formatAndDivideNumber(question.answerCount)"
+        title="Answers"
+        text-styles="small-medium text-dark400_light800"
+      />
 
-    <Metric
-      imgUrl="https://devflow-rose.vercel.app/assets/icons/message.svg"
-      alt="message"
-      :value="formatAndDivideNumber(question.answerCount)"
-      title="Answers"
-      textStyles="small-medium text-dark400_light800"
-    />
+      <Metric
+        img-url="https://devflow-rose.vercel.app/assets/icons/eye.svg"
+        alt="eye"
+        :value="formatAndDivideNumber(question.views)"
+        title="Views"
+        text-styles="small-medium text-dark400_light800"
+      />
+    </div>
+    <ParseHTML v-if="question" :data="question?.content" />
+    <div class="mt-8 flex flex-wrap gap-2">
+      <template v-if="question">
+        <RenderTag
+          v-for="tag in question.tagIds"
+          :key="tag._id"
+          :_id="tag._id"
+          :name="tag.name"
+          :show-count="false"
+        />
+      </template>
+    </div>
 
-    <Metric
-      imgUrl="https://devflow-rose.vercel.app/assets/icons/eye.svg"
-      alt="eye"
-      :value="formatAndDivideNumber(question.views)"
-      title="Views"
-      textStyles="small-medium text-dark400_light800"
-    />
-  </div>
-  <ParseHTML v-if="question" :data="question?.content" />
-  <div class="mt-8 flex flex-wrap gap-2">
-    <RenderTag
-      v-if="question"
-      v-for="tag in question.tagIds"
-      :key="tag._id"
-      :_id="tag._id"
-      :name="tag.name"
-      :showCount="false"
-    />
-  </div>
+    <div v-if="question" class="mt-20">
+      <AnswerForm :question-id="question._id" />
+    </div>
 
-  <div class="mt-20" v-if="question">
-    <AnswerForm :questionId="question._id" />
-  </div>
-
-  <p class="my-8 border-t" />
-  <div class="mt-8" v-if="question">
-    <AllAnswers :questionId="question._id" :userId="user?._id" />
+    <p class="my-8 border-t" />
+    <div v-if="question" class="mt-8">
+      <AllAnswers :question-id="question._id" :user-id="user?._id" />
+    </div>
   </div>
 </template>
 

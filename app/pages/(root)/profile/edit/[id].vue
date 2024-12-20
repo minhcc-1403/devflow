@@ -7,9 +7,11 @@ const { data } = useAsyncData("profile_edit", () => {
 </script>
 
 <template>
-  <h1 class="h1-bold text-dark100_light900">Edit Profile</h1>
+  <div>
+    <h1 class="h1-bold text-dark100_light900">Edit Profile</h1>
 
-  <div class="mt-9" v-if="data">
-    <ProfileForm :user="data" />
+    <div v-if="data" class="mt-9">
+      <ProfileForm :user="data" />
+    </div>
   </div>
 </template>

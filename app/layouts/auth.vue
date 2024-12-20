@@ -17,7 +17,7 @@ const onLocaleSelect = (language: Locale) => {
         class="logo relative left-0 right-0 top-0 px-6 py-4 pt-5 lg:bottom-0 lg:w-1/2"
       >
         <NuxtLink to="/" class="relative z-10">
-          <img src="/logo.svg" alt="Logo" />
+          <img src="/logo.svg" alt="Logo" >
         </NuxtLink>
 
         <div
@@ -26,7 +26,7 @@ const onLocaleSelect = (language: Locale) => {
           <img
             src="https://modernize-nuxt.adminmart.com/images/backgrounds/login-bg.svg"
             alt="Login Background"
-          />
+          >
         </div>
       </div>
 

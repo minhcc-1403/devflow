@@ -79,29 +79,32 @@ const renderLink = (type: SearchableTypesEnum, id: string) => {
 
       <!-- Results -->
       <div v-else class="flex flex-col gap-2">
-        <NuxtLink
-          v-if="data?.length"
-          v-for="(item, index) in data"
-          :key="`${item.searchType}-${item._id}-${index}`"
-          :to="renderLink(item.searchType, item._id)"
-          class="flex w-full cursor-pointer items-start gap-3 px-5 py-2.5 hover:bg-light-700/50 dark:hover:bg-dark-500/50"
-        >
-          <NuxtImg
-            src="https://devflow-rose.vercel.app/assets/icons/tag.svg"
-            width="18"
-            height="18"
-            class="invert-colors mt-1 object-contain"
-          />
+        <template v-if="data?.length">
+          <NuxtLink
+            v-for="(item, index) in data"
+            :key="`${item.searchType}-${item._id}-${index}`"
+            :to="renderLink(item.searchType, item._id)"
+            class="flex w-full cursor-pointer items-start gap-3 px-5 py-2.5 hover:bg-light-700/50 dark:hover:bg-dark-500/50"
+          >
+            <NuxtImg
+              src="https://devflow-rose.vercel.app/assets/icons/tag.svg"
+              width="18"
+              height="18"
+              class="invert-colors mt-1 object-contain"
+            />
 
-          <div class="flex flex-col">
-            <p class="body-medium text-dark200_light800 line-clamp-1">
-              {{ item.title }}
-            </p>
-            <p class="text-light400_light500 mt-1 text-xs font-bold capitalize">
-              {{ item.searchType }}
-            </p>
-          </div>
-        </NuxtLink>
+            <div class="flex flex-col">
+              <p class="body-medium text-dark200_light800 line-clamp-1">
+                {{ item.title }}
+              </p>
+              <p
+                class="text-light400_light500 mt-1 text-xs font-bold capitalize"
+              >
+                {{ item.searchType }}
+              </p>
+            </div>
+          </NuxtLink>
+        </template>
 
         <div v-else class="flex-center px5 flex-col">
           <p class="text-dark200_light800 body-regular px-5 py-2.5">

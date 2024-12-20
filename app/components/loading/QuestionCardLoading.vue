@@ -8,7 +8,7 @@
     </div>
 
     <div class="mt-3.5 flex flex-wrap gap-2">
-      <Skeleton class="h-7 w-20" v-for="i in 3" :key="i" />
+      <Skeleton v-for="i in 3" :key="i" class="h-7 w-20" />
     </div>
 
     <div class="flex-between mt-6 w-full flex-wrap gap-3">

@@ -31,19 +31,19 @@ defineProps<{
       </div>
 
       <StatsCard
-        imgUrl="https://devflow-rose.vercel.app/assets/icons/gold-medal.svg"
+        img-url="https://devflow-rose.vercel.app/assets/icons/gold-medal.svg"
         :value="0"
         title="Gold Badges"
       />
 
       <StatsCard
-        imgUrl="https://devflow-rose.vercel.app/assets/icons/silver-medal.svg"
+        img-url="https://devflow-rose.vercel.app/assets/icons/silver-medal.svg"
         :value="0"
         title="Silver Badges"
       />
 
       <StatsCard
-        imgUrl="https://devflow-rose.vercel.app/assets/icons/bronze-medal.svg"
+        img-url="https://devflow-rose.vercel.app/assets/icons/bronze-medal.svg"
         :value="0"
         title="Bronze Badges"
       />

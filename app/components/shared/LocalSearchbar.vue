@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineProps<{
-  route: string;
+  href: string;
   iconPosition: "left" | "right";
   imgSrc: string;
   placeholder: string;

@@ -32,6 +32,7 @@ callOnce("popular-tags", async () => {
       <div class="mt-7 flex w-full flex-col gap-8">
         <NuxtLink
           v-for="question in hotQuestions"
+          :key="question._id"
           class="flex cursor-pointer items-center justify-between gap-7"
           :to="`/question/${question._id}`"
         >

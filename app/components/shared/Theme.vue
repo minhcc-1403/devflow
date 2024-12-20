@@ -28,8 +28,8 @@ const colorMode = useColorMode();
       <DropdownMenuItem
         v-for="theme in themes"
         :key="theme.value"
-        @click="colorMode.preference = theme.value"
         :class="{ 'text-primary': colorMode.preference === theme.value }"
+        @click="colorMode.preference = theme.value"
       >
         <Icon :name="theme.icon" class="mr-2 size-4" />
         <span class="text-sm">

@@ -2,15 +2,14 @@
 import Editor from "@tinymce/tinymce-vue";
 import { toTypedSchema } from "@vee-validate/zod";
 import { useForm } from "vee-validate";
-import { useAnswerCreate } from "~/api-hooks/answer.vq";
+import { answerApi } from "~/apis/devflow/3-answer.api";
+import { toast } from "~/components/ui/toast";
+import { handleApiError } from "~/utils/helpers/error-handler.helper";
 import { CreateAnswerSchema } from "~/validations/answer.validation";
 
 const props = defineProps<{
   questionId: string;
 }>();
-
-const { mutateAsync: createAnswer, isPending: isSubmitting } =
-  useAnswerCreate();
 
 const colorMode = useColorMode();
 
@@ -22,14 +21,23 @@ const { handleSubmit, errors, setFieldError, resetField } = useForm({
   },
 });
 
+const isPending = ref(false);
 const editorRef = ref<any>(null);
 const onSubmit = handleSubmit(async (values) => {
-  await createAnswer(values);
+  isPending.value = true;
 
-  resetField("content");
-  editorRef.value.focus();
+  await answerApi
+    .create(values)
+    .then(() => {
+      refreshNuxtData(`answered_questions_${props.questionId}`);
+      resetField("content");
+    })
+    .catch((error) => {
+      toast({ ...handleApiError(error), variant: "destructive" });
+      editorRef.value.focus();
+    });
 
-  refreshNuxtData(`answered_questions_${props.questionId}`);
+  isPending.value = false;
 });
 </script>
 
@@ -54,21 +62,12 @@ const onSubmit = handleSubmit(async (values) => {
         Generate an AI Answer</Button
       >
     </div>
-    <form @submit="onSubmit" class="flex w-full flex-col gap-4">
+    <form class="flex w-full flex-col gap-4" @submit="onSubmit">
       <FormField v-slot="{ handleInput, value, validate }" name="content">
         <FormItem class="flex w-full flex-col gap-3">
           <FormControl class="mt-3.5">
             <Editor
               :model-value="value"
-              @update:model-value="
-                (e: any) => {
-                  if (errors['content']) setFieldError('content', '');
-
-                  handleInput(e);
-                }
-              "
-              @init="(evt: any, editor: any) => (editorRef = editor)"
-              @blur="validate"
               :api-key="useRuntimeConfig().public.tinyEditorApiKey"
               :init="{
                 height: 350,
@@ -100,6 +99,15 @@ const onSubmit = handleSubmit(async (values) => {
               }"
               initial-value=""
               model-events="change keydown paste undo redo"
+              @update:model-value="
+                (e: any) => {
+                  if (errors['content']) setFieldError('content', '');
+
+                  handleInput(e);
+                }
+              "
+              @init="(evt: any, editor: any) => (editorRef = editor)"
+              @blur="validate"
             />
           </FormControl>
           <FormDescription class="body-regular mt-2.5 text-light-500">
@@ -115,8 +123,8 @@ const onSubmit = handleSubmit(async (values) => {
         <Button
           type="submit"
           class="primary-gradient w-fit !text-light-900"
-          :disabled="isSubmitting"
-          >{{ isSubmitting ? "Posting..." : "Post Your Answer" }}</Button
+          :disabled="isPending"
+          >{{ isPending ? "Posting..." : "Post Your Answer" }}</Button
         >
       </div>
     </form>

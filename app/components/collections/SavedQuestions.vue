@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useQuestionsSavedLoadMore } from "~/api-hooks/question.vq";
 import { questionApi } from "~/apis/devflow/1-question.api";
 import type { QuestionLoadMore } from "~/types/1-question.type";
 
@@ -50,7 +49,7 @@ const queryParams = computed(() => {
 
   return query;
 });
-const { data } = useAsyncData(
+const { data, status } = useAsyncData(
   () =>
     questionApi.paginate<QuestionLoadMore>({
       _id: props.questionIds.join(","),
@@ -64,19 +63,14 @@ const { data } = useAsyncData(
   },
 );
 
-const { questions, isLoading, hasLoadMore, loadMore } =
-  useQuestionsSavedLoadMore(props.questionIds);
-
-useInfiniteScroll(listEl, loadMore, { distance: 5 });
+// useInfiniteScroll(listEl, loadMore, { distance: 5 });
 </script>
 
 <template>
   <div class="mt-10 flex w-full flex-col gap-6">
-    <QuestionCardLoading
-      v-if="!questions.length && isLoading"
-      v-for="i in 3"
-      :key="i"
-    />
+    <template v-if="!data?.data.length && status === 'pending'">
+      <QuestionCardLoading v-for="i in 3" :key="i" />
+    </template>
 
     <template v-else-if="data?.data.length">
       <QuestionCard
@@ -88,14 +82,19 @@ useInfiniteScroll(listEl, loadMore, { distance: 5 });
         :author="question.authorId"
         :upvotes="question.upvoteCount"
         :views="question.views"
-        :createdAt="new Date(question.createdAt)"
+        :created-at="new Date(question.createdAt)"
       />
 
       <!-- Load more -->
-      <span v-show="hasLoadMore && !isLoading" ref="listEl" />
+      <span
+        v-show="data.paginationInfo._nextPage && status !== 'pending'"
+        ref="listEl"
+      />
     </template>
 
-    <QuestionCardLoading v-if="isLoading" v-for="i in 3" :key="i" />
+    <template v-if="data?.data.length && status === 'pending'">
+      <QuestionCardLoading v-for="i in 3" :key="i" />
+    </template>
 
     <PaginationInfo
       v-if="data?.paginationInfo && data?.paginationInfo._totalPages > 1"

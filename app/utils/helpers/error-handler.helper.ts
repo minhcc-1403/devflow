@@ -30,7 +30,6 @@ export const handleApiError = (
     ? formatErrorMsg(errorType, error.data.errors)
     : error.errorMsg;
 
-  // eslint-disable-next-line no-console
   if (options?.isShowToast)
     toast({ title: errorTitle, description: errorMsg, variant: "destructive" });
 

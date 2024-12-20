@@ -18,19 +18,20 @@ const { data: pagination } = useAsyncData(
 );
 </script>
 <template>
-  <AnswerCard
-    v-if="pagination?.data.length"
-    v-for="question in pagination.data"
-    :key="question._id"
-    :_id="question._id"
-    :title="question.title"
-    :tags="question.tagIds"
-    :author="question.authorId"
-    :upvotes="question.upvoteCount"
-    :views="question.views"
-    :createdAt="new Date(question.createdAt)"
-    :userId="props.userId"
-  />
+  <template v-if="pagination?.data.length">
+    <AnswerCard
+      v-for="question in pagination.data"
+      :key="question._id"
+      :_id="question._id"
+      :title="question.title"
+      :tags="question.tagIds"
+      :author="question.authorId"
+      :upvotes="question.upvoteCount"
+      :views="question.views"
+      :created-at="new Date(question.createdAt)"
+      :user-id="props.userId"
+    />
+  </template>
 
   <NoResult
     v-else
@@ -39,6 +40,6 @@ const { data: pagination } = useAsyncData(
       discussion. our query could be the next big thing others learn from. Get
       involved! 💡"
     link="/ask-question"
-    linkTitle="Ask a Question"
+    link-title="Ask a Question"
   />
 </template>

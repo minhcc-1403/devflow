@@ -28,7 +28,7 @@ const route = useRoute();
             </p>
           </NuxtLink>
         </SheetTitle>
-        <SheetDescription></SheetDescription>
+        <SheetDescription />
       </SheetHeader>
 
       <!-- Content -->

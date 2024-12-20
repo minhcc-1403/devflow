@@ -15,94 +15,97 @@ callOnce(userId, async () => {
 </script>
 
 <template>
-  <div class="flex flex-col-reverse items-center justify-between sm:flex-row">
-    <div class="flex flex-col items-start gap-4 lg:flex-row">
-      <Avatar class="h-[140px] w-[140px]">
-        <AvatarImage
-          v-if="profile?.avatar"
-          :src="profile?.avatar"
-          alt="User avatar"
-        />
-        <AvatarFallback>{{
-          profile?.fullName
-            ?.split(",")
-            ?.map((name) => name[0])
-            ?.join("")
-            ?.toUpperCase()
-        }}</AvatarFallback>
-      </Avatar>
-
-      <div class="mt-3">
-        <h2 class="h2-bold text-dark100_light900">{{ profile?.fullName }}</h2>
-        <p class="paragraph-regular text-dark200_light800">
-          @{{ profile?.username || profile?.email?.split("@")?.[0] }}
-        </p>
-
-        <div
-          class="mt-5 flex flex-wrap items-center justify-start gap-5"
-          v-if="profile"
-        >
-          <ProfileLink
-            title="Portfolio"
-            imgUrl="https://devflow-rose.vercel.app/assets/icons/link.svg"
-            href="https://github.com/minh-me"
+  <div>
+    <div class="flex flex-col-reverse items-center justify-between sm:flex-row">
+      <div class="flex flex-col items-start gap-4 lg:flex-row">
+        <Avatar class="h-[140px] w-[140px]">
+          <AvatarImage
+            v-if="profile?.avatar"
+            :src="profile?.avatar"
+            alt="User avatar"
           />
+          <AvatarFallback>{{
+            profile?.fullName
+              ?.split(",")
+              ?.map((name) => name[0])
+              ?.join("")
+              ?.toUpperCase()
+          }}</AvatarFallback>
+        </Avatar>
 
-          <ProfileLink
-            title="Việt Nam"
-            imgUrl="https://devflow-rose.vercel.app/assets/icons/location.svg"
-          />
+        <div class="mt-3">
+          <h2 class="h2-bold text-dark100_light900">{{ profile?.fullName }}</h2>
+          <p class="paragraph-regular text-dark200_light800">
+            @{{ profile?.username || profile?.email?.split("@")?.[0] }}
+          </p>
 
-          <ProfileLink
-            :title="getJoinedDate(profile.createdAt)"
-            imgUrl="https://devflow-rose.vercel.app/assets/icons/calendar.svg"
-          />
+          <div
+            v-if="profile"
+            class="mt-5 flex flex-wrap items-center justify-start gap-5"
+          >
+            <ProfileLink
+              title="Portfolio"
+              img-url="https://devflow-rose.vercel.app/assets/icons/link.svg"
+              href="https://github.com/minh-me"
+            />
+
+            <ProfileLink
+              title="Việt Nam"
+              img-url="https://devflow-rose.vercel.app/assets/icons/location.svg"
+            />
+
+            <ProfileLink
+              :title="getJoinedDate(profile.createdAt)"
+              img-url="https://devflow-rose.vercel.app/assets/icons/calendar.svg"
+            />
+          </div>
+
+          <p
+            v-if="profile?.bio"
+            class="paragraph-regular text-dark400_light800 mt-5"
+          >
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic,
+            commodi. Quia eius laborum quo illo omnis eaque dolorem eligendi
+            architecto quae incidunt exercitationem, voluptates consequuntur
+            velit quaerat, expedita, magnam fuga?
+          </p>
         </div>
+      </div>
 
-        <p
-          v-if="profile?.bio"
-          class="paragraph-regular text-dark400_light800 mt-5"
+      <div class="flex justify-end max-sm:mb-5 max-sm:w-full sm:mt-3">
+        <NuxtLink
+          v-if="user._id === profile?._id"
+          :to="`/profile/edit/${userId}`"
         >
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic,
-          commodi. Quia eius laborum quo illo omnis eaque dolorem eligendi
-          architecto quae incidunt exercitationem, voluptates consequuntur velit
-          quaerat, expedita, magnam fuga?
-        </p>
+          <Button
+            variant="secondary"
+            class="paragraph-medium text-dark300_light900 min-h-[46px] min-w-[175px] px-4"
+          >
+            Edit Profile
+          </Button>
+        </NuxtLink>
       </div>
     </div>
 
-    <div class="flex justify-end max-sm:mb-5 max-sm:w-full sm:mt-3">
-      <NuxtLink
-        v-if="user._id === profile?._id"
-        :to="`/profile/edit/${userId}`"
-      >
-        <Button
-          variant="secondary"
-          class="paragraph-medium text-dark300_light900 min-h-[46px] min-w-[175px] px-4"
-        >
-          Edit Profile
-        </Button>
-      </NuxtLink>
+    <Stats
+      :questions-count="profile?.questionsCount"
+      :answers-count="profile?.answersCount"
+    />
+
+    <div class="mt-10 flex gap-10">
+      <Tabs default-value="top-posts" class="flex-1">
+        <TabsList class="bg-light800_dark400 min-h-[42px] p-1">
+          <TabsTrigger value="top-posts" class="tab">Top Posts</TabsTrigger>
+          <TabsTrigger value="answers" class="tab"> Answers </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="top-posts">
+          <QuestionTab :user-id="userId" />
+        </TabsContent>
+        <TabsContent value="answers">
+          <AnswerTab :user-id="userId" />
+        </TabsContent>
+      </Tabs>
     </div>
-  </div>
-
-  <Stats
-    :questionsCount="profile?.questionsCount"
-    :answersCount="profile?.answersCount"
-  />
-  <div class="mt-10 flex gap-10">
-    <Tabs default-value="top-posts" class="flex-1">
-      <TabsList class="bg-light800_dark400 min-h-[42px] p-1">
-        <TabsTrigger value="top-posts" class="tab">Top Posts</TabsTrigger>
-        <TabsTrigger value="answers" class="tab"> Answers </TabsTrigger>
-      </TabsList>
-
-      <TabsContent value="top-posts">
-        <QuestionTab :userId="userId" />
-      </TabsContent>
-      <TabsContent value="answers">
-        <AnswerTab :userId="userId" />
-      </TabsContent>
-    </Tabs>
   </div>
 </template>

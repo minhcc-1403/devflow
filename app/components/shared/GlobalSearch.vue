@@ -16,11 +16,7 @@ const handleSearch = useDebounceFn((e: string | number) => {
 const searchContainerRef = ref<HTMLElement | null>(null);
 
 const handleOutsideClick = (event: any) => {
-  if (
-    searchContainerRef.value &&
-    // @ts-ignore
-    !searchContainerRef.value.contains(event.target)
-  ) {
+  if (!searchContainerRef.value?.contains(event.target)) {
     useRouter().push({
       query: { ...route.query, global: undefined, type: undefined },
     });
@@ -28,16 +24,15 @@ const handleOutsideClick = (event: any) => {
 };
 
 watch(isOpen, () => {
-  isOpen.value
-    ? document.addEventListener("click", handleOutsideClick)
-    : document.removeEventListener("click", handleOutsideClick);
+  if (isOpen.value) document.addEventListener("click", handleOutsideClick);
+  else document.removeEventListener("click", handleOutsideClick);
 });
 </script>
 
 <template>
   <div
-    class="relative w-full max-w-[600px] max-lg:hidden"
     ref="searchContainerRef"
+    class="relative w-full max-w-[600px] max-lg:hidden"
   >
     <div
       class="bg-light800_darkgradient relative flex min-h-[56px] grow items-center gap-1 rounded-xl px-4"
@@ -52,13 +47,13 @@ watch(isOpen, () => {
 
       <Input
         :model-value="search"
-        @update:model-value="handleSearch"
         placeholder="Search..."
         :class="
           cn(
             'paragraph-regular placeholder text-dark400_light700 border-none shadow-none outline-none focus:border-none focus:outline-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-transparent',
           )
         "
+        @update:model-value="handleSearch"
       />
     </div>
 

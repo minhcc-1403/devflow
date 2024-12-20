@@ -21,8 +21,8 @@ const onPageChange = (page?: number) => {
       :sibling-count="1"
       show-edges
       :items-per-page="data._limit"
-      @update:page="onPageChange"
       :page="data._page"
+      @update:page="onPageChange"
     >
       <PaginationList v-slot="{ items }" class="flex items-center gap-2">
         <PaginationPrev

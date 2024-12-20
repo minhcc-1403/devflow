@@ -34,7 +34,7 @@ const onOpenDropdown = () => {
               width="16"
               height="16"
               class="rounded"
-            />
+            >
 
             <span class="text-xs font-medium">
               {{ localeSelected.label }}
@@ -57,7 +57,7 @@ const onOpenDropdown = () => {
         class="flex w-[200px] cursor-pointer items-center space-x-3 p-3"
         @click="onSelect(locale)"
       >
-        <img :src="locale.flag" width="20" height="20" class="rounded" />
+        <img :src="locale.flag" width="20" height="20" class="rounded" >
 
         <span class="text-xs">
           {{ locale.label }}
