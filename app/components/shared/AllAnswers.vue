@@ -152,7 +152,7 @@ const handleVote = async (input: {
                 userId ? answer.downvotes?.includes(userId) : false
               "
               :isVoting="status === 'pending'"
-              @onVote="handleVote"
+              @on-vote="handleVote"
             />
           </div>
         </div>

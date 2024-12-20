@@ -10,7 +10,7 @@ definePageMeta({ layout: "auth", middleware: ["only-visitor"] });
 const router = useRouter();
 const query = useRoute().query;
 const authStore = useAuthStore();
-const { loading, authUser } = storeToRefs(authStore);
+const { loading, tokens } = storeToRefs(authStore);
 
 const { isFieldDirty, handleSubmit } = useForm({
   validationSchema: toTypedSchema(LoginSchema),
@@ -18,17 +18,21 @@ const { isFieldDirty, handleSubmit } = useForm({
 
 const onSubmit = handleSubmit(async (values) => {
   await authStore.login(values);
+});
 
-  // Redirect to the previous page
-  if (authUser.value) {
-    const from = query.from as string | undefined;
-    if (!from) return router.push({ path: "/" });
+watch(tokens, () => {
+  if (tokens.value) {
+    // Redirect to the previous page
+    if (tokens.value) {
+      const from = query.from as string | undefined;
+      if (!from) return router.push({ path: "/" });
 
-    const [path = "", queryString = {}] = from.split("?");
-    router.push({
-      path,
-      query: Object.fromEntries(new URLSearchParams(queryString)),
-    });
+      const [path = "", queryString = {}] = from.split("?");
+      router.push({
+        path,
+        query: Object.fromEntries(new URLSearchParams(queryString)),
+      });
+    }
   }
 });
 

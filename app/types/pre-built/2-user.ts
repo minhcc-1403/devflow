@@ -30,13 +30,16 @@ export type User = {
     authorId: string;
   }[];
 
-  questionsCount?: number;
-  answersCount?: number;
-
   createdAt: string;
   updatedAt: string;
   portfolioWebsite?: string;
   location?: string;
+  reputation: number;
+  questionsCount: number;
+  answersCount: number;
+  upvoteQuestionIds: string[];
+  downvoteQuestionIds: string[];
+  savedQuestionIds: string[];
 };
 
 export type UpdatePassword = {

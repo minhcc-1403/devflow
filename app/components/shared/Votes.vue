@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { UserQuestionActivityTypeEnum, VoteActionEnum } from "~/utils/enums";
+import {
+  ActionEnum,
+  UserQuestionActivityTypeEnum,
+  VoteActionEnum,
+} from "~/utils/enums";
 import { formatAndDivideNumber } from "~/utils/helpers/format.helper";
 
 interface Props {
@@ -13,19 +17,20 @@ interface Props {
   isVoting?: boolean;
 }
 
-const emits = defineEmits<{
-  (
-    e: "onVote",
-    payload: {
-      action: VoteActionEnum;
-      itemId: string;
-    },
-  ): void;
-}>();
+interface Emits {
+  (e: "onVote", payload: { action: VoteActionEnum; itemId: string }): void;
+  (e: "onSave", payload: { action: ActionEnum; itemId: string }): void;
+}
+
+const emits = defineEmits<Emits>();
 const props = defineProps<Props>();
 
-const handleVote = (voteAction: VoteActionEnum) => {
+const onVote = (voteAction: VoteActionEnum) => {
   emits("onVote", { action: voteAction, itemId: props.itemId });
+};
+
+const onSave = (saveAction: ActionEnum) => {
+  emits("onSave", { action: saveAction, itemId: props.itemId });
 };
 </script>
 
@@ -36,9 +41,7 @@ const handleVote = (voteAction: VoteActionEnum) => {
         class="cursor-pointer"
         :disabled="isVoting"
         @click="
-          handleVote(
-            hasUpvoted ? VoteActionEnum.Unvoted : VoteActionEnum.Upvote,
-          )
+          onVote(hasUpvoted ? VoteActionEnum.Unvoted : VoteActionEnum.Upvote)
         "
       >
         <NuxtImg
@@ -61,7 +64,7 @@ const handleVote = (voteAction: VoteActionEnum) => {
         class="cursor-pointer"
         :disabled="isVoting"
         @click="
-          handleVote(
+          onVote(
             hasDownvoted ? VoteActionEnum.Unvoted : VoteActionEnum.Downvote,
           )
         "
@@ -85,9 +88,7 @@ const handleVote = (voteAction: VoteActionEnum) => {
       v-if="type === UserQuestionActivityTypeEnum.Question"
       class="cursor-pointer"
       :disabled="isVoting"
-      @click="
-        handleVote(hasSaved ? VoteActionEnum.Unsaved : VoteActionEnum.Save)
-      "
+      @click="onSave(hasSaved ? ActionEnum.Remove : ActionEnum.Add)"
     >
       <NuxtImg
         :src="`${hasSaved ? 'https://devflow-rose.vercel.app/assets/icons/star-filled.svg' : 'https://devflow-rose.vercel.app/assets/icons/star-red.svg'}`"

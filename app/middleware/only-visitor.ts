@@ -1,6 +1,6 @@
 export default defineNuxtRouteMiddleware(() => {
   const authStore = useAuthStore();
-  const { authUser } = storeToRefs(authStore);
+  const { tokens } = storeToRefs(authStore);
 
-  if (authUser.value?.user) return "/";
+  if (tokens.value?.user) return "/";
 });

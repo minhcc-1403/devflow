@@ -1,23 +1,31 @@
 <script setup lang="ts">
 import { formatDistanceToNowStrict } from "date-fns";
 import { useViewQuestion } from "~/api-hooks/interaction.vp";
-import { useQuestionDetail } from "~/api-hooks/question.vq";
-import { useUpdateUserQuestionActivity } from "~/api-hooks/user_question_activity.vp";
+import { questionApi } from "~/apis/devflow/1-question.api";
 import { toast } from "~/components/ui/toast";
-import { UserQuestionActivityTypeEnum, VoteActionEnum } from "~/utils/enums";
+import type { QuestionDetail } from "~/types/1-question.type";
+import {
+  ActionEnum,
+  UserQuestionActivityTypeEnum,
+  VoteActionEnum,
+} from "~/utils/enums";
+import { handleApiError } from "~/utils/helpers/error-handler.helper";
 import { formatAndDivideNumber } from "~/utils/helpers/format.helper";
 
 const route = useRoute();
 const questionId = route.params.questionId as string;
 
 const authStore = useAuthStore();
-const { user, myQuestionActivity } = storeToRefs(authStore);
+const { user } = storeToRefs(authStore);
 
-const { question, refetch } = useQuestionDetail(questionId as string);
-const { mutate: updateUserQuestionActivity, isPending } =
-  useUpdateUserQuestionActivity();
+const { data: question, refresh } = useAsyncData(() => {
+  return questionApi.getById<QuestionDetail>(questionId as string, {
+    _populate: "authorId,tagIds",
+  });
+});
 
-const handleVote = (input: { action: VoteActionEnum; itemId: string }) => {
+const isVoting = ref(false);
+const handleVote = async ({ action }: { action: VoteActionEnum }) => {
   if (!user) {
     return toast({
       title: "Please login to vote",
@@ -26,12 +34,33 @@ const handleVote = (input: { action: VoteActionEnum; itemId: string }) => {
     });
   }
 
-  updateUserQuestionActivity({
-    action: input.action,
-    questionId: input.itemId,
-  });
+  isVoting.value = true;
+  questionApi
+    .handleVote(questionId, action)
+    .catch((err) => toast({ ...handleApiError(err), variant: "destructive" }))
+    .finally(async () => {
+      await authStore.fetchMe();
+      refresh();
+      isVoting.value = false;
+    });
+};
+const handleSave = async ({ action }: { action: ActionEnum }) => {
+  if (!user) {
+    return toast({
+      title: "Please login to save",
+      description: "You need to be logged in to save",
+      variant: "destructive",
+    });
+  }
 
-  refetch();
+  isVoting.value = true;
+  questionApi
+    .handleSave(questionId, action)
+    .catch((err) => toast({ ...handleApiError(err), variant: "destructive" }))
+    .finally(async () => {
+      await authStore.fetchMe();
+      isVoting.value = false;
+    });
 };
 
 callOnce(questionId, () => useViewQuestion(questionId));
@@ -72,16 +101,13 @@ callOnce(questionId, () => useViewQuestion(questionId));
           :itemId="question._id"
           :userId="user?._id"
           :upvoteCount="question.upvoteCount"
-          :hasUpvoted="
-            myQuestionActivity?.votedQuestions?.includes(question._id)
-          "
+          :hasUpvoted="user?.upvoteQuestionIds?.includes(question._id)"
           :downvoteCount="question.downvoteCount"
-          :hasDownvoted="
-            myQuestionActivity?.downVotedQuestions?.includes(question._id)
-          "
-          :hasSaved="myQuestionActivity?.savedQuestions?.includes(question._id)"
-          :isVoting="isPending"
+          :hasDownvoted="user?.downvoteQuestionIds?.includes(question._id)"
+          :hasSaved="user?.savedQuestionIds?.includes(question._id)"
+          :isVoting="isVoting"
           @on-vote="handleVote"
+          @on-save="handleSave"
         />
       </div>
     </div>

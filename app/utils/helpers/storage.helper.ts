@@ -1,5 +1,5 @@
-import type { AuthUser } from "~/types/pre-built/1-auth";
 import type { User } from "~/types/pre-built/2-user";
+import type { AuthTokens } from "~/types/pre-built/9-token";
 
 export const storageKeys = {
   user: "_user",
@@ -8,19 +8,20 @@ export const storageKeys = {
 };
 
 export const storageHelper = {
-  getAuth(): AuthUser | null {
-    const authString = localStorage.getItem(storageKeys.token);
+  getTokens(): AuthTokens | null {
+    const tokensString = localStorage.getItem(storageKeys.token);
 
-    return authString ? JSON.parse(authString) : null;
+    return tokensString ? JSON.parse(tokensString) : null;
   },
+
+  setTokens(tokens: AuthTokens) {
+    localStorage.setItem(storageKeys.token, JSON.stringify(tokens));
+  },
+
   getUser(): User | null {
     const userString = localStorage.getItem(storageKeys.user);
 
     return userString ? JSON.parse(userString) : null;
-  },
-
-  setAuth(auth: AuthUser) {
-    localStorage.setItem(storageKeys.token, JSON.stringify(auth));
   },
 
   setUser(user: User) {

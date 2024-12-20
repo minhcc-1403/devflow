@@ -1,7 +1,6 @@
-import { userQuestionActivityApi } from "~/apis/devflow/4-user_question_activity.api";
 import { authApi } from "~/apis/pre-built/1-auth.api";
+import { userApi } from "~/apis/pre-built/2-user.api";
 import { toast } from "~/components/ui/toast";
-import type { UserQuestionActivity } from "~/types/3-user-question-activity.type";
 import type {
   AuthUser,
   Login,
@@ -10,15 +9,21 @@ import type {
   ResetPasswordWithToken,
 } from "~/types/pre-built/1-auth";
 import type { User } from "~/types/pre-built/2-user";
+import type { AuthTokens } from "~/types/pre-built/9-token";
 import { AccountTypeEnum } from "~/utils/enums";
 import { handleApiError } from "~/utils/helpers/error-handler.helper";
 import { storageHelper } from "~/utils/helpers/storage.helper";
 
 export const useAuthStore = defineStore("auth", () => {
-  const authUser = ref<AuthUser | null>(storageHelper.getAuth());
+  const tokens = ref<AuthTokens | null>(storageHelper.getTokens());
   const user = ref<User | null>(storageHelper.getUser());
-  const myQuestionActivity = ref<UserQuestionActivity>();
   const loading = ref<boolean>(false);
+
+  const clearAuth = () => {
+    tokens.value = null;
+    user.value = null;
+    storageHelper.clearAuth();
+  };
 
   const login = (input: Login) => authenticate(() => authApi.login(input));
   const register = (input: Register) =>
@@ -34,7 +39,8 @@ export const useAuthStore = defineStore("auth", () => {
     } catch (error) {
       handleApiError(error);
     }
-    updateAuth(null);
+
+    clearAuth();
   };
 
   const resetPasswordWithToken = (input: ResetPasswordWithToken) =>
@@ -43,57 +49,53 @@ export const useAuthStore = defineStore("auth", () => {
     authenticate(() => authApi.resetPasswordWithOtp(input));
 
   const getAccessToken = async () => {
-    if (!authUser.value) return null;
+    if (!tokens.value) return null;
 
     const currentMS = Date.now();
-    const { accessToken, refreshToken } = authUser.value;
+    const { accessToken, refreshToken } = tokens.value;
 
     if (accessToken.expiresAt > currentMS) return accessToken.token;
-    if (refreshToken.expiresAt < currentMS) return updateAuth(null);
+    if (refreshToken.expiresAt < currentMS) return clearAuth();
 
-    await getAuthFromRefreshToken(refreshToken.token);
-    return authUser.value?.accessToken?.token || null;
+    await refreshTokens(refreshToken.token);
+    await fetchMe();
+    return tokens.value?.accessToken?.token;
   };
 
-  const getAuthFromRefreshToken = async (rfToken: string) => {
+  const refreshTokens = async (rfToken: string) => {
     try {
       const data = await authApi.refreshToken(rfToken);
-      return updateAuth(data);
+      tokens.value = data;
+      storageHelper.setTokens(data);
+
+      return data;
     } catch (error) {
       handleApiError(error);
-      return updateAuth(null);
+      clearAuth();
     }
   };
 
   const refreshAuthFromSession = async () => {
     if (
       sessionStorage.getItem("refreshed") ||
-      !authUser.value?.refreshToken?.token
+      !tokens.value?.refreshToken?.token
     )
       return;
 
     sessionStorage.setItem("refreshed", "true");
-    await getAuthFromRefreshToken(authUser.value.refreshToken.token);
+    await refreshTokens(tokens.value.refreshToken.token);
   };
 
-  /**
-   * Update auth user data and save to storage
-   * @param data AuthUser | null
-   * @returns AuthUser | null
-   */
-  const updateAuth = (data: AuthUser | null) => {
-    if (data) {
-      authUser.value = { ...authUser.value, ...data };
-      user.value = { ...user.value, ...data.user };
-      storageHelper.setAuth(authUser.value);
-      storageHelper.setUser(authUser.value.user);
-    } else {
-      authUser.value = null;
-      user.value = null;
-      storageHelper.clearAuth();
+  const fetchMe = async () => {
+    try {
+      user.value = await userApi.getMe();
+      storageHelper.setUser(user.value);
+    } catch (error) {
+      handleApiError(error);
+      clearAuth();
     }
 
-    return authUser.value;
+    return user.value;
   };
 
   /**
@@ -105,33 +107,29 @@ export const useAuthStore = defineStore("auth", () => {
     loading.value = true;
     try {
       const data = await handler();
-      return updateAuth(data);
+
+      if (!data) {
+        toast({ title: "Authentication failed", variant: "destructive" });
+        return clearAuth();
+      }
+
+      tokens.value = data;
+      storageHelper.setTokens(data);
+
+      // Fetch user
+      await fetchMe();
+
+      return data;
     } catch (error) {
-      const { description, title } = handleApiError(error);
-      toast({ description, title, variant: "destructive" });
+      toast({ ...handleApiError(error), variant: "destructive" });
       return null;
     } finally {
       loading.value = false;
     }
   };
 
-  const fetchMyQuestionActivity = async () => {
-    try {
-      const response =
-        await userQuestionActivityApi.getMyUserQuestionActivity();
-
-      setMyQuestionActivity(response);
-    } catch (error) {
-      handleApiError(error);
-    }
-  };
-
-  const setMyQuestionActivity = (input: UserQuestionActivity) => {
-    myQuestionActivity.value = input;
-  };
-
   return {
-    authUser,
+    tokens,
     user,
     loading,
     login,
@@ -142,8 +140,6 @@ export const useAuthStore = defineStore("auth", () => {
     resetPasswordWithOtp,
     resetPasswordWithToken,
     refreshAuthFromSession,
-    myQuestionActivity,
-    fetchMyQuestionActivity,
-    setMyQuestionActivity,
+    fetchMe,
   };
 });

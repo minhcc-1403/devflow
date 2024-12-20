@@ -1,7 +1,7 @@
 export default defineNuxtRouteMiddleware((to) => {
-  const { authUser } = useAuthStore();
+  const { tokens } = useAuthStore();
 
-  if (!authUser) {
+  if (!tokens) {
     return useGoTo().goToSignIn({
       from: to.fullPath,
     });

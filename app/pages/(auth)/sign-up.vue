@@ -11,7 +11,7 @@ definePageMeta({ layout: "auth", middleware: "only-visitor" });
 const router = useRouter();
 const query = useRoute().query;
 const authStore = useAuthStore();
-const { loading, authUser } = storeToRefs(authStore);
+const { loading, tokens } = storeToRefs(authStore);
 
 const { handleSubmit, values, errors } = useForm({
   validationSchema: toTypedSchema(RegisterSchema),
@@ -28,9 +28,11 @@ const onSubmit = handleSubmit(async ({ authKey, ...values }) => {
     otpType: OtpTypeEnum.Register,
     sendOtpTo: phone ? SendOtpToEnum.Phone : SendOtpToEnum.Email,
   });
+});
 
+watch(tokens, () => {
   // Redirect to the previous page
-  if (authUser.value) {
+  if (tokens.value) {
     const from = query.from as string | undefined;
     if (!from) return router.push({ path: "/" });
 

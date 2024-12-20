@@ -1,6 +1,7 @@
 import type { Question } from "~/types/1-question.type";
 import type { PaginateResponse } from "~/types/paginate-response.type";
 import type { UpdateResult } from "~/types/update-result";
+import type { ActionEnum, VoteActionEnum } from "~/utils/enums";
 import { authFetch, guestFetch } from "~/utils/fetch";
 import type { FetchOptions, PaginationParams } from "~/utils/types/fetch.types";
 import type {
@@ -57,6 +58,14 @@ export const questionApi = {
     options?: FetchOptions,
   ): Promise<Question> => {
     return authFetch.patch(`${QUESTION_URL}/${id}`, body, options);
+  },
+
+  handleVote: (questionId: string, action: VoteActionEnum): Promise<void> => {
+    return authFetch.patch(`${QUESTION_URL}/${questionId}/${action}`, {});
+  },
+
+  handleSave: (questionId: string, action: ActionEnum): Promise<void> => {
+    return authFetch.patch(`${QUESTION_URL}/${questionId}/${action}/save`, {});
   },
 
   //  ----- Method: DELETE -----
