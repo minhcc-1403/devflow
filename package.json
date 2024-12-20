@@ -51,10 +51,12 @@
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
+    "@types/html-to-text": "^9.0.4",
     "@types/papaparse": "^5.3.15",
     "@types/prismjs": "^1.26.5",
     "eslint": "^9.11.1",
     "eslint-config-prettier": "^9.1.0",
+    "html-to-text": "^9.0.5",
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
     "nuxt-typed-router": "^3.6.5",

@@ -1,23 +1,28 @@
 <script setup lang="ts">
 import Editor from "@tinymce/tinymce-vue";
 import { toTypedSchema } from "@vee-validate/zod";
+import { htmlToText } from "html-to-text";
 import { useForm } from "vee-validate";
+import { chatgptApi } from "~/apis/devflow/0-chatgpt.api";
 import { answerApi } from "~/apis/devflow/3-answer.api";
 import { toast } from "~/components/ui/toast";
+import type { QuestionDetail } from "~/types/1-question.type";
 import { handleApiError } from "~/utils/helpers/error-handler.helper";
 import { CreateAnswerSchema } from "~/validations/answer.validation";
 
 const props = defineProps<{
-  questionId: string;
+  question: QuestionDetail;
 }>();
 
 const colorMode = useColorMode();
+const authStore = useAuthStore();
+const { user } = storeToRefs(authStore);
 
 const { handleSubmit, errors, setFieldError, resetField } = useForm({
   validationSchema: toTypedSchema(CreateAnswerSchema),
   initialValues: {
     content: "",
-    questionId: props.questionId,
+    questionId: props.question._id,
   },
 });
 
@@ -29,7 +34,7 @@ const onSubmit = handleSubmit(async (values) => {
   await answerApi
     .create(values)
     .then(() => {
-      refreshNuxtData(`answered_questions_${props.questionId}`);
+      refreshNuxtData(`answered_questions_${props.question._id}`);
       resetField("content");
     })
     .catch((error) => {
@@ -39,6 +44,31 @@ const onSubmit = handleSubmit(async (values) => {
 
   isPending.value = false;
 });
+
+const isSubmittingAI = ref(false);
+const generateAIAnswer = async () => {
+  if (!user.value) return;
+
+  isSubmittingAI.value = true;
+
+  const plainTextQuestion = htmlToText(props.question.content);
+
+  await chatgptApi
+    .generateAIAnswer(plainTextQuestion)
+    .then((res) => {
+      // convert plain text to HTML format
+      const formattedAnswer = res.reply.replace(/\n/g, "<br>");
+
+      if (editorRef.value) {
+        editorRef.value.setContent(formattedAnswer);
+      }
+    })
+    .catch((err) => {
+      toast({ ...handleApiError(err), variant: "destructive" });
+    });
+
+  isSubmittingAI.value = false;
+};
 </script>
 
 <template>
@@ -51,16 +81,22 @@ const onSubmit = handleSubmit(async (values) => {
       </h4>
       <Button
         class="btn light-border-2 dark:text-primary-500 flex items-center gap-1.5 rounded-sm px-4 py-2.5 text-main-500 shadow-none"
+        :disabled="isSubmittingAI"
+        @click="generateAIAnswer"
       >
-        <NuxtImg
-          src="https://devflow-rose.vercel.app/assets/icons/stars.svg"
-          width="16"
-          height="16"
-          alt="star"
-          class="object-contain"
-        />
-        Generate an AI Answer</Button
-      >
+        <template v-if="isSubmittingAI">Generating...</template>
+
+        <template v-else>
+          <NuxtImg
+            src="https://devflow-rose.vercel.app/assets/icons/stars.svg"
+            width="16"
+            height="16"
+            alt="star"
+            class="object-contain"
+          />
+          Generate an AI Answer
+        </template>
+      </Button>
     </div>
     <form class="flex w-full flex-col gap-4" @submit="onSubmit">
       <FormField v-slot="{ handleInput, value, validate }" name="content">

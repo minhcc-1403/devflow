@@ -154,7 +154,7 @@ callOnce(questionId, () => user && interactionApi.viewQuestion(questionId));
     </div>
 
     <div v-if="question" class="mt-20">
-      <AnswerForm :question-id="question._id" />
+      <AnswerForm :question="question" />
     </div>
 
     <p class="my-8 border-t" />
