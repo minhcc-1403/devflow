@@ -7,8 +7,12 @@ const route = useRoute();
 const queryParams = computed(() => {
   const q = route.query.q?.toString();
   const filter = route.query.filter?.toString();
+  const page = route.query._page?.toString() || undefined;
 
   const query = {};
+
+  if (page) Object.assign(query, { _page: page });
+
   if (q)
     Object.assign(query, {
       name: new RegExp(q, "i").toString(),
@@ -35,11 +39,8 @@ const queryParams = computed(() => {
   return query;
 });
 
-const { data } = useAsyncData(
-  () =>
-    tagApi.paginate<Tag>({
-      ...queryParams.value,
-    }),
+const { data, status, error } = useAsyncData(
+  () => tagApi.paginate<Tag>({ ...queryParams.value, _limit: 12 }),
   {
     watch: [queryParams],
   },
@@ -69,21 +70,32 @@ const { data } = useAsyncData(
       />
     </div>
 
-    <section
-      v-if="data?.data.length"
-      class="mt-12 grid grid-cols-3 gap-4 max-sm:grid-cols-1"
-    >
-      <div v-for="tag in data.data" :key="tag._id">
-        <TagCard :_id="tag._id" :tag="tag" />
-      </div>
-    </section>
+    <TagsLoading v-if="status === 'pending' && !data?.data" />
+    <Error :error="error" v-else-if="error" />
 
-    <NoResult
-      v-else
-      title="No Tags Found"
-      description="It looks like there no tags found."
-      link="/ask-question"
-      link-title="Ask a question"
-    />
+    <template v-else>
+      <NoResult
+        v-if="!data?.data?.length"
+        title="No Tags Found"
+        description="It looks like there no tags found."
+        link="/ask-question"
+        link-title="Ask a question"
+      />
+
+      <template v-else>
+        <section
+          class="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"
+        >
+          <TagCard
+            v-for="tag in data.data"
+            :key="tag._id"
+            :_id="tag._id"
+            :tag="tag"
+          />
+        </section>
+
+        <PaginationInfo :data="data.paginationInfo" class="mt-4" />
+      </template>
+    </template>
   </div>
 </template>

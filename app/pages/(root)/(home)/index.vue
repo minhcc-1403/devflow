@@ -116,21 +116,23 @@ const { data, status, error } = useAsyncData(
         link-title="Ask a Question"
       />
 
-      <section v-else class="mt-10 flex w-full flex-col gap-6">
-        <QuestionCard
-          v-for="question in data.data"
-          :key="question._id"
-          :_id="question._id"
-          :title="question.title"
-          :tags="question.tagIds"
-          :author="question.authorId"
-          :upvotes="question.upvoteCount"
-          :views="question.views"
-          :created-at="new Date(question.createdAt)"
-        />
+      <template v-else>
+        <section class="mt-10 flex w-full flex-col gap-6">
+          <QuestionCard
+            v-for="question in data.data"
+            :key="question._id"
+            :_id="question._id"
+            :title="question.title"
+            :tags="question.tagIds"
+            :author="question.authorId"
+            :upvotes="question.upvoteCount"
+            :views="question.views"
+            :created-at="new Date(question.createdAt)"
+          />
+        </section>
 
         <PaginationInfo :data="data.paginationInfo" class="mt-4" />
-      </section>
+      </template>
     </template>
 
     <!-- Load more -->

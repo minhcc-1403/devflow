@@ -9,7 +9,7 @@ defineProps<{
 <template>
   <NuxtLink :to="`/tags/${tag._id}`" class="shadow-light100_darknone">
     <article
-      class="bg-light900_dark200 light-border flex w-full flex-col rounded-2xl border px-8 py-10 sm:w-[260px]"
+      class="bg-light900_dark200 light-border flex w-full flex-col rounded-2xl border px-8 py-10"
     >
       <div class="bg-light800_dark400 w-fit rounded-sm px-5 py-1.5">
         <p class="paragraph-semibold text-dark300_light900 line-clamp-1">
