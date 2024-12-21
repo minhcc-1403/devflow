@@ -42,7 +42,7 @@ defineProps<{
       <div class="mt-5">
         <div
           v-if="user.topInteractedTags?.length"
-          class="flex items-center space-x-2"
+          class="flex flex-wrap items-center justify-center gap-2"
         >
           <RenderTag
             v-for="item in user.topInteractedTags"
@@ -53,7 +53,7 @@ defineProps<{
         </div>
         <Badge
           v-else
-          class="bg-secondary text-secondary-foreground hover:bg-secondary/80"
+          class="subtle-medium bg-light800_dark300 text-light400_light500 line-clamp-1 inline-flex items-center rounded-md border border-none border-transparent px-4 py-2 text-xs font-semibold uppercase shadow transition-colors hover:bg-slate-900/80 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2 dark:border-slate-800 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-50/80 dark:focus:ring-slate-300"
           >No tags yet</Badge
         >
       </div>

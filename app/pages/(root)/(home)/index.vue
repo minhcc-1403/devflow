@@ -19,9 +19,7 @@ const queryParams = computed(() => {
     });
   }
 
-  if (page) {
-    Object.assign(query, { _page: page });
-  }
+  if (page) Object.assign(query, { _page: page });
 
   switch (filter) {
     case "newest":
