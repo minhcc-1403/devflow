@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { formatDistanceToNowStrict } from "date-fns";
+import { MdPreview } from "md-editor-v3";
 import { questionApi } from "~/apis/devflow/1-question.api";
 import { interactionApi } from "~/apis/devflow/3-interaction.api";
 import { toast } from "~/components/ui/toast";
@@ -140,7 +141,11 @@ callOnce(questionId, () => user && interactionApi.viewQuestion(questionId));
         text-styles="small-medium text-dark400_light800"
       />
     </div>
-    <ParseHTML v-if="question" :data="question?.content" />
+
+    <MdPreview v-if="question" :model-value="question.content" />
+
+    <!-- <ParseHTML v-if="question" :data="question?.content" /> -->
+
     <div class="mt-8 flex flex-wrap gap-2">
       <template v-if="question">
         <RenderTag

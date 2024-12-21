@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { formatDistanceToNowStrict } from "date-fns";
+import { MdPreview } from "md-editor-v3";
 import { answerApi } from "~/apis/devflow/3-answer.api";
 import { toast } from "~/components/ui/toast";
 import type { Answer } from "~/types/1-answer.type";
@@ -149,7 +150,8 @@ const handleVote = async (input: {
           </div>
         </div>
 
-        <ParseHTML :data="answer.content" />
+        <MdPreview :model-value="answer.content" />
+        <!-- <ParseHTML :data="answer.content" /> -->
       </article>
     </div>
   </template>

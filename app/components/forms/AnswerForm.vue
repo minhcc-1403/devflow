@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import Editor from "@tinymce/tinymce-vue";
 import { toTypedSchema } from "@vee-validate/zod";
 import { htmlToText } from "html-to-text";
+import { MdEditor } from "md-editor-v3";
+import "md-editor-v3/lib/style.css";
 import { useForm } from "vee-validate";
 import { chatgptApi } from "~/apis/devflow/0-chatgpt.api";
 import { answerApi } from "~/apis/devflow/3-answer.api";
@@ -18,13 +19,14 @@ const colorMode = useColorMode();
 const authStore = useAuthStore();
 const { user } = storeToRefs(authStore);
 
-const { handleSubmit, errors, setFieldError, resetField } = useForm({
-  validationSchema: toTypedSchema(CreateAnswerSchema),
-  initialValues: {
-    content: "",
-    questionId: props.question._id,
-  },
-});
+const { handleSubmit, errors, setFieldError, resetField, setFieldValue } =
+  useForm({
+    validationSchema: toTypedSchema(CreateAnswerSchema),
+    initialValues: {
+      content: "",
+      questionId: props.question._id,
+    },
+  });
 
 const isPending = ref(false);
 const editorRef = ref<any>(null);
@@ -51,17 +53,15 @@ const generateAIAnswer = async () => {
 
   isSubmittingAI.value = true;
 
-  const plainTextQuestion = htmlToText(props.question.content);
+  const plainTextQuestion = htmlToText(`
+  ${props.question.tagIds.map((tag) => tag.name).join(", ")}
+  ${props.question.title},
+  ${props.question.content}`);
 
   await chatgptApi
     .generateAIAnswer(plainTextQuestion)
     .then((res) => {
-      // convert plain text to HTML format
-      const formattedAnswer = res.reply.replace(/\n/g, "<br>");
-
-      if (editorRef.value) {
-        editorRef.value.setContent(formattedAnswer);
-      }
+      setFieldValue("content", res.reply);
     })
     .catch((err) => {
       toast({ ...handleApiError(err), variant: "destructive" });
@@ -79,6 +79,7 @@ const generateAIAnswer = async () => {
       <h4 class="paragraph-semibold text-dark400_light800">
         Write your answer here
       </h4>
+
       <Button
         class="btn light-border-2 dark:text-primary-500 flex items-center gap-1.5 rounded-sm px-4 py-2.5 text-main-500 shadow-none"
         :disabled="isSubmittingAI"
@@ -99,10 +100,43 @@ const generateAIAnswer = async () => {
       </Button>
     </div>
     <form class="flex w-full flex-col gap-4" @submit="onSubmit">
-      <FormField v-slot="{ handleInput, value, validate }" name="content">
+      <FormField v-slot="{ value, handleInput, validate }" name="content">
         <FormItem class="flex w-full flex-col gap-3">
           <FormControl class="mt-3.5">
-            <Editor
+            <MdEditor
+              style="height: 300px; font-size: 12px !important"
+              :model-value="value"
+              @update:model-value="
+                (e) => {
+                  if (errors['content']) setFieldError('content', '');
+                  handleInput(e);
+                }
+              "
+              @blur="(e: any) => validate(e)"
+              class="h-[120px]"
+              :preview="false"
+              :toolbars="[
+                'title',
+                'bold',
+                'underline',
+                'italic',
+                'strikeThrough',
+                'quote',
+                'unorderedList',
+                'orderedList',
+                'task',
+                'codeRow',
+                'code',
+                'link',
+                'image',
+                'table',
+                'preview',
+              ]"
+              language="en-US"
+              :theme="colorMode.value === 'dark' ? 'dark' : 'light'"
+            />
+
+            <!-- <Editor
               :model-value="value"
               :api-key="useRuntimeConfig().public.tinyEditorApiKey"
               :init="{
@@ -144,7 +178,7 @@ const generateAIAnswer = async () => {
               "
               @init="(evt: any, editor: any) => (editorRef = editor)"
               @blur="validate"
-            />
+            /> -->
           </FormControl>
           <FormDescription class="body-regular mt-2.5 text-light-500">
             Introduce the problem and explain on what you put in the title.

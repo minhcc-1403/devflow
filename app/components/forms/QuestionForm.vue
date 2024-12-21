@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import Editor from "@tinymce/tinymce-vue";
 import { toTypedSchema } from "@vee-validate/zod";
+import { MdEditor } from "md-editor-v3";
+import "md-editor-v3/lib/style.css";
 import { useForm, type FieldBindingObject } from "vee-validate";
 import { questionApi } from "~/apis/devflow/1-question.api";
 import { toast } from "~/components/ui/toast";
@@ -22,11 +23,17 @@ const initialValues = {
   content: props.questionDetail?.content || "",
 };
 
-const { handleSubmit, setFieldError, setFieldTouched, setFieldValue, values } =
-  useForm({
-    validationSchema: toTypedSchema(CreateQuestionSchema),
-    initialValues,
-  });
+const {
+  handleSubmit,
+  setFieldError,
+  setFieldTouched,
+  setFieldValue,
+  values,
+  errors,
+} = useForm({
+  validationSchema: toTypedSchema(CreateQuestionSchema),
+  initialValues,
+});
 
 const tagValue = ref("");
 const handleAddTag = (field: FieldBindingObject) => {
@@ -112,45 +119,37 @@ const onSubmit = handleSubmit(() => execute());
           <span class="text-main-500">*</span></FormLabel
         >
         <FormControl class="mt-3.5">
-          <Editor
+          <MdEditor
+            style="height: 300px; font-size: 12px !important"
             :model-value="value"
-            :api-key="useRuntimeConfig().public.tinyEditorApiKey"
-            :init="{
-              height: 350,
-              menubar: false,
-              toolbar_mode: 'sliding',
-              plugins: [
-                'advlist',
-                'autolink',
-                'lists',
-                'link',
-                'image',
-                'charmap',
-                'preview',
-                'anchor',
-                'searchreplace',
-                'visualblocks',
-                'codesample',
-                'fullscreen',
-                'insertdatetime',
-                'media',
-                'table',
-              ],
-              toolbar:
-                'undo redo | codesample | bold italic forecolor | alignleft aligncenter | alignright alignjustify | numlist bullist',
-              content_style:
-                'body { font-family: Plus Jakarta Sans, sans-serif; font-size:14px; }',
-              skin: colorMode.value === 'dark' ? 'oxide-dark' : 'oxide', // oxide
-              content_css: colorMode.value === 'dark' ? 'dark' : 'light',
-            }"
-            initial-value=""
-            model-events="change keydown paste undo redo"
             @update:model-value="
               (e) => {
+                if (errors['content']) setFieldError('content', '');
                 handleInput(e);
-                validate();
               }
             "
+            @blur="(e: any) => validate(e)"
+            class="h-[120px]"
+            :preview="false"
+            :toolbars="[
+              'title',
+              'bold',
+              'underline',
+              'italic',
+              'strikeThrough',
+              'quote',
+              'unorderedList',
+              'orderedList',
+              'task',
+              'codeRow',
+              'code',
+              'link',
+              'image',
+              'table',
+              'preview',
+            ]"
+            language="en-US"
+            :theme="colorMode.value === 'dark' ? 'dark' : 'light'"
           />
         </FormControl>
         <FormDescription class="body-regular mt-2.5 text-xs text-light-500">
