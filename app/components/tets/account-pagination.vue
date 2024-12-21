@@ -46,5 +46,3 @@ const onPageChange = (_page?: number) => {
     </PaginationList>
   </Pagination>
 </template>
-
-<style lang="scss" scoped></style>

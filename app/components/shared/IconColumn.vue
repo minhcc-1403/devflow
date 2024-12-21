@@ -5,5 +5,3 @@ defineProps<{ name: string }>();
 <template>
   <Icon :name="name" />
 </template>
-
-<style lang="scss" scoped></style>

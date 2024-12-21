@@ -23,5 +23,3 @@ const goBack = () => {
     <Button class="mt-5" @click="goBack"> Go Back </Button>
   </div>
 </template>
-
-<style lang="scss" scoped></style>

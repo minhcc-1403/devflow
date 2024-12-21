@@ -37,5 +37,3 @@ onMounted(() => {
 <template>
   <p v-html="data" />
 </template>
-
-<style lang="scss" scoped></style>

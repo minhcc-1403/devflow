@@ -3,8 +3,6 @@ import { questionApi } from "~/apis/devflow/1-question.api";
 import type { QuestionLoadMore } from "~/types/1-question.type";
 import { HomePageFilters } from "~/utils/constants/filters";
 
-const listEl = ref<HTMLElement | null>(null);
-
 const route = useRoute();
 const queryParams = computed(() => {
   const q = route.query.q?.toString();
@@ -42,7 +40,7 @@ const queryParams = computed(() => {
   return query;
 });
 
-const { data, status } = useAsyncData(
+const { data, status, error } = useAsyncData(
   () =>
     questionApi.paginate<QuestionLoadMore>({
       _populate: "tagIds,authorId",
@@ -68,6 +66,7 @@ const { data, status } = useAsyncData(
   },
 );
 
+// const listEl = ref<HTMLElement | null>(null);
 // useInfiniteScroll(listEl, loadMore, { distance: 5 });
 </script>
 
@@ -103,12 +102,21 @@ const { data, status } = useAsyncData(
 
     <HomeFilters />
 
-    <div class="mt-10 flex w-full flex-col gap-6">
-      <template v-if="!data?.data.length && status === 'pending'">
-        <QuestionCardLoading v-for="i in 3" :key="i" />
-      </template>
+    <QuestionsLoading v-if="status === 'pending' && !data?.data" />
+    <Error :error="error" v-else-if="error" />
 
-      <template v-else-if="data?.data?.length">
+    <template v-else>
+      <NoResult
+        v-if="!data?.data?.length"
+        title="There are no questions to show"
+        description="Be the first to break the silence! 🚀 Ask a Question and kickstart the
+      discussion. our query could be the next big thing others learn from. Get
+      involved! 💡"
+        link="/ask-question"
+        link-title="Ask a Question"
+      />
+
+      <section v-else class="mt-10 flex w-full flex-col gap-6">
         <QuestionCard
           v-for="question in data.data"
           :key="question._id"
@@ -121,25 +129,14 @@ const { data, status } = useAsyncData(
           :created-at="new Date(question.createdAt)"
         />
 
-        <!-- Load more -->
-        <span
+        <PaginationInfo :data="data.paginationInfo" class="mt-4" />
+      </section>
+    </template>
+
+    <!-- Load more -->
+    <!-- <span
           v-show="data.paginationInfo._nextPage && status === 'pending'"
           ref="listEl"
-        />
-      </template>
-
-      <NoResult
-        v-else
-        title="There are no question saved to show"
-        description="Be the first to break the silence! 🚀 Ask a Question and kickstart the
-      discussion. our query could be the next big thing others learn from. Get
-      involved! 💡"
-        link="/ask-question"
-        link-title="Ask a Question"
-      />
-
-      <!-- <QuestionCardLoading v-if="status === 'pending'" v-for="i in 3" :key="i" /> -->
-      <PaginationInfo v-if="data?.paginationInfo" :data="data.paginationInfo" />
-    </div>
+        /> -->
   </div>
 </template>

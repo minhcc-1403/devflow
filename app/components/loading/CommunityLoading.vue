@@ -5,5 +5,3 @@
     <Skeleton v-for="i in 9" :key="i" class="h-60 w-full rounded-2xl" />
   </div>
 </template>
-
-<style lang="scss" scoped></style>

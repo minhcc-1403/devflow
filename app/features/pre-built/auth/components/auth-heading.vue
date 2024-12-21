@@ -19,5 +19,3 @@ const props = defineProps<Props>();
     </p>
   </div>
 </template>
-
-<style lang="scss" scoped></style>

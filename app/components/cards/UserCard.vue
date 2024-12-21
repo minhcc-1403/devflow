@@ -60,5 +60,3 @@ defineProps<{
     </article>
   </NuxtLink>
 </template>
-
-<style lang="scss" scoped></style>

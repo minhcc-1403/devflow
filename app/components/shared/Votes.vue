@@ -99,5 +99,3 @@ const onSave = (saveAction: ActionEnum) => {
     </button>
   </div>
 </template>
-
-<style lang="scss" scoped></style>

@@ -5,7 +5,6 @@ import type { QuestionLoadMore } from "~/types/1-question.type";
 const props = defineProps<{
   questionIds: string[];
 }>();
-const listEl = ref<HTMLElement | null>(null);
 
 const route = useRoute();
 const queryParams = computed(() => {
@@ -49,7 +48,8 @@ const queryParams = computed(() => {
 
   return query;
 });
-const { data, status } = useAsyncData(
+const { data, status, error } = useAsyncData(
+  `questions_${props.questionIds.join(",")}`,
   () =>
     questionApi.paginate<QuestionLoadMore>({
       _id: props.questionIds.join(","),
@@ -62,45 +62,39 @@ const { data, status } = useAsyncData(
     watch: [queryParams],
   },
 );
-
-// useInfiniteScroll(listEl, loadMore, { distance: 5 });
 </script>
 
 <template>
-  <div class="mt-10 flex w-full flex-col gap-6">
-    <template v-if="!data?.data.length && status === 'pending'">
-      <QuestionCardLoading v-for="i in 3" :key="i" />
-    </template>
+  <div>
+    <QuestionsLoading v-if="status === 'pending' && !data?.data" />
+    <Error :error="error" v-else-if="error" />
 
-    <template v-else-if="data?.data.length">
-      <QuestionCard
-        v-for="question in data.data"
-        :key="question._id"
-        :_id="question._id"
-        :title="question.title"
-        :tags="question.tagIds"
-        :author="question.authorId"
-        :upvotes="question.upvoteCount"
-        :views="question.views"
-        :created-at="new Date(question.createdAt)"
+    <template v-else>
+      <NoResult
+        v-if="!data?.data?.length"
+        title="There are no question saved to show"
+        description="Be the first to break the silence! 🚀 Ask a Question and kickstart the
+      discussion. our query could be the next big thing others learn from. Get
+      involved! 💡"
+        link="/ask-question"
+        link-title="Ask a Question"
       />
 
-      <!-- Load more -->
-      <span
-        v-show="data.paginationInfo._nextPage && status !== 'pending'"
-        ref="listEl"
-      />
-    </template>
+      <section v-else class="mt-10 flex w-full flex-col gap-6">
+        <QuestionCard
+          v-for="question in data.data"
+          :key="question._id"
+          :_id="question._id"
+          :title="question.title"
+          :tags="question.tagIds"
+          :author="question.authorId"
+          :upvotes="question.upvoteCount"
+          :views="question.views"
+          :created-at="new Date(question.createdAt)"
+        />
 
-    <template v-if="data?.data.length && status === 'pending'">
-      <QuestionCardLoading v-for="i in 3" :key="i" />
+        <PaginationInfo :data="data.paginationInfo" />
+      </section>
     </template>
-
-    <PaginationInfo
-      v-if="data?.paginationInfo && data?.paginationInfo._totalPages > 1"
-      :data="data.paginationInfo"
-    />
   </div>
 </template>
-
-<style lang="scss" scoped></style>

@@ -1,7 +1,9 @@
-<script setup lang="ts"></script>
-
 <template>
-  <div class="card-wrapper rounded-[10px] p-9 shadow-md sm:px-11">
+  <div
+    v-for="i in 8"
+    :key="`home_loading_${i}`"
+    class="card-wrapper rounded-[10px] p-9 shadow-md sm:px-11"
+  >
     <div class="flex flex-col items-start justify-between gap-1 sm:flex-row">
       <Skeleton class="h-2 w-[50px] sm:hidden" />
       <Skeleton class="h-6 w-3/4" />
@@ -19,5 +21,3 @@
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped></style>

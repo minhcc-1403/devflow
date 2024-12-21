@@ -168,5 +168,3 @@ callOnce(questionId, () => user && interactionApi.viewQuestion(questionId));
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped></style>
