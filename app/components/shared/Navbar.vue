@@ -25,7 +25,9 @@
     <div class="flex items-center justify-between gap-5">
       <Theme />
 
-      <!-- <UserMenu /> -->
+      <div class="hidden sm:block">
+        <UserMenu />
+      </div>
 
       <MobileNav />
     </div>

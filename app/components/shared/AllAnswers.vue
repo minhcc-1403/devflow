@@ -48,7 +48,7 @@ const { data, refresh, status, error } = useAsyncData(
       questionId: props.questionId,
       _limit: 8,
       _populate: "authorId",
-      _sort: "-upvotes",
+      _sort: "createdAt",
       ...queryParams.value,
     }),
   {
@@ -144,23 +144,21 @@ const handleVote = async (input: {
                   </p>
                 </div>
               </NuxtLink>
+            </div>
 
-              <div class="flex justify-end">
-                <Votes
-                  :type="UserQuestionActivityTypeEnum.Answer"
-                  :item-id="answer._id"
-                  :upvote-count="answer.upvotes?.length || 0"
-                  :has-upvoted="
-                    userId ? answer.upvotes?.includes(userId) : false
-                  "
-                  :downvote-count="answer.downvotes?.length || 0"
-                  :has-downvoted="
-                    userId ? answer.downvotes?.includes(userId) : false
-                  "
-                  :is-voting="isVoting"
-                  @on-vote="handleVote"
-                />
-              </div>
+            <div class="flex justify-end">
+              <Votes
+                :type="UserQuestionActivityTypeEnum.Answer"
+                :item-id="answer._id"
+                :upvote-count="answer.upvotes?.length || 0"
+                :has-upvoted="userId ? answer.upvotes?.includes(userId) : false"
+                :downvote-count="answer.downvotes?.length || 0"
+                :has-downvoted="
+                  userId ? answer.downvotes?.includes(userId) : false
+                "
+                :is-voting="isVoting"
+                @on-vote="handleVote"
+              />
             </div>
           </div>
 

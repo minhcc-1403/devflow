@@ -163,6 +163,7 @@ callOnce(
       <MdPreview
         :model-value="data.content"
         :theme="useColorMode().value === 'dark' ? 'dark' : 'light'"
+        class="markdown w-full min-w-full"
       />
 
       <div class="mt-8 flex flex-wrap gap-2">

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const authStore = useAuthStore();
-const { authUser, loading } = storeToRefs(authStore);
+const { user, loading } = storeToRefs(authStore);
 
 const onLogout = async () => {
   authStore.logout();
@@ -10,7 +10,7 @@ const onLogout = async () => {
 <template>
   <div class="relative">
     <Button
-      v-if="!authUser"
+      v-if="!user"
       variant="secondary"
       class="flex cursor-pointer items-center justify-center gap-x-1 border-none bg-white/10 font-light text-white outline-none transition hover:bg-white/20 focus:bg-white/30 focus-visible:ring-transparent focus-visible:ring-offset-0"
       @click="useGoTo().goToSignIn()"
@@ -35,30 +35,30 @@ const onLogout = async () => {
           variant="secondary"
           class="flex size-8 cursor-pointer items-center justify-center rounded-full"
         >
-          <Avatar>
+          <Avatar class="size-10">
             <AvatarImage
-              src="https://github.com/radix-vue.png"
-              alt="@radix-vue"
+              v-if="user.avatar"
+              :src="user.avatar"
+              alt="User avatar"
             />
-
-            <AvatarFallback class="font-medium">M</AvatarFallback>
+            <AvatarFallback>{{
+              user.fullName
+                .split(",")
+                .map((name) => name[0])
+                .join("")
+                .toUpperCase()
+            }}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent class="w-56" align="end">
-        <template v-if="authUser">
-          <DropdownMenuItem @click="navigateTo('/trips')">
-            My trips
+        <template v-if="user">
+          <DropdownMenuItem @click="navigateTo(`/profile/${user._id}`)">
+            Profile
           </DropdownMenuItem>
-          <DropdownMenuItem @click="navigateTo('/reservations')">
-            Reservations
-          </DropdownMenuItem>
-          <DropdownMenuItem @click="navigateTo('/favorites')">
-            My Favorites
-          </DropdownMenuItem>
-          <DropdownMenuItem @click="navigateTo('/properties')">
-            My Properties
+          <DropdownMenuItem @click="navigateTo(`/profile/edit/${user._id}`)">
+            Edit
           </DropdownMenuItem>
 
           <DropdownMenuSeparator />

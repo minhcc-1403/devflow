@@ -35,8 +35,8 @@ const onSave = (saveAction: ActionEnum) => {
 </script>
 
 <template>
-  <div class="flex gap-5">
-    <div class="flex-center gap-2.5">
+  <div class="flex gap-4">
+    <div class="flex-center gap-2">
       <button
         class="cursor-pointer"
         :disabled="isVoting"
@@ -59,7 +59,7 @@ const onSave = (saveAction: ActionEnum) => {
       </div>
     </div>
 
-    <div class="flex-center gap-2.5">
+    <div class="flex-center gap-2">
       <button
         class="cursor-pointer"
         :disabled="isVoting"

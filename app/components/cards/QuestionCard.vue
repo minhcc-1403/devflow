@@ -61,29 +61,33 @@ defineProps<{
         :href="`/profile/${author._id}`"
       />
 
-      <Metric
-        img-url="https://devflow-rose.vercel.app/assets/icons/like.svg"
-        alt="Upvotes"
-        :value="formatAndDivideNumber(upvotes)"
-        title="Votes"
-        text-styles="small-medium text-dark400_light800"
-      />
+      <div
+        class="flex items-center gap-3 max-sm:flex-wrap max-sm:justify-start"
+      >
+        <Metric
+          img-url="https://devflow-rose.vercel.app/assets/icons/like.svg"
+          alt="Upvotes"
+          :value="formatAndDivideNumber(upvotes)"
+          title="Votes"
+          text-styles="small-medium text-dark400_light800"
+        />
 
-      <Metric
-        img-url="https://devflow-rose.vercel.app/assets/icons/message.svg"
-        alt="message"
-        :value="formatAndDivideNumber(answerCount)"
-        title="Answers"
-        text-styles="small-medium text-dark400_light800"
-      />
+        <Metric
+          img-url="https://devflow-rose.vercel.app/assets/icons/message.svg"
+          alt="message"
+          :value="formatAndDivideNumber(answerCount)"
+          title="Answers"
+          text-styles="small-medium text-dark400_light800"
+        />
 
-      <Metric
-        img-url="https://devflow-rose.vercel.app/assets/icons/eye.svg"
-        alt="eye"
-        :value="formatAndDivideNumber(views)"
-        title="Views"
-        text-styles="small-medium text-dark400_light800"
-      />
+        <Metric
+          img-url="https://devflow-rose.vercel.app/assets/icons/eye.svg"
+          alt="eye"
+          :value="formatAndDivideNumber(views)"
+          title="Views"
+          text-styles="small-medium text-dark400_light800"
+        />
+      </div>
     </div>
   </div>
 </template>

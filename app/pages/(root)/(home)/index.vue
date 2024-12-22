@@ -4,6 +4,7 @@ import type { QuestionLoadMore } from "~/types/1-question.type";
 import { HomePageFilters } from "~/utils/constants/filters";
 
 const route = useRoute();
+const { user } = storeToRefs(useAuthStore());
 const queryParams = computed(() => {
   const q = route.query.q?.toString();
   const filter = route.query.filter?.toString();
@@ -25,7 +26,10 @@ const queryParams = computed(() => {
       break;
 
     case "recommended":
-      // handle fetch recommended questions
+      if (user.value?._id) {
+        // handle fetch recommended questions
+      } else {
+      }
       break;
 
     case "frequent":

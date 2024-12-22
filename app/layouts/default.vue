@@ -22,7 +22,7 @@ const isMobile = useMediaQuery("(max-width: 1024px)");
       <LeftSidebar />
 
       <section
-        class="flex min-h-screen flex-1 flex-col px-6 pb-6 pt-36 max-md:pb-14 sm:px-14"
+        class="bg-light900_dark200 flex min-h-screen flex-1 flex-col px-6 pb-6 pt-36 max-md:pb-14 sm:px-14"
       >
         <div class="mx-auto w-full max-w-5xl">
           <slot />
