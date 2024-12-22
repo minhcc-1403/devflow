@@ -93,7 +93,7 @@ const { data, status, error } = useAsyncData(
             <UserCard v-for="user in data.data" :key="user._id" :user="user" />
           </section>
 
-          <PaginationInfo :data="data.paginationInfo" class="mt-4" />
+          <PaginationInfo :data="data.paginationInfo" />
         </template>
       </template>
     </div>

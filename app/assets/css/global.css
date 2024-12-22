@@ -43,7 +43,11 @@ html {
   }
 
   .tab {
-    @apply min-h-full bg-light-800 text-light-500 dark:bg-dark-400;
+    @apply min-h-full rounded-sm bg-light-800 px-3 py-2 text-sm text-light-500 dark:bg-dark-400;
+  }
+
+  .tab[aria-selected="true"] {
+    @apply !bg-main-500/20 !text-main-500;
   }
 
   .active-theme {

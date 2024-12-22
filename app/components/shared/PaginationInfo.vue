@@ -14,7 +14,7 @@ const onPageChange = (page?: number) => {
 </script>
 
 <template>
-  <div class="flex w-full justify-center">
+  <div class="mt-4 flex w-full justify-center">
     <Pagination
       v-slot="{ page }"
       :total="data._totalData"

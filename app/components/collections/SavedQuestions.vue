@@ -55,7 +55,7 @@ const { data, status, error } = useAsyncData(
       _id: props.questionIds.join(","),
       _populate: "tagIds,authorId",
       _fields: "authorId._id,authorId.avatar,authorId.fullName,tagIds.name",
-      _limit: 5,
+      _limit: 8,
       ...queryParams.value,
     }),
   {

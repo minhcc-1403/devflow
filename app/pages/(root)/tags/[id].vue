@@ -54,7 +54,7 @@ const { data, status, error } = useAsyncData(`questions_tag_${tagId}`, () =>
           :created-at="new Date(question.createdAt)"
         />
 
-        <PaginationInfo :data="data.paginationInfo" class="mt-4" />
+        <PaginationInfo :data="data.paginationInfo" />
       </section>
     </template>
   </div>

@@ -94,7 +94,7 @@ const { data, status, error } = useAsyncData(
           />
         </section>
 
-        <PaginationInfo :data="data.paginationInfo" class="mt-4" />
+        <PaginationInfo :data="data.paginationInfo" />
       </template>
     </template>
   </div>
