@@ -10,6 +10,7 @@ defineProps<{
   tags: Tag[];
   author: User;
   upvotes: number;
+  answerCount: number;
   views: number;
   createdAt: Date;
   userId?: string;
@@ -71,7 +72,7 @@ defineProps<{
       <Metric
         img-url="https://devflow-rose.vercel.app/assets/icons/message.svg"
         alt="message"
-        :value="formatAndDivideNumber(upvotes)"
+        :value="formatAndDivideNumber(answerCount)"
         title="Answers"
         text-styles="small-medium text-dark400_light800"
       />

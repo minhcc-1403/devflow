@@ -49,6 +49,7 @@ export const useAuthStore = defineStore("auth", () => {
     authenticate(() => authApi.resetPasswordWithOtp(input));
 
   const getAccessToken = async () => {
+    console.log({ tokens: tokens.value });
     if (!tokens.value) return null;
 
     const currentMS = Date.now();

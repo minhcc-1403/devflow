@@ -39,7 +39,7 @@ const onSubmit = handleSubmit(async (formValues) => {
 
   isLoading.value = true;
   try {
-    await otpApi.verify(verifyItem);
+    await otpApi.checkOtpValid(verifyItem);
     emits("submitted", verifyItem);
   } catch (error) {
     toast({ ...handleApiError(error), variant: "destructive" });

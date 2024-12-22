@@ -102,6 +102,7 @@ const { data, status, error } = useAsyncData(
 
     <HomeFilters />
 
+    <!-- Load questions -->
     <QuestionsLoading v-if="status === 'pending' && !data?.data" />
     <Error :error="error" v-else-if="error" />
 
@@ -126,6 +127,7 @@ const { data, status, error } = useAsyncData(
             :tags="question.tagIds"
             :author="question.authorId"
             :upvotes="question.upvoteCount"
+            :answerCount="question.answerCount"
             :views="question.views"
             :created-at="new Date(question.createdAt)"
           />

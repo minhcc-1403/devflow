@@ -22,11 +22,15 @@ const { user } = storeToRefs(authStore);
 const { handleSubmit, errors, setFieldError, resetField, setFieldValue } =
   useForm({
     validationSchema: toTypedSchema(CreateAnswerSchema),
-    initialValues: {
-      content: "",
-      questionId: props.question._id,
-    },
+    initialValues: { content: "", questionId: "" },
   });
+
+watch(
+  () => props.question,
+  () => {
+    setFieldValue("questionId", props.question._id);
+  },
+);
 
 const isPending = ref(false);
 const editorRef = ref<any>(null);
@@ -40,7 +44,7 @@ const onSubmit = handleSubmit(async (values) => {
       resetField("content");
     })
     .catch((error) => {
-      toast({ ...handleApiError(error), variant: "destructive" });
+      handleApiError(error);
       editorRef.value.focus();
     });
 

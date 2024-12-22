@@ -16,7 +16,7 @@ const questionId = route.params.questionId as string;
 const authStore = useAuthStore();
 const { user } = storeToRefs(authStore);
 
-const { data: question, refresh } = useAsyncData(() => {
+const { data, refresh, status, error } = useAsyncData(() => {
   return questionApi.getById<QuestionDetail>(questionId as string, {
     _populate: "authorId,tagIds",
   });
@@ -61,112 +61,128 @@ const handleSave = async ({ action }: { action: ActionEnum }) => {
     });
 };
 
-callOnce(questionId, () => user && interactionApi.viewQuestion(questionId));
+// Track question views
+callOnce(
+  `questionId-${questionId}`,
+  () => user && interactionApi.viewQuestion(questionId),
+);
 </script>
 
 <template>
-  <div>
-    <div class="flex-start w-full flex-col">
-      <div
-        class="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center sm:gap-2"
-      >
-        <NuxtLink
-          :to="`/profile/${question?.authorId._id}`"
-          class="flex items-center justify-start gap-2"
-        >
-          <Avatar width="22" height="22">
-            <AvatarImage
-              v-if="question?.authorId.avatar"
-              :src="question.authorId.avatar"
-              alt="User avatar"
-            />
-            <AvatarFallback>{{
-              question?.authorId.fullName
-                ?.split(",")
-                ?.map((name) => name[0])
-                ?.join("")
-                ?.toUpperCase()
-            }}</AvatarFallback>
-          </Avatar>
+  <QuestionDetailLoading v-if="status === 'pending' && !data" />
+  <Error :error="error" v-else-if="error" />
 
-          <p class="paragraph-semibold text-dark300_light700">
-            {{ question?.authorId.fullName }}
-          </p>
-        </NuxtLink>
-
-        <div v-if="question" class="flex justify-end">
-          <Votes
-            :type="UserQuestionActivityTypeEnum.Question"
-            :item-id="question._id"
-            :user-id="user?._id"
-            :upvote-count="question.upvoteCount"
-            :has-upvoted="user?.upvoteQuestionIds?.includes(question._id)"
-            :downvote-count="question.downvoteCount"
-            :has-downvoted="user?.downvoteQuestionIds?.includes(question._id)"
-            :has-saved="user?.savedQuestionIds?.includes(question._id)"
-            :is-voting="isVoting"
-            @on-vote="handleVote"
-            @on-save="handleSave"
-          />
-        </div>
-      </div>
-
-      <h2 class="h2-semibold text-dark200_light900 mt-3.5 w-full text-left">
-        {{ question?.title }}
-      </h2>
-    </div>
-
-    <div v-if="question" class="mb-8 mt-5 flex flex-wrap gap-4">
-      <Metric
-        img-url="https://devflow-rose.vercel.app/assets/icons/clock.svg"
-        alt="clock icon"
-        :value="`asked ${formatDistanceToNowStrict(question.createdAt, { addSuffix: true })}`"
-        title=" Asked"
-        text-styles="small-medium text-dark400_light800"
-      />
-
-      <Metric
-        img-url="https://devflow-rose.vercel.app/assets/icons/message.svg"
-        alt="message"
-        :value="formatAndDivideNumber(question.answerCount)"
-        title="Answers"
-        text-styles="small-medium text-dark400_light800"
-      />
-
-      <Metric
-        img-url="https://devflow-rose.vercel.app/assets/icons/eye.svg"
-        alt="eye"
-        :value="formatAndDivideNumber(question.views)"
-        title="Views"
-        text-styles="small-medium text-dark400_light800"
-      />
-    </div>
-
-    <MdPreview
-      v-if="question"
-      :model-value="question.content"
-      :theme="useColorMode().value === 'dark' ? 'dark' : 'light'"
+  <div v-else>
+    <NoResult
+      v-if="!data"
+      title="There are no questions to show"
+      description="Be the first to break the silence! 🚀 Ask a Question and kickstart the
+      discussion. our query could be the next big thing others learn from. Get
+      involved! 💡"
+      link="/ask-question"
+      link-title="Ask a Question"
     />
 
-    <div class="mt-8 flex flex-wrap gap-2">
-      <template v-if="question">
+    <template v-else>
+      <div class="flex-start w-full flex-col">
+        <div
+          class="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center sm:gap-2"
+        >
+          <NuxtLink
+            :to="`/profile/${data.authorId?._id}`"
+            class="flex items-center justify-start gap-2"
+          >
+            <Avatar width="22" height="22">
+              <AvatarImage
+                v-if="data.authorId?.avatar"
+                :src="data.authorId.avatar"
+                alt="User avatar"
+              />
+              <AvatarFallback>{{
+                data.authorId?.fullName
+                  ?.split(",")
+                  ?.map((name) => name[0])
+                  ?.join("")
+                  ?.toUpperCase()
+              }}</AvatarFallback>
+            </Avatar>
+
+            <p class="paragraph-semibold text-dark300_light700">
+              {{ data.authorId?.fullName }}
+            </p>
+          </NuxtLink>
+
+          <div class="flex justify-end">
+            <Votes
+              :type="UserQuestionActivityTypeEnum.Question"
+              :item-id="data._id"
+              :user-id="user?._id"
+              :upvote-count="data.upvoteCount"
+              :has-upvoted="user?.upvoteQuestionIds?.includes(data._id)"
+              :downvote-count="data.downvoteCount"
+              :has-downvoted="user?.downvoteQuestionIds?.includes(data._id)"
+              :has-saved="user?.savedQuestionIds?.includes(data._id)"
+              :is-voting="isVoting"
+              @on-vote="handleVote"
+              @on-save="handleSave"
+            />
+          </div>
+        </div>
+
+        <h2 class="h2-semibold text-dark200_light900 mt-3.5 w-full text-left">
+          {{ data.title }}
+        </h2>
+      </div>
+
+      <div class="mb-8 mt-5 flex flex-wrap gap-4">
+        <Metric
+          img-url="https://devflow-rose.vercel.app/assets/icons/clock.svg"
+          alt="clock icon"
+          :value="`asked ${formatDistanceToNowStrict(data.createdAt, { addSuffix: true })}`"
+          title=" Asked"
+          text-styles="small-medium text-dark400_light800"
+        />
+
+        <Metric
+          img-url="https://devflow-rose.vercel.app/assets/icons/message.svg"
+          alt="message"
+          :value="formatAndDivideNumber(data.answerCount)"
+          title="Answers"
+          text-styles="small-medium text-dark400_light800"
+        />
+
+        <Metric
+          img-url="https://devflow-rose.vercel.app/assets/icons/eye.svg"
+          alt="eye"
+          :value="formatAndDivideNumber(data.views)"
+          title="Views"
+          text-styles="small-medium text-dark400_light800"
+        />
+      </div>
+
+      <MdPreview
+        :model-value="data.content"
+        :theme="useColorMode().value === 'dark' ? 'dark' : 'light'"
+      />
+
+      <div class="mt-8 flex flex-wrap gap-2">
         <RenderTag
-          v-for="tag in question.tagIds"
+          v-for="tag in data.tagIds"
           :key="tag._id"
           :_id="tag._id"
           :name="tag.name"
           :show-count="false"
         />
-      </template>
-    </div>
+      </div>
 
-    <div v-if="question" class="mt-20">
-      <AnswerForm :question="question" />
-    </div>
+      <div class="mt-20">
+        <AnswerForm :question="data" />
+      </div>
 
-    <p class="my-8 border-t" />
-    <div v-if="question" class="mt-8">
-      <AllAnswers :question-id="question._id" :user-id="user?._id" />
-    </div>
+      <p class="my-8 border-t" />
+      <div class="mt-8">
+        <AllAnswers :question-id="questionId" :user-id="user?._id" />
+      </div>
+    </template>
   </div>
 </template>

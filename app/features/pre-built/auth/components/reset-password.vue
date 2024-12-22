@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { toTypedSchema } from "@vee-validate/zod";
 import { useForm } from "vee-validate";
-import type { AuthUser } from "~/types/pre-built/1-auth";
 import type { VerifyOtp } from "~/types/pre-built/10-otp";
 import { ResetPasswordSchema } from "~/validations/auth.validation";
 
@@ -9,13 +8,13 @@ interface Props {
   initialValues: VerifyOtp;
 }
 interface Emits {
-  (e: "submitted", values: AuthUser): void;
+  (e: "submitted"): void;
 }
 
 const props = defineProps<Props>();
 const emits = defineEmits<Emits>();
 const authStore = useAuthStore();
-const { loading, authUser } = storeToRefs(authStore);
+const { loading, user } = storeToRefs(authStore);
 
 const { handleSubmit, values, errors } = useForm({
   validationSchema: toTypedSchema(ResetPasswordSchema),
@@ -28,7 +27,7 @@ const onSubmit = handleSubmit(async ({ password, isLogoutOthers }) => {
     isLogoutOthers,
   });
 
-  if (authUser.value) emits("submitted", authUser.value);
+  if (user.value) emits("submitted");
 });
 </script>
 

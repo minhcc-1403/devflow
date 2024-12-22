@@ -15,7 +15,7 @@ defineProps<{
 
     <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-4">
       <div
-        class="light-border bg-light900_dark300 shadow-light-300 flex flex-wrap items-center justify-evenly gap-x-4 rounded-md border p-6 dark:shadow-dark-200"
+        class="light-border bg-light900_dark300 shadow-light-300 flex flex-wrap items-center gap-x-4 rounded-md border p-6 dark:shadow-dark-200"
       >
         <div>
           <p class="paragraph-semibold text-dark200_light900">

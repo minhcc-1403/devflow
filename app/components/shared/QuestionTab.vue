@@ -61,6 +61,7 @@ onUnmounted(() => {
         :tags="question.tagIds"
         :author="question.authorId"
         :upvotes="question.upvoteCount"
+        :answerCount="question.answerCount"
         :views="question.views"
         :created-at="new Date(question.createdAt)"
         :user-id="userId"
