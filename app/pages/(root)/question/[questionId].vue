@@ -142,9 +142,11 @@ callOnce(questionId, () => user && interactionApi.viewQuestion(questionId));
       />
     </div>
 
-    <MdPreview v-if="question" :model-value="question.content" />
-
-    <!-- <ParseHTML v-if="question" :data="question?.content" /> -->
+    <MdPreview
+      v-if="question"
+      :model-value="question.content"
+      :theme="useColorMode().value === 'dark' ? 'dark' : 'light'"
+    />
 
     <div class="mt-8 flex flex-wrap gap-2">
       <template v-if="question">

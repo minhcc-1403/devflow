@@ -150,7 +150,10 @@ const handleVote = async (input: {
           </div>
         </div>
 
-        <MdPreview :model-value="answer.content" />
+        <MdPreview
+          :model-value="answer.content"
+          :theme="useColorMode().value === 'dark' ? 'dark' : 'light'"
+        />
         <!-- <ParseHTML :data="answer.content" /> -->
       </article>
     </div>

@@ -40,7 +40,7 @@ const {
 
       <div
         v-else
-        class="flex flex-col-reverse items-center justify-between sm:flex-row"
+        class="flex flex-col-reverse items-center justify-between gap-x-2 sm:flex-row"
       >
         <div class="flex flex-col items-start gap-4 lg:flex-row">
           <Avatar class="h-[140px] w-[140px]">
