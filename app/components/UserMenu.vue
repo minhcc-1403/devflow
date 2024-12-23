@@ -12,7 +12,7 @@ const onLogout = async () => {
     <Button
       v-if="!user"
       variant="secondary"
-      class="flex cursor-pointer items-center justify-center gap-x-1 border-none bg-white/10 font-light text-white outline-none transition hover:bg-white/20 focus:bg-white/30 focus-visible:ring-transparent focus-visible:ring-offset-0"
+      class="text-dark400_light700 flex cursor-pointer items-center justify-center gap-x-1 border-none bg-white/10 font-light outline-none transition focus:bg-white/30 focus-visible:ring-transparent focus-visible:ring-offset-0"
       @click="useGoTo().goToSignIn()"
     >
       <span>Sign In</span>
