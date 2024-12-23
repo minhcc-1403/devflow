@@ -70,7 +70,7 @@ callOnce(
 
 <template>
   <QuestionDetailLoading v-if="status === 'pending' && !data" />
-  <Error :error="error" v-else-if="error" />
+  <Error v-else-if="error" :error="error" />
 
   <div v-else>
     <NoResult

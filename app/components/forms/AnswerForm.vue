@@ -110,13 +110,6 @@ const generateAIAnswer = async () => {
             <MdEditor
               style="height: 300px; font-size: 12px !important"
               :model-value="value"
-              @update:model-value="
-                (e) => {
-                  if (errors['content']) setFieldError('content', '');
-                  handleInput(e);
-                }
-              "
-              @blur="(e: any) => validate(e)"
               class="h-[120px]"
               :preview="false"
               :toolbars="[
@@ -138,6 +131,13 @@ const generateAIAnswer = async () => {
               ]"
               language="en-US"
               :theme="colorMode.value === 'dark' ? 'dark' : 'light'"
+              @update:model-value="
+                (e) => {
+                  if (errors['content']) setFieldError('content', '');
+                  handleInput(e);
+                }
+              "
+              @blur="(e: any) => validate(e)"
             />
 
             <!-- <Editor

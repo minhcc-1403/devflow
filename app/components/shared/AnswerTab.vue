@@ -37,7 +37,7 @@ onUnmounted(() => {
 </script>
 <template>
   <QuestionsLoading v-if="status === 'pending' && !data?.data" />
-  <Error :error="error" v-else-if="error" />
+  <Error v-else-if="error" :error="error" />
 
   <template v-else>
     <NoResult

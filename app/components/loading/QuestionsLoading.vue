@@ -10,7 +10,7 @@
     </div>
 
     <div class="mt-3.5 flex flex-wrap gap-2">
-      <Skeleton v-for="i in 3" :key="i" class="h-7 w-20" />
+      <Skeleton v-for="skeItem in 3" :key="skeItem" class="h-7 w-20" />
     </div>
 
     <div class="flex-between mt-6 w-full flex-wrap gap-3">

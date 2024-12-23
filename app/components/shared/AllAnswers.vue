@@ -82,7 +82,7 @@ const handleVote = async (input: {
 
 <template>
   <AllAnswersLoading v-if="status === 'pending' && !data?.data" />
-  <Error :error="error" v-else-if="error" />
+  <Error v-else-if="error" :error="error" />
 
   <div v-else>
     <NoResult

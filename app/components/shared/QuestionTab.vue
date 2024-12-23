@@ -39,7 +39,7 @@ onUnmounted(() => {
 
 <template>
   <QuestionsLoading v-if="status === 'pending' && !data?.data" />
-  <Error :error="error" v-else-if="error" />
+  <Error v-else-if="error" :error="error" />
 
   <template v-else>
     <NoResult
@@ -61,7 +61,7 @@ onUnmounted(() => {
         :tags="question.tagIds"
         :author="question.authorId"
         :upvotes="question.upvoteCount"
-        :answerCount="question.answerCount"
+        :answer-count="question.answerCount"
         :views="question.views"
         :created-at="new Date(question.createdAt)"
         :user-id="userId"

@@ -27,7 +27,7 @@ const {
 <template>
   <div>
     <ProfileLoading v-if="profileStatus === 'pending' && !profile" />
-    <Error :error="profileError" v-else-if="profileError" />
+    <Error v-else-if="profileError" :error="profileError" />
 
     <template v-else>
       <template v-if="!profile">
@@ -63,8 +63,8 @@ const {
               {{ profile.fullName }}
             </h2>
             <p
-              class="paragraph-regular text-dark200_light800"
               v-if="profile.username || profile.email"
+              class="paragraph-regular text-dark200_light800"
             >
               @{{ profile.username || profile?.email?.split("@")?.[0] }}
             </p>
@@ -117,7 +117,7 @@ const {
     <StatsLoading
       v-if="userBadgeCountsStatus === 'pending' && !userBadgeCounts"
     />
-    <Error :error="userBadgeCountsError" v-else-if="userBadgeCountsError" />
+    <Error v-else-if="userBadgeCountsError" :error="userBadgeCountsError" />
 
     <Stats
       v-else

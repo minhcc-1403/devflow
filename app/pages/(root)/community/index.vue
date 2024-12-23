@@ -75,7 +75,7 @@ const { data, status, error } = useAsyncData(
     <!-- Content -->
     <div class="mt-12">
       <CommunityLoading v-if="status === 'pending' && !data?.data" />
-      <Error :error="error" v-else-if="error" />
+      <Error v-else-if="error" :error="error" />
 
       <template v-else>
         <NoResult

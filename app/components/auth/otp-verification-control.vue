@@ -2,7 +2,8 @@
 import type { ComponentFieldBindingObject } from "vee-validate";
 import { otpApi } from "~/apis/pre-built/10-otp.api";
 import { toast } from "~/components/ui/toast";
-import { OtpTypeEnum, SendOtpToEnum } from "~/utils/enums";
+import type { OtpTypeEnum } from "~/utils/enums";
+import { SendOtpToEnum } from "~/utils/enums";
 import { handleApiError } from "~/utils/helpers/error-handler.helper";
 import { parseAuthKey } from "~/validations/auth.validation";
 
