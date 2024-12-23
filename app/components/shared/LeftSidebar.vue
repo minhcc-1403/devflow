@@ -15,12 +15,10 @@ const { user } = storeToRefs(authStore);
       <NuxtLink
         v-for="item in sidebarLinks.filter((link) => {
           if (link.href === '/profile') {
-            if (user) {
-              link.href = `/profile/${user._id}`;
-              return true;
-            }
+            if (!user) return false;
 
-            return false;
+            link.href = `/profile/${user._id}`;
+            return true;
           }
 
           return true;

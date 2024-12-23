@@ -85,7 +85,7 @@ const generateAIAnswer = async () => {
       </h4>
 
       <Button
-        class="btn light-border-2 dark:text-primary-500 flex items-center gap-1.5 rounded-sm px-4 py-2.5 text-main-500 shadow-none"
+        class="btn light-border-2 flex items-center gap-1.5 rounded-sm px-4 py-2.5 text-main-500 shadow-none dark:text-main-500"
         :disabled="isSubmittingAI"
         @click="generateAIAnswer"
       >

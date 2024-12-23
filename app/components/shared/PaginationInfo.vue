@@ -26,7 +26,7 @@ const onPageChange = (page?: number) => {
     >
       <PaginationList v-slot="{ items }" class="flex items-center gap-2">
         <PaginationPrev
-          class="light-border-2 text-dark200_light800 body-medium text-xs"
+          class="light-border-2 text-dark200_light800 body-medium text-xs max-sm:size-8"
         />
 
         <template v-for="(item, index) in items">
@@ -37,7 +37,7 @@ const onPageChange = (page?: number) => {
             as-child
           >
             <Button
-              class="body-medium text-dark200_light800 rounded-md text-xs transition-all"
+              class="body-medium text-dark200_light800 rounded-md text-xs transition-all max-sm:size-8"
               :class="[
                 {
                   'bg-main-500 !text-light-900 hover:bg-main-500':
@@ -53,7 +53,7 @@ const onPageChange = (page?: number) => {
         </template>
 
         <PaginationNext
-          class="light-border-2 text-dark200_light800 body-medium text-xs"
+          class="light-border-2 text-dark200_light800 body-medium text-xs max-sm:size-8"
         />
       </PaginationList>
     </Pagination>

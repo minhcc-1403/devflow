@@ -10,12 +10,12 @@ const colorMode = useColorMode();
       <Button variant="ghost">
         <Icon
           name="solar:sun-bold"
-          class="size-6 rotate-0 scale-100 text-primary transition-all dark:-rotate-90 dark:scale-0"
+          class="size-6 rotate-0 scale-100 text-main-500 transition-all dark:-rotate-90 dark:scale-0"
         />
 
         <Icon
           name="akar-icons:moon-fill"
-          class="absolute size-6 rotate-90 scale-0 text-primary transition-all dark:rotate-0 dark:scale-100"
+          class="absolute size-6 rotate-90 scale-0 text-main-500 transition-all dark:rotate-0 dark:scale-100"
         />
 
         <span class="sr-only">Toggle theme</span>
@@ -28,7 +28,7 @@ const colorMode = useColorMode();
       <DropdownMenuItem
         v-for="theme in themes"
         :key="theme.value"
-        :class="{ 'text-primary': colorMode.preference === theme.value }"
+        :class="{ 'text-main-500': colorMode.preference === theme.value }"
         @click="colorMode.preference = theme.value"
       >
         <Icon :name="theme.icon" class="mr-2 size-4" />

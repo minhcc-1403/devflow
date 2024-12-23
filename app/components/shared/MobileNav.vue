@@ -2,6 +2,8 @@
 import { sidebarLinks } from "~/utils/constants";
 
 const route = useRoute();
+const authStore = useAuthStore();
+const { user } = storeToRefs(authStore);
 </script>
 
 <template>
@@ -12,6 +14,7 @@ const route = useRoute();
         class="size-8 cursor-pointer dark:text-gray-100 sm:hidden"
       />
     </SheetTrigger>
+
     <SheetContent class="bg-light900_dark200 border-none" side="left">
       <SheetHeader>
         <SheetTitle as-child>
@@ -24,7 +27,7 @@ const route = useRoute();
               alt="DevFlow"
             />
             <p class="h2-bold text-dark100_light800 font-spaceGrotesk">
-              Dev <span class="text-primary">Overflow</span>
+              Dev <span class="text-main-500">Overflow</span>
             </p>
           </NuxtLink>
         </SheetTitle>
@@ -33,10 +36,21 @@ const route = useRoute();
 
       <!-- Content -->
       <section class="flex flex-1 flex-col gap-6 pt-16">
-        <SheetClose as-child>
+        <SheetClose
+          as-child
+          v-for="item in sidebarLinks.filter((link) => {
+            if (link.href === '/profile') {
+              if (!user) return false;
+
+              link.href = `/profile/${user._id}`;
+              return true;
+            }
+
+            return true;
+          })"
+          :key="item.href"
+        >
           <NuxtLink
-            v-for="item in sidebarLinks"
-            :key="item.href"
             :to="item.href"
             class="flex items-center justify-start gap-4 bg-transparent p-4"
             :class="{
