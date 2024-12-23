@@ -1,6 +1,20 @@
 # DevFlow Frontend  
 
-This repository contains the frontend of **DevFlow**, a developer-focused Q&A platform built with **Nuxt3**, **Vue3**, **ShadCN**, and **TailwindCSS**.  
+Welcome to the **DevFlow** project! 🚀  
+DevFlow is a developer-focused Q&A platform built with **Nuxt3**, **Vue3**, **ShadCN**, and **TailwindCSS**.  
+
+## Intro Video  
+
+You can watch the intro video here:
+
+[![DevFlow Introduction Video](https://img.youtube.com/vi/YOUR_VIDEO_ID/maxresdefault.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
+
+Replace `YOUR_VIDEO_ID` with the actual YouTube video ID.
+
+## Website  
+
+Check out our live website: [https://devflow.example.com](https://devflow.example.com)  
+
 
 ## Features  
 
