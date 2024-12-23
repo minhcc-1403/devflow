@@ -24,7 +24,7 @@ callOnce("popular-tags", async () => {
 
 <template>
   <section
-    class="custom-scrollbar bg-light900_dark200 light-border shadow-light-300 sticky right-0 top-0 flex h-screen w-[350px] flex-col gap-6 overflow-y-auto border-l p-6 pt-36 dark:shadow-none max-xl:hidden"
+    class="custom-scrollbar bg-light900_dark200 light-border shadow-light-300 sticky right-0 top-0 flex h-screen w-[350px] flex-col gap-6 overflow-y-auto border-l p-6 pt-28 dark:shadow-none max-xl:hidden md:pt-36"
   >
     <div>
       <h3 class="h3-bold text-dark200_light900">Top Questions</h3>

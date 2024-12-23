@@ -124,7 +124,7 @@ const onSubmit = handleSubmit(async () => {
         </FormLabel>
         <FormControl>
           <Textarea
-            class="paragraph-regular placeholder light-border-2 bg-light700_dark300 text-dark300_light700 min-h-[56px] border shadow-none outline-none focus:outline-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-transparent"
+            class="paragraph-regular placeholder light-border-2 bg-light700_dark300 text-dark300_light700 min-h-[80px] border shadow-none outline-none focus:outline-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-transparent"
             placeholder="What's special about you?"
             v-bind="componentField"
           />
