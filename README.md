@@ -14,6 +14,55 @@ You can watch the intro video here:
 Check out our live website: [https://devflow.example.com](https://devflow.example.com)  
 
 
+## Images
+# Profile Image Demo  
+
+This repository demonstrates the design of multiple pages in the profile, with **Light** and **Dark** themes, across various devices (**Mobile**, **Tablet**, and **PC**).  
+
+## Pages and Themes  
+
+### 1. **Home Page**  
+
+#### Light Theme  
+| Mobile                          | Tablet                          | PC                              |  
+|---------------------------------|----------------------------------|---------------------------------|  
+| ![Light - Mobile](images/home/light/mobile.png) | ![Light - Tablet](images/home/light/tablet.png) | ![Light - PC](images/home/light/pc.png) |  
+
+#### Dark Theme  
+| Mobile                          | Tablet                          | PC                              |  
+|---------------------------------|----------------------------------|---------------------------------|  
+| ![Dark - Mobile](images/home/dark/mobile.png) | ![Dark - Tablet](images/home/dark/tablet.png) | ![Dark - PC](images/home/dark/pc.png) |  
+
+---
+
+### 2. **Profile Page**  
+
+#### Light Theme  
+| Mobile                          | Tablet                          | PC                              |  
+|---------------------------------|----------------------------------|---------------------------------|  
+| ![Light - Mobile](images/profile/light/mobile.png) | ![Light - Tablet](images/profile/light/tablet.png) | ![Light - PC](images/profile/light/pc.png) |  
+
+#### Dark Theme  
+| Mobile                          | Tablet                          | PC                              |  
+|---------------------------------|----------------------------------|---------------------------------|  
+| ![Dark - Mobile](images/profile/dark/mobile.png) | ![Dark - Tablet](images/profile/dark/tablet.png) | ![Dark - PC](images/profile/dark/pc.png) |  
+
+---
+
+### 3. **Settings Page**  
+
+#### Light Theme  
+| Mobile                          | Tablet                          | PC                              |  
+|---------------------------------|----------------------------------|---------------------------------|  
+| ![Light - Mobile](images/settings/light/mobile.png) | ![Light - Tablet](images/settings/light/tablet.png) | ![Light - PC](images/settings/light/pc.png) |  
+
+#### Dark Theme  
+| Mobile                          | Tablet                          | PC                              |  
+|---------------------------------|----------------------------------|---------------------------------|  
+| ![Dark - Mobile](images/settings/dark/mobile.png) | ![Dark - Tablet](images/settings/dark/tablet.png) | ![Dark - PC](images/settings/dark/pc.png) |  
+
+---
+
 ## Features  
 
 ### Core Features  
