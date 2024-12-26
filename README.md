@@ -26,7 +26,7 @@ This repository demonstrates the design of multiple pages in the profile, with *
 #### Light Theme  
 | Mobile                          | Tablet                          | PC                              |  
 |---------------------------------|----------------------------------|---------------------------------|  
-| ![Light - Mobile](https://img.freepik.com/free-vector/gradient-ui-ux-elements-collection_79603-1923.jpg) | ![Light - Tablet](images/home/light/tablet.png) | ![Light - PC](images/home/light/pc.png) |  
+| ![Light - Mobile](https://img.freepik.com/free-vector/gradient-ui-ux-elements-collection_79603-1923.jpg) | ![Light - Tablet](https://img.freepik.com/free-vector/gradient-ui-ux-elements-collection_79603-1923.jpg) | ![Light - PC](https://img.freepik.com/free-vector/gradient-ui-ux-elements-collection_79603-1923.jpg) |  
 
 #### Dark Theme  
 | Mobile                          | Tablet                          | PC                              |  
