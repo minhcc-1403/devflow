@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useMediaQuery } from "@vueuse/core";
-
 useHead({
   title: "DevFlow",
   meta: [
@@ -11,7 +9,7 @@ useHead({
   ],
 });
 
-const isMobile = useMediaQuery("(max-width: 1024px)");
+// const isMobile = useMediaQuery("(max-width: 1024px)");
 </script>
 
 <template>
@@ -19,17 +17,21 @@ const isMobile = useMediaQuery("(max-width: 1024px)");
     <Navbar />
 
     <div class="relative flex">
-      <LeftSidebar v-if="!isMobile" />
+      <div class="max-sm:hidden">
+        <LeftSidebar />
+      </div>
 
       <section
-        class="bg-light900_dark200 flex min-h-screen flex-1 flex-col px-6 pb-6 pt-28 max-md:pb-14 sm:px-14 md:pt-36"
+        class="flex min-h-screen flex-1 flex-col px-6 pb-6 pt-28 max-md:pb-14 sm:px-14 md:pt-36"
       >
         <div class="mx-auto w-full max-w-5xl">
           <slot />
         </div>
       </section>
 
-      <RightSidebar v-if="!isMobile" />
+      <div class="max-sm:hidden">
+        <RightSidebar />
+      </div>
     </div>
   </main>
 </template>

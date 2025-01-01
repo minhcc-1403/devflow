@@ -50,7 +50,7 @@ const { data, status, error } = useAsyncData(
     questionApi.paginate<QuestionLoadMore>({
       _populate: "tagIds,authorId",
       _fields: "authorId._id,authorId.avatar,authorId.fullName,tagIds.name",
-      _limit: 5,
+      _limit: 10,
       ...queryParams.value,
     }),
   {

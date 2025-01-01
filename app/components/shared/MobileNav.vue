@@ -11,7 +11,7 @@ const { user } = storeToRefs(authStore);
     <SheetTrigger as-child>
       <Icon
         name="icon-park-outline:hamburger-button"
-        class="size-8 cursor-pointer dark:text-gray-100 sm:hidden"
+        class="size-8 cursor-pointer dark:text-gray-100"
       />
     </SheetTrigger>
 

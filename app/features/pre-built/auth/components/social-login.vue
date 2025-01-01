@@ -32,7 +32,7 @@ const loginWithGoogle = async (e: MouseEvent) => {
   <div class="flex gap-x-4">
     <Button
       variant="outline"
-      class="flex w-full items-center py-5 text-center text-sm text-gray-600 hover:text-primary dark:text-gray-300"
+      class="flex w-full items-center py-5 text-center text-sm text-gray-600 hover:text-primary dark:text-gray-400"
       :disabled="disabled"
       @click="loginWithGoogle"
     >
@@ -43,7 +43,7 @@ const loginWithGoogle = async (e: MouseEvent) => {
 
     <Button
       variant="outline"
-      class="flex w-full items-center py-5 text-center text-sm text-gray-600 hover:text-primary dark:text-gray-300"
+      class="flex w-full items-center py-5 text-center text-sm text-gray-600 hover:text-primary dark:text-gray-400"
       disabled
     >
       <Icon name="logos:apple" class="mr-2" />

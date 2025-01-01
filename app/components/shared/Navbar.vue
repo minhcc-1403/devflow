@@ -23,11 +23,13 @@
     <div class="flex items-center justify-between gap-5">
       <Theme />
 
-      <div class="hidden sm:block">
+      <div class="max-sm:hidden">
         <UserMenu />
       </div>
 
-      <MobileNav />
+      <div class="sm:hidden">
+        <MobileNav />
+      </div>
     </div>
   </nav>
 </template>

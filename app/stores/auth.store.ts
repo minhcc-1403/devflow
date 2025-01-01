@@ -36,6 +36,12 @@ export const useAuthStore = defineStore("auth", () => {
   const logout = async () => {
     try {
       await authApi.logout();
+      useRouter().push({
+        path: "/sign-in",
+        query: {
+          from: useRouter().currentRoute.value.fullPath,
+        },
+      });
     } catch (error) {
       handleApiError(error);
     }

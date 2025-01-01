@@ -8,7 +8,7 @@ const { user } = storeToRefs(authStore);
 
 <template>
   <section
-    class="custom-scrollbar background-light900_dark200 light-border shadow-light-300 sticky left-0 top-0 flex h-screen w-fit flex-col justify-between overflow-y-auto border-r p-6 pt-28 dark:shadow-none max-sm:hidden md:pt-36 lg:w-[266px]"
+    class="custom-scrollbar bg-light900_dark200 light-border shadow-light-300 sticky left-0 top-0 flex h-screen w-fit flex-col justify-between overflow-y-auto border-r p-6 pt-28 dark:shadow-none max-sm:hidden md:pt-36 lg:w-[266px]"
   >
     <!-- Content -->
     <div class="flex flex-1 flex-col gap-6">
@@ -58,7 +58,7 @@ const { user } = storeToRefs(authStore);
 
       <NuxtLink to="/sign-up">
         <Button
-          class="small-medium light-border-2 text-dark400_light800 min-h-[41px] w-full rounded-lg bg-secondary px-4 py-3 shadow-none"
+          class="small-medium light-border-2 text-dark400_light800 min-h-[41px] w-full rounded-lg bg-secondary px-4 py-3 shadow-none hover:bg-secondary/90"
         >
           <Icon name="iconoir:user-plus" class="size-5 lg:hidden" />
 

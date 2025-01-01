@@ -3,14 +3,39 @@ import { questionApi } from "~/apis/devflow/1-question.api";
 import type { QuestionLoadMore } from "~/types/1-question.type";
 
 const tagId = useRoute().params.id as string;
-const { data, status, error } = useAsyncData(`questions_tag_${tagId}`, () =>
-  questionApi.paginate<QuestionLoadMore>({
-    tagIds: tagId,
-    _sort: "-createdAt",
-    _populate: "tagIds,authorId",
-    _fields: "authorId._id,authorId.avatar,authorId.fullName,tagIds.name",
-    _limit: 5,
-  }),
+
+const route = useRoute();
+const queryParams = computed(() => {
+  const q = route.query.q?.toString();
+  const page = route.query._page?.toString() || undefined;
+
+  const query = {};
+  if (q) {
+    Object.assign(query, {
+      "_oneOf.title": new RegExp(q, "i").toString(),
+      "_oneOf.content": new RegExp(q, "i").toString(),
+    });
+  }
+
+  if (page) Object.assign(query, { _page: page });
+
+  return query;
+});
+
+const { data, status, error } = useAsyncData(
+  `questions_tag_${tagId}`,
+  () =>
+    questionApi.paginate<QuestionLoadMore>({
+      tagIds: tagId,
+      _sort: "-createdAt",
+      _populate: "tagIds,authorId",
+      _fields: "authorId._id,authorId.avatar,authorId.fullName,tagIds.name",
+      _limit: 5,
+      ...queryParams.value,
+    }),
+  {
+    watch: [queryParams],
+  },
 );
 </script>
 
