@@ -37,7 +37,6 @@ const { user } = storeToRefs(authStore);
       <!-- Content -->
       <section class="flex flex-1 flex-col gap-6 pt-16">
         <SheetClose
-          as-child
           v-for="item in sidebarLinks.filter((link) => {
             if (link.href === '/profile') {
               if (!user) return false;
@@ -49,6 +48,7 @@ const { user } = storeToRefs(authStore);
             return true;
           })"
           :key="item.href"
+          as-child
         >
           <NuxtLink
             :to="item.href"

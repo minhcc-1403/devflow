@@ -1,111 +1,121 @@
-# DevFlow Frontend  
+# DevFlow Frontend
 
 Welcome to the **DevFlow** project! 🚀  
-DevFlow is a developer-focused Q&A platform built with **Nuxt3**, **Vue3**, **ShadCN**, and **TailwindCSS**.  
+DevFlow is a developer-focused Q&A platform built with **Nuxt3**, **Vue3**, **ShadCN**, and **TailwindCSS**.
 
-## Intro Video  
+## Intro Video
 
 You can watch the intro video here:
 
 [![DevFlow Introduction Video](https://www.youtube.com/watch?v=kyQDnO-ckz0)
 
-## Website  
+## Website
 
-Check out our live website: [https://devflow.example.com](https://devflow.example.com)  
-
+Check out our live website: [https://devflow.example.com](https://devflow.example.com)
 
 ## Images
-# Profile Image Demo  
 
-This repository demonstrates the design of multiple pages in the profile, with **Light** and **Dark** themes, across various devices (**Mobile**, **Tablet**, and **PC**).  
+# Profile Image Demo
 
-## Pages and Themes  
+This repository demonstrates the design of multiple pages in the profile, with **Light** and **Dark** themes, across various devices (**Mobile**, **Tablet**, and **PC**).
 
-### 1. **Home Page**  
+## Pages and Themes
 
-#### Light Theme  
-| Mobile                          | Tablet                          | PC                              |  
-|---------------------------------|----------------------------------|---------------------------------|  
-| ![Light - Mobile](https://img.freepik.com/free-vector/gradient-ui-ux-elements-collection_79603-1923.jpg) | ![Light - Tablet](https://img.freepik.com/free-vector/gradient-ui-ux-elements-collection_79603-1923.jpg) | ![Light - PC](https://img.freepik.com/free-vector/gradient-ui-ux-elements-collection_79603-1923.jpg) |  
+### 1. **Home Page**
 
-#### Dark Theme  
-| Mobile                          | Tablet                          | PC                              |  
-|---------------------------------|----------------------------------|---------------------------------|  
-| ![Dark - Mobile](images/home/dark/mobile.png) | ![Dark - Tablet](images/home/dark/tablet.png) | ![Dark - PC](images/home/dark/pc.png) |  
+#### Light Theme
 
----
+| Mobile                                                                                                   | Tablet                                                                                                   | PC                                                                                                   |
+| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| ![Light - Mobile](https://img.freepik.com/free-vector/gradient-ui-ux-elements-collection_79603-1923.jpg) | ![Light - Tablet](https://img.freepik.com/free-vector/gradient-ui-ux-elements-collection_79603-1923.jpg) | ![Light - PC](https://img.freepik.com/free-vector/gradient-ui-ux-elements-collection_79603-1923.jpg) |
 
-### 2. **Profile Page**  
+#### Dark Theme
 
-#### Light Theme  
-| Mobile                          | Tablet                          | PC                              |  
-|---------------------------------|----------------------------------|---------------------------------|  
-| ![Light - Mobile](images/profile/light/mobile.png) | ![Light - Tablet](images/profile/light/tablet.png) | ![Light - PC](images/profile/light/pc.png) |  
-
-#### Dark Theme  
-| Mobile                          | Tablet                          | PC                              |  
-|---------------------------------|----------------------------------|---------------------------------|  
-| ![Dark - Mobile](images/profile/dark/mobile.png) | ![Dark - Tablet](images/profile/dark/tablet.png) | ![Dark - PC](images/profile/dark/pc.png) |  
+| Mobile                                        | Tablet                                        | PC                                    |
+| --------------------------------------------- | --------------------------------------------- | ------------------------------------- |
+| ![Dark - Mobile](images/home/dark/mobile.png) | ![Dark - Tablet](images/home/dark/tablet.png) | ![Dark - PC](images/home/dark/pc.png) |
 
 ---
 
-### 3. **Settings Page**  
+### 2. **Profile Page**
 
-#### Light Theme  
-| Mobile                          | Tablet                          | PC                              |  
-|---------------------------------|----------------------------------|---------------------------------|  
-| ![Light - Mobile](images/settings/light/mobile.png) | ![Light - Tablet](images/settings/light/tablet.png) | ![Light - PC](images/settings/light/pc.png) |  
+#### Light Theme
 
-#### Dark Theme  
-| Mobile                          | Tablet                          | PC                              |  
-|---------------------------------|----------------------------------|---------------------------------|  
-| ![Dark - Mobile](images/settings/dark/mobile.png) | ![Dark - Tablet](images/settings/dark/tablet.png) | ![Dark - PC](images/settings/dark/pc.png) |  
+| Mobile                                             | Tablet                                             | PC                                         |
+| -------------------------------------------------- | -------------------------------------------------- | ------------------------------------------ |
+| ![Light - Mobile](images/profile/light/mobile.png) | ![Light - Tablet](images/profile/light/tablet.png) | ![Light - PC](images/profile/light/pc.png) |
+
+#### Dark Theme
+
+| Mobile                                           | Tablet                                           | PC                                       |
+| ------------------------------------------------ | ------------------------------------------------ | ---------------------------------------- |
+| ![Dark - Mobile](images/profile/dark/mobile.png) | ![Dark - Tablet](images/profile/dark/tablet.png) | ![Dark - PC](images/profile/dark/pc.png) |
 
 ---
 
-## Features  
+### 3. **Settings Page**
 
-### Core Features  
-- **Authentication**:  
-  - User login and registration with form validation.  
-  - Role-based route protection (Admin/User).  
-- **Questions**:  
-  - Ask new questions with tags and search functionality.  
-  - Update or delete questions.  
-- **Answers**:  
-  - Post, edit, or delete answers to questions.  
-- **Votes**:  
-  - Upvote/downvote questions and answers.  
+#### Light Theme
 
-### Additional Features  
-- **Responsive Design**:  
-  - Mobile-friendly and optimized using **TailwindCSS**.  
-- **Interactive UI**:  
-  - Consistent and accessible components built with **ShadCN**.  
-- **Real-Time Updates**:  
+| Mobile                                              | Tablet                                              | PC                                          |
+| --------------------------------------------------- | --------------------------------------------------- | ------------------------------------------- |
+| ![Light - Mobile](images/settings/light/mobile.png) | ![Light - Tablet](images/settings/light/tablet.png) | ![Light - PC](images/settings/light/pc.png) |
+
+#### Dark Theme
+
+| Mobile                                            | Tablet                                            | PC                                        |
+| ------------------------------------------------- | ------------------------------------------------- | ----------------------------------------- |
+| ![Dark - Mobile](images/settings/dark/mobile.png) | ![Dark - Tablet](images/settings/dark/tablet.png) | ![Dark - PC](images/settings/dark/pc.png) |
+
+---
+
+## Features
+
+### Core Features
+
+- **Authentication**:
+  - User login and registration with form validation.
+  - Role-based route protection (Admin/User).
+- **Questions**:
+  - Ask new questions with tags and search functionality.
+  - Update or delete questions.
+- **Answers**:
+  - Post, edit, or delete answers to questions.
+- **Votes**:
+  - Upvote/downvote questions and answers.
+
+### Additional Features
+
+- **Responsive Design**:
+  - Mobile-friendly and optimized using **TailwindCSS**.
+- **Interactive UI**:
+  - Consistent and accessible components built with **ShadCN**.
+- **Real-Time Updates**:
   - Live feedback for user actions like voting and posting answers.
 
-## Tech Stack  
+## Tech Stack
 
-- **Nuxt3**: Server-side rendering and static site generation.  
-- **Vue3**: Reactive and modular frontend framework.  
-- **ShadCN**: Pre-built UI components for styling and design.  
-- **TailwindCSS**: Utility-first CSS framework for responsive layouts.  
+- **Nuxt3**: Server-side rendering and static site generation.
+- **Vue3**: Reactive and modular frontend framework.
+- **ShadCN**: Pre-built UI components for styling and design.
+- **TailwindCSS**: Utility-first CSS framework for responsive layouts.
 
-## Project Structure  
-    src/  
-    ├── components/    # Reusable Vue components  
-    ├── layouts/       # App layouts  
-    ├── pages/         # Route views  
-    ├── composables/   # Reusable logic and state  
-    ├── assets/        # Static assets (CSS, images, etc.)  
-    ├── public/        # Public files  
-    ├── store/         # Pinia for state management  
-    ├── styles/        # Global styles (e.g., TailwindCSS configs)  
-    ├── nuxt.config.ts # Nuxt configuration file  
-    └── ...  
+## Project Structure
 
-## Key Pages  
+    src/
+    ├── components/    # Reusable Vue components
+    ├── layouts/       # App layouts
+    ├── pages/         # Route views
+    ├── composables/   # Reusable logic and state
+    ├── assets/        # Static assets (CSS, images, etc.)
+    ├── public/        # Public files
+    ├── store/         # Pinia for state management
+    ├── styles/        # Global styles (e.g., TailwindCSS configs)
+    ├── nuxt.config.ts # Nuxt configuration file
+    └── ...
+
+## Key Pages
+
 - **Home Page**:  
   Displays a list of recent questions with the ability to search and filter questions based on tags or keywords.
 - **Login/Registration**:  
@@ -115,93 +125,94 @@ This repository demonstrates the design of multiple pages in the profile, with *
 - **User Dashboard**:  
   A personalized dashboard where users can manage their own questions, answers, and view their activity.
 
-## Screenshots  
+## Screenshots
 
-### Home Page  
+### Home Page
+
 ![Home Page](assets/images/home-page.png)  
-*Displays the most recent questions with a search bar and filter options to refine the results.*
+_Displays the most recent questions with a search bar and filter options to refine the results._
 
-### Question Details  
+### Question Details
+
 ![Question Details](assets/images/question-details.png)  
-*Shows the detailed view of a specific question, allowing users to post answers, edit their responses, and vote on questions and answers.*
+_Shows the detailed view of a specific question, allowing users to post answers, edit their responses, and vote on questions and answers._
 
-
-## Installation  
+## Installation
 
 <details>
   <summary>Click to expand</summary>
 
-  ### Prerequisites  
-  - **Node.js**: v18+  
+### Prerequisites
 
-  ### Steps  
+- **Node.js**: v18+
 
-  1. **Clone the Repository**  
-     ```bash  
-     git clone https://github.com/username/devflow-frontend.git  
-     cd devflow-frontend  
-     ```  
+### Steps
 
-  2. **Install Dependencies**  
-     ```bash  
-     npm install  
-     ```  
+1. **Clone the Repository**
 
-  3. **Configure Environment Variables**  
-     Create a `.env` file in the root directory with the following content:  
-     ```plaintext  
-     API_BASE_URL=http://localhost:3000  
-     ```  
+   ```bash
+   git clone https://github.com/username/devflow-frontend.git
+   cd devflow-frontend
+   ```
 
-  4. **Start Development Server**  
-     ```bash  
-     npm run dev  
-     ```  
+2. **Install Dependencies**
 
-     The application will run at `http://localhost:3000`.  
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment Variables**  
+   Create a `.env` file in the root directory with the following content:
+
+   ```plaintext
+   API_BASE_URL=http://localhost:3000
+   ```
+
+4. **Start Development Server**
+
+   ```bash
+   npm run dev
+   ```
+
+   The application will run at `http://localhost:3000`.
 
 </details>
 
-## Contributions  
+## Contributions
+
 <details>
   <summary>Click to expand</summary>
   
   We welcome contributions to the project! If you'd like to contribute, follow the steps below:
 
-  1. **Fork the repository**  
-     - Click the "Fork" button in the top-right corner of the repository page to create a personal copy.
+1. **Fork the repository**
 
-  2. **Create a new branch**  
-     - Create a new branch for your feature or bug fix:  
-       ```bash  
-       git checkout -b feature/your-feature-name  
-       ```
+   - Click the "Fork" button in the top-right corner of the repository page to create a personal copy.
 
-  3. **Commit your changes**  
-     - Make your changes and commit them:  
-       ```bash  
-       git commit -m "Description of your changes"  
-       ```
+2. **Create a new branch**
 
-  4. **Push to your fork**  
-     - Push your changes to your forked repository:  
-       ```bash  
-       git push origin feature/your-feature-name  
-       ```
+   - Create a new branch for your feature or bug fix:
+     ```bash
+     git checkout -b feature/your-feature-name
+     ```
 
-  5. **Submit a pull request**  
-     - Go to the repository on GitHub and submit a pull request for review.
+3. **Commit your changes**
 
-  We appreciate your contributions and feedback!
+   - Make your changes and commit them:
+     ```bash
+     git commit -m "Description of your changes"
+     ```
+
+4. **Push to your fork**
+
+   - Push your changes to your forked repository:
+     ```bash
+     git push origin feature/your-feature-name
+     ```
+
+5. **Submit a pull request**
+   - Go to the repository on GitHub and submit a pull request for review.
+
+We appreciate your contributions and feedback!
 
 </details>
-
-
-
-
-
-
-
-
-
-
