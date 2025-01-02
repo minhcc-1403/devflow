@@ -25,51 +25,15 @@ This repository demonstrates the design of multiple pages in the profile, with *
 
 #### Light Theme
 
-| Mobile                                                                                                   | Tablet                                                                                                   | PC                                                                                                   |
-| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| ![Light - Mobile](https://img.freepik.com/free-vector/gradient-ui-ux-elements-collection_79603-1923.jpg) | ![Light - Tablet](https://img.freepik.com/free-vector/gradient-ui-ux-elements-collection_79603-1923.jpg) | ![Light - PC](https://img.freepik.com/free-vector/gradient-ui-ux-elements-collection_79603-1923.jpg) |
+| Mobile                               | PC                             |
+| ------------------------------------ | ------------------------------ |
+| ![Light - Mobile](images/home-m.png) | ![Light - PC](images/home.png) |
 
 #### Dark Theme
 
-| Mobile                                        | Tablet                                        | PC                                    |
-| --------------------------------------------- | --------------------------------------------- | ------------------------------------- |
-| ![Dark - Mobile](images/home/dark/mobile.png) | ![Dark - Tablet](images/home/dark/tablet.png) | ![Dark - PC](images/home/dark/pc.png) |
-
----
-
-### 2. **Profile Page**
-
-#### Light Theme
-
-| Mobile                                             | Tablet                                             | PC                                         |
-| -------------------------------------------------- | -------------------------------------------------- | ------------------------------------------ |
-| ![Light - Mobile](images/profile/light/mobile.png) | ![Light - Tablet](images/profile/light/tablet.png) | ![Light - PC](images/profile/light/pc.png) |
-
-#### Dark Theme
-
-| Mobile                                           | Tablet                                           | PC                                       |
-| ------------------------------------------------ | ------------------------------------------------ | ---------------------------------------- |
-| ![Dark - Mobile](images/profile/dark/mobile.png) | ![Dark - Tablet](images/profile/dark/tablet.png) | ![Dark - PC](images/profile/dark/pc.png) |
-
----
-
-### 3. **Settings Page**
-
-#### Light Theme
-
-| Mobile                                              | Tablet                                              | PC                                          |
-| --------------------------------------------------- | --------------------------------------------------- | ------------------------------------------- |
-| ![Light - Mobile](images/settings/light/mobile.png) | ![Light - Tablet](images/settings/light/tablet.png) | ![Light - PC](images/settings/light/pc.png) |
-
-#### Dark Theme
-
-| Mobile                                            | Tablet                                            | PC                                        |
-| ------------------------------------------------- | ------------------------------------------------- | ----------------------------------------- |
-| ![Dark - Mobile](images/settings/dark/mobile.png) | ![Dark - Tablet](images/settings/dark/tablet.png) | ![Dark - PC](images/settings/dark/pc.png) |
-
----
-
-## Features
+| Mobile                              | PC                            |
+| ----------------------------------- | ----------------------------- |
+| ![Dark - Mobile](images/home-m.png) | ![Dark - PC](images/home.png) |
 
 ### Core Features
 
