@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { toTypedSchema } from "@vee-validate/zod";
 import { useForm } from "vee-validate";
-import AuthHeading from "~/features/pre-built/auth/components/auth-heading.vue";
-import SocialLogin from "~/features/pre-built/auth/components/social-login.vue";
 import { LoginSchema } from "~/validations/auth.validation";
 
 definePageMeta({ layout: "auth", middleware: ["only-visitor"] });
@@ -89,7 +87,7 @@ const navigateToSignUp = () => router.push({ path: "/sign-up", query });
             <Button
               type="button"
               variant="link"
-              class="text-xs text-primary"
+              class="primary-text-gradient text-xs"
               @click="navigateToForgotPass"
             >
               Forgot Password ?
@@ -101,7 +99,7 @@ const navigateToSignUp = () => router.push({ path: "/sign-up", query });
       <div class="flex w-full flex-row items-center py-2">
         <Button
           type="submit"
-          class="user-select-none w-full py-5"
+          class="user-select-none primary-gradient w-full py-5"
           :disabled="loading"
         >
           <Icon
@@ -122,7 +120,7 @@ const navigateToSignUp = () => router.push({ path: "/sign-up", query });
       <Button
         type="button"
         variant="link"
-        class="px-0 text-primary transition hover:underline hover:opacity-90"
+        class="primary-text-gradient px-0 transition hover:underline hover:opacity-90"
         @click="navigateToSignUp"
       >
         Sign up
@@ -130,5 +128,3 @@ const navigateToSignUp = () => router.push({ path: "/sign-up", query });
     </div>
   </div>
 </template>
-
-<style lang="css" scoped></style>

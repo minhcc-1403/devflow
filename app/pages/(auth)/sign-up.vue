@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { toTypedSchema } from "@vee-validate/zod";
 import { useForm } from "vee-validate";
-import AuthHeading from "~/features/pre-built/auth/components/auth-heading.vue";
-import SocialLogin from "~/features/pre-built/auth/components/social-login.vue";
 import { AccountTypeEnum, OtpTypeEnum, SendOtpToEnum } from "~/utils/enums";
 import { RegisterSchema, parseAuthKey } from "~/validations/auth.validation";
 
@@ -147,7 +145,7 @@ const navigateToSignIn = () => router.push({ path: "/sign-in", query });
               <NuxtLink
                 to="/"
                 target="_blank"
-                class="text-xs text-primary transition-all hover:underline hover:opacity-90 md:text-sm"
+                class="primary-text-gradient text-xs transition-all hover:underline hover:opacity-90 md:text-sm"
                 >Terms</NuxtLink
               >
             </FormLabel>
@@ -160,7 +158,7 @@ const navigateToSignIn = () => router.push({ path: "/sign-in", query });
       <div class="flex w-full flex-row items-center py-2">
         <Button
           type="submit"
-          class="user-select-none w-full py-5"
+          class="user-select-none primary-gradient w-full py-5"
           :disabled="errors.otpCode || !values.otpCode || loading"
         >
           <Icon
@@ -181,7 +179,7 @@ const navigateToSignIn = () => router.push({ path: "/sign-in", query });
       <Button
         type="button"
         variant="link"
-        class="px-0 text-primary transition hover:underline hover:opacity-90"
+        class="primary-text-gradient px-0 transition hover:underline hover:opacity-90"
         @click="navigateToSignIn"
       >
         Sign In

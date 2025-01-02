@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import AuthHeading from "~/features/pre-built/auth/components/auth-heading.vue";
-import ForgotPassword from "~/features/pre-built/auth/components/forgot-password.vue";
-import ResetPassword from "~/features/pre-built/auth/components/reset-password.vue";
 import type { VerifyOtp } from "~/types/pre-built/10-otp";
 
 definePageMeta({ layout: "auth", middleware: "only-visitor" });
@@ -69,7 +66,7 @@ const goBack = () => (isPasswordVisible.value = false);
         <Button
           type="button"
           variant="link"
-          class="px-0 text-primary transition hover:underline hover:opacity-90"
+          class="primary-text-gradient px-0 transition hover:underline hover:opacity-90"
           @click="navigateToSignIn"
         >
           Sign In
@@ -77,9 +74,9 @@ const goBack = () => (isPasswordVisible.value = false);
       </template>
 
       <template v-else>
-        <span class="text-gray-400">Want to return? </span>
+        <span class="text-sm text-gray-400">Want to return? </span>
         <div
-          class="flex flex-row items-center font-medium text-primary transition hover:underline hover:opacity-90"
+          class="primary-text-gradient flex flex-row items-center text-sm font-medium transition hover:underline hover:opacity-90"
         >
           <Icon name="carbon:chevron-left" />
           <span

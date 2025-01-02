@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const firebaseAuth = useFirebase();
 const authStore = useAuthStore();
-const { authUser } = storeToRefs(authStore);
+const { user } = storeToRefs(authStore);
 
 const isMobile = useMediaQuery("(max-width: 1024px)");
 
@@ -15,7 +15,7 @@ const loginWithGoogle = async (e: MouseEvent) => {
   await authStore.loginWithGoogle(idToken);
 
   // Redirect to the previous page
-  if (authUser.value) {
+  if (user.value) {
     const from = query.from as string | undefined;
     if (!from) return router.push({ path: "/" });
 
@@ -32,7 +32,7 @@ const loginWithGoogle = async (e: MouseEvent) => {
   <div class="flex gap-x-4">
     <Button
       variant="outline"
-      class="flex w-full items-center py-5 text-center text-sm text-gray-600 hover:text-primary dark:text-gray-400"
+      class="hover:primary-text-gradient flex w-full items-center py-5 text-center text-sm text-gray-600 dark:text-gray-400"
       :disabled="disabled"
       @click="loginWithGoogle"
     >
@@ -43,7 +43,7 @@ const loginWithGoogle = async (e: MouseEvent) => {
 
     <Button
       variant="outline"
-      class="flex w-full items-center py-5 text-center text-sm text-gray-600 hover:text-primary dark:text-gray-400"
+      class="hover:primary-text-gradient flex w-full items-center py-5 text-center text-sm text-gray-600 dark:text-gray-400"
       disabled
     >
       <Icon name="logos:apple" class="mr-2" />

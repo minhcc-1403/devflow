@@ -64,7 +64,7 @@ const onSubmitOTP = async () => {
       />
       <!-- OTP Submit Button -->
       <Button
-        class="absolute inset-y-0 end-0 z-20 h-full rounded-full bg-green-500 text-xs opacity-100 transition-opacity duration-300 hover:bg-green-500 hover:opacity-90"
+        class="primary-gradient-light hover:primary-gradient-light absolute inset-y-0 end-0 z-20 h-full rounded-full text-xs opacity-100 transition-opacity duration-300 hover:opacity-90"
         :disabled="!authKey || otpCodeExpiredCountDown || isSubmitting"
         @click="onSubmitOTP"
       >

@@ -21,7 +21,11 @@ const { promise, handleCancel, handleConfirm, title, description, isLoading } =
           @click="handleCancel"
           >Cancel</AlertDialogCancel
         >
-        <AlertDialogAction :disabled="isLoading" @click="handleConfirm">
+        <AlertDialogAction
+          :disabled="isLoading"
+          class="primary-gradient"
+          @click="handleConfirm"
+        >
           <Icon
             v-if="isLoading"
             name="lucide:loader"

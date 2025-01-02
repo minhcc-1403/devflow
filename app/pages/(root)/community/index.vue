@@ -15,12 +15,12 @@ const queryParams = computed(() => {
 
   if (q) {
     const regex = new RegExp(q, "i").toString();
-    query._oneOf = {
-      fullName: regex,
-      phone: regex,
-      email: regex,
-      username: regex,
-    };
+    Object.assign(query, {
+      "_oneOf.fullName": regex,
+      "_oneOf.phone": regex,
+      "_oneOf.email": regex,
+      "_oneOf.username": regex,
+    });
   }
 
   const sortOptions: Record<string, string> = {

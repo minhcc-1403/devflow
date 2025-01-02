@@ -18,8 +18,19 @@ const onLocaleSelect = (language: Locale) => {
       <div
         class="logo relative left-0 right-0 top-0 px-6 py-4 pt-5 lg:bottom-0 lg:w-1/2"
       >
-        <NuxtLink to="/" class="relative z-10">
-          <img src="/logo.svg" alt="Logo" >
+        <!-- Logo -->
+        <NuxtLink to="/" class="relative z-10 flex items-center gap-1">
+          <NuxtImg
+            src="/images/site-logo.svg"
+            width="23"
+            height="23"
+            alt="DevFlow"
+          />
+          <p
+            class="h2-bold font-spaceGrotesk text-[#000000] dark:text-[#FFFFFF] max-sm:hidden"
+          >
+            Dev <span class="text-main-500">Overflow</span>
+          </p>
         </NuxtLink>
 
         <div
@@ -28,7 +39,7 @@ const onLocaleSelect = (language: Locale) => {
           <img
             src="https://modernize-nuxt.adminmart.com/images/backgrounds/login-bg.svg"
             alt="Login Background"
-          >
+          />
         </div>
       </div>
 
@@ -53,19 +64,19 @@ const onLocaleSelect = (language: Locale) => {
               <NuxtLink
                 to="/"
                 target="_blank"
-                class="text-[13px] font-medium text-primary transition-all hover:underline hover:opacity-90 lg:text-sm"
+                class="primary-text-gradient text-[13px] font-medium transition-all hover:underline hover:opacity-90 lg:text-sm"
                 >Terms</NuxtLink
               >
               <NuxtLink
                 to="/"
                 target="_blank"
-                class="text-[13px] font-medium text-primary transition-all hover:underline hover:opacity-90 lg:text-sm"
+                class="primary-text-gradient text-[13px] font-medium transition-all hover:underline hover:opacity-90 lg:text-sm"
                 >Plans</NuxtLink
               >
               <NuxtLink
                 to="/"
                 target="_blank"
-                class="text-[13px] font-medium text-primary transition-all hover:underline hover:opacity-90 lg:text-sm"
+                class="primary-text-gradient text-[13px] font-medium transition-all hover:underline hover:opacity-90 lg:text-sm"
                 >Contact Us</NuxtLink
               >
             </div>
