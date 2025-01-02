@@ -27,13 +27,13 @@ This repository demonstrates the design of multiple pages in the profile, with *
 
 | Mobile                               | PC                             |
 | ------------------------------------ | ------------------------------ |
-| ![Light - Mobile](images/home-m.png) | ![Light - PC](images/home.png) |
+| ![Light - Mobile](public/images/home-m.png) | ![Light - PC](public/images/home.png) |
 
 #### Dark Theme
 
 | Mobile                              | PC                            |
 | ----------------------------------- | ----------------------------- |
-| ![Dark - Mobile](images/home-m.png) | ![Dark - PC](images/home.png) |
+| ![Dark - Mobile](public/images/home-m.png) | ![Dark - PC](public/images/home.png) |
 
 ### Core Features
 
