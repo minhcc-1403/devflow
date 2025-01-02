@@ -25,15 +25,17 @@ This repository demonstrates the design of multiple pages in the profile, with *
 
 #### Light Theme
 
-| Mobile                               | PC                             |
-| ------------------------------------ | ------------------------------ |
-| ![Light - Mobile](public/ui/light/home-m.png) | ![Light - PC](public/ui/light/home.png) |
+| Mobile                                         | Large                                                    |
+| ---------------------------------------------- | -------------------------------------------------------- |
+| ![Light - Mobile](public/ui/light/home-m.png)  | ![Light - Large](public/ui/light/home.png)               |
+| ![Light - Mobile](public/ui/light/home-m2.png) | ![Light - Large](public/ui/light/home-search-global.png) |
 
 #### Dark Theme
 
-| Mobile                              | PC                            |
-| ----------------------------------- | ----------------------------- |
-| ![Dark - Mobile](public/ui/light/home-m.png) | ![Dark - PC](public/ui/light/home.png) |
+| Mobile                                             | Large                                         |
+| -------------------------------------------------- | --------------------------------------------- |
+| ![Dark - Mobile](public/ui/dark/home-dark-m.png)   | ![Dark - Large](public/ui/dark/home-dark.png) |
+| ![Dark - Mobile](public/ui/dark/home-dark-m-2.png) |
 
 ### Core Features
 
