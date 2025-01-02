@@ -32,10 +32,44 @@ This repository demonstrates the design of multiple pages in the profile, with *
 
 #### Dark Theme
 
-| Mobile                                             | Large                                         |
-| -------------------------------------------------- | --------------------------------------------- |
-| ![Dark - Mobile](public/ui/dark/home-dark-m.png)   | ![Dark - Large](public/ui/dark/home-dark.png) |
-| ![Dark - Mobile](public/ui/dark/home-dark-m-2.png) |
+| Mobile                                             | Large                                           |
+| -------------------------------------------------- | ----------------------------------------------- |
+| ![Dark - Mobile](public/ui/dark/home-dark-m.png)   | ![Dark - Large](public/ui/dark/home-dark.png)   |
+| ![Dark - Mobile](public/ui/dark/home-dark-m-2.png) | ![Dark - Large](public/ui/dark/home-dark-2.png) |
+
+### 2. **Community Page**
+
+#### Light Theme
+
+| Mobile                                         | Large                                       |
+| ---------------------------------------------- | ------------------------------------------- |
+| ![Light - Mobile](public/ui/light/commu-m.png) | ![Light - Large](public/ui/light/commu.png) |
+
+### 3. **Tags Page**
+
+#### Light Theme
+
+| Mobile                                       | Large                                                                                  |
+| -------------------------------------------- | -------------------------------------------------------------------------------------- |
+| ![Light - Mobile](public/ui/light/tag-m.png) | ![Light - Large](public/ui/light/tag.png), ![Light - Large](public/ui/light/tag-q.png) |
+
+### 4. **Ask a Question Page**
+
+#### Light Theme
+
+| Mobile                                          | Large                                           |
+| ----------------------------------------------- | ----------------------------------------------- |
+| ![Light - Mobile](public/ui/light/ask-q-m.png)  | ![Light - Large](public/ui/light/ask-q.png)     |
+| ![Light - Mobile](public/ui/light/answer-m.png) | ![Light - Large](public/ui/light/AI-answer.png) |
+
+### 4. **Auth Page**
+
+#### Light Theme
+
+| Mobile                                          | Large                                           |
+| ----------------------------------------------- | ----------------------------------------------- |
+| ![Light - Mobile](public/ui/light/ask-q-m.png)  | ![Light - Large](public/ui/light/ask-q.png)     |
+| ![Light - Mobile](public/ui/light/answer-m.png) | ![Light - Large](public/ui/light/AI-answer.png) |
 
 ### Core Features
 
