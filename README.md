@@ -13,64 +13,6 @@ You can watch the intro video here:
 
 Check out our live website: [https://devflow.example.com](https://devflow.example.com)
 
-## Images
-
-# Profile Image Demo
-
-This repository demonstrates the design of multiple pages in the profile, with **Light** and **Dark** themes, across various devices (**Mobile**, **Tablet**, and **PC**).
-
-## Pages and Themes
-
-### 1. **Home Page**
-
-#### Light Theme
-
-| Mobile                                         | Large                                                    |
-| ---------------------------------------------- | -------------------------------------------------------- |
-| ![Light - Mobile](public/ui/light/home-m.png)  | ![Light - Large](public/ui/light/home.png)               |
-| ![Light - Mobile](public/ui/light/home-m2.png) | ![Light - Large](public/ui/light/home-search-global.png) |
-
-#### Dark Theme
-
-| Mobile                                             | Large                                           |
-| -------------------------------------------------- | ----------------------------------------------- |
-| ![Dark - Mobile](public/ui/dark/home-dark-m.png)   | ![Dark - Large](public/ui/dark/home-dark.png)   |
-| ![Dark - Mobile](public/ui/dark/home-dark-m-2.png) | ![Dark - Large](public/ui/dark/home-dark-2.png) |
-
-### 2. **Community Page**
-
-#### Light Theme
-
-| Mobile                                         | Large                                       |
-| ---------------------------------------------- | ------------------------------------------- |
-| ![Light - Mobile](public/ui/light/commu-m.png) | ![Light - Large](public/ui/light/commu.png) |
-
-### 3. **Tags Page**
-
-#### Light Theme
-
-| Mobile                                       | Large                                                                                  |
-| -------------------------------------------- | -------------------------------------------------------------------------------------- |
-| ![Light - Mobile](public/ui/light/tag-m.png) | ![Light - Large](public/ui/light/tag.png), ![Light - Large](public/ui/light/tag-q.png) |
-
-### 4. **Ask a Question Page**
-
-#### Light Theme
-
-| Mobile                                          | Large                                           |
-| ----------------------------------------------- | ----------------------------------------------- |
-| ![Light - Mobile](public/ui/light/ask-q-m.png)  | ![Light - Large](public/ui/light/ask-q.png)     |
-| ![Light - Mobile](public/ui/light/answer-m.png) | ![Light - Large](public/ui/light/AI-answer.png) |
-
-### 4. **Auth Page**
-
-#### Light Theme
-
-| Mobile                                          | Large                                           |
-| ----------------------------------------------- | ----------------------------------------------- |
-| ![Light - Mobile](public/ui/light/ask-q-m.png)  | ![Light - Large](public/ui/light/ask-q.png)     |
-| ![Light - Mobile](public/ui/light/answer-m.png) | ![Light - Large](public/ui/light/AI-answer.png) |
-
 ### Core Features
 
 - **Authentication**:
@@ -125,17 +67,74 @@ This repository demonstrates the design of multiple pages in the profile, with *
 - **User Dashboard**:  
   A personalized dashboard where users can manage their own questions, answers, and view their activity.
 
-## Screenshots
+## Images
 
-### Home Page
+# Profile Image Demo
 
-![Home Page](assets/images/home-page.png)  
-_Displays the most recent questions with a search bar and filter options to refine the results._
+This repository demonstrates the design of multiple pages in the profile, with **Light** and **Dark** themes, across various devices (**Mobile**, **Tablet**, and **PC**).
 
-### Question Details
+## Pages and Themes
 
-![Question Details](assets/images/question-details.png)  
-_Shows the detailed view of a specific question, allowing users to post answers, edit their responses, and vote on questions and answers._
+### 1. **Home Page**
+
+#### Light Theme
+
+| Mobile                                         | Large                                                    |
+| ---------------------------------------------- | -------------------------------------------------------- |
+| ![Light - Mobile](public/ui/light/home-m.png)  | ![Light - Large](public/ui/light/home.png)               |
+| ![Light - Mobile](public/ui/light/home-m2.png) | ![Light - Large](public/ui/light/home-search-global.png) |
+
+#### Dark Theme
+
+| Mobile                                             | Large                                         |
+| -------------------------------------------------- | --------------------------------------------- |
+| ![Dark - Mobile](public/ui/dark/home-dark-m.png)   | ![Dark - Large](public/ui/dark/home-dark.png) |
+| ![Dark - Mobile](public/ui/dark/home-dark-m-2.png) | ![Dark - Large](public/ui/dark/home-dark.png) |
+
+### 2. **Community Page**
+
+#### Light Theme
+
+| Mobile                                         | Large                                       |
+| ---------------------------------------------- | ------------------------------------------- |
+| ![Light - Mobile](public/ui/light/commu-m.png) | ![Light - Large](public/ui/light/commu.png) |
+
+### 3. **Tags Page**
+
+#### Light Theme
+
+| Mobile                                            | Large                                          |
+| ------------------------------------------------- | ---------------------------------------------- |
+| ![Light - Mobile](public/ui/light/tag-m.png)      | ![Light - Large](public/ui/light/tag-q.png)    |
+| ![Light - Mobile](public/ui/dark/tags-dark-m.png) | ![Light - Large](public/ui/dark/tags-dark.png) |
+
+### 4. **Ask a Question Page**
+
+#### Light Theme
+
+| Mobile                                          | Large                                           |
+| ----------------------------------------------- | ----------------------------------------------- |
+| ![Light - Mobile](public/ui/light/ask-q-m.png)  | ![Light - Large](public/ui/light/ask-q.png)     |
+| ![Light - Mobile](public/ui/light/answer-m.png) | ![Light - Large](public/ui/light/AI-answer.png) |
+
+### 4. **Auth Page**
+
+#### Light Theme
+
+| Mobile                                              | Large                                         |
+| --------------------------------------------------- | --------------------------------------------- |
+| ![Light - Mobile](public/ui/light/sign-up-m.png)    | ![Light - Large](public/ui/light/sign-up.png) |
+| ![Light - Mobile](public/ui/light/reset-pass-m.png) | ![Light - Large](public/ui/light/forgot.png)  |
+
+### 5. **Profile**
+
+#### Light Theme
+
+| Mobile                                                | Large                                               |
+| ----------------------------------------------------- | --------------------------------------------------- |
+| ![Light - Mobile](public/ui/light/p-m.png)            | ![Light - Large](public/ui/light/p.png)             |
+| ![Light - Mobile](public/ui/light/profile-edit-m.png) | ![Light - Large](public/ui/light/profile-edit.png)  |
+| ![Light - Mobile](public/ui/dark/profile-edit.png)    | ![Light - Large](public/ui/dark/profile-edit-m.png) |
 
 ## Installation
 
