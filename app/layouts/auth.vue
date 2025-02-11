@@ -39,7 +39,7 @@ const onLocaleSelect = (language: Locale) => {
           <img
             src="https://modernize-nuxt.adminmart.com/images/backgrounds/login-bg.svg"
             alt="Login Background"
-          />
+          >
         </div>
       </div>
 

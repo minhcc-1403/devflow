@@ -60,8 +60,10 @@ export const useAuthStore = defineStore("auth", () => {
     const currentMS = Date.now();
     const { accessToken, refreshToken } = tokens.value;
 
-    if (accessToken.expiresAt > currentMS) return accessToken.token;
-    if (refreshToken.expiresAt < currentMS) return clearAuth();
+    if (new Date(accessToken.expiresAt).getTime() > currentMS)
+      return accessToken.token;
+    if (new Date(refreshToken.expiresAt).getTime() < currentMS)
+      return clearAuth();
 
     await refreshTokens(refreshToken.token);
     await fetchMe();
