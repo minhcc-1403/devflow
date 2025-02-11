@@ -52,7 +52,7 @@ defineProps<{
 
     <div class="flex-between mt-6 w-full flex-wrap gap-3">
       <Metric
-        img-url="https://devflow-rose.vercel.app/_next/image?url=https%3A%2F%2Fimg.clerk.com%2FeyJ0eXBlIjoiZGVmYXVsdCIsImlpZCI6Imluc18ybUE3bW9hZzBTQlhmZXpkVm5HNGp5Z1BFN1EiLCJyaWQiOiJ1c2VyXzJtQmJaQkxTNks5c1h4VkhuMEhHUHVOVXpMMyIsImluaXRpYWxzIjoiTUcifQ&w=16&q=75"
+        :img-url="author.avatar || `/images/avatar.webp`"
         alt="user"
         :value="author.fullName"
         title="- asked 1 hour ago"
@@ -65,7 +65,7 @@ defineProps<{
         class="flex items-center gap-3 max-sm:flex-wrap max-sm:justify-start"
       >
         <Metric
-          img-url="https://devflow-rose.vercel.app/assets/icons/like.svg"
+          icon="ant-design:like-outlined"
           alt="Upvotes"
           :value="formatAndDivideNumber(upvotes)"
           title="Votes"
@@ -73,7 +73,7 @@ defineProps<{
         />
 
         <Metric
-          img-url="https://devflow-rose.vercel.app/assets/icons/message.svg"
+          icon="mage:message-round"
           alt="message"
           :value="formatAndDivideNumber(answerCount)"
           title="Answers"
@@ -81,7 +81,7 @@ defineProps<{
         />
 
         <Metric
-          img-url="https://devflow-rose.vercel.app/assets/icons/eye.svg"
+          icon="famicons:eye-outline"
           alt="eye"
           :value="formatAndDivideNumber(views)"
           title="Views"

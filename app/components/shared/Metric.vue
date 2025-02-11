@@ -1,6 +1,7 @@
 <script setup lang="ts">
 defineProps<{
-  imgUrl: string;
+  imgUrl?: string;
+  icon?: string;
   alt: string;
   value: string | number;
   title: string;
@@ -17,6 +18,7 @@ defineProps<{
     :to="href"
   >
     <NuxtImg
+      v-if="imgUrl"
       :src="imgUrl"
       width="16"
       height="16"
@@ -24,6 +26,8 @@ defineProps<{
       class="object-contain"
       :class="{ 'rounded-full': isAuthor }"
     />
+
+    <Icon v-if="icon" :name="icon" class="size-3" />
 
     <p :class="`${textStyles} flex items-center gap-1`">
       <span>{{ value }}</span>

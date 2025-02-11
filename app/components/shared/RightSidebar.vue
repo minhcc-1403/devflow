@@ -40,7 +40,7 @@ callOnce("popular-tags", async () => {
             {{ question.title }}
           </p>
 
-          <NuxtImg
+          <!-- <NuxtImg
             src="https://devflow-rose.vercel.app/assets/icons/chevron-right.svg"
             :height="20"
             :width="20"
@@ -49,7 +49,8 @@ callOnce("popular-tags", async () => {
             data-nimg="1"
             style="color: transparent"
             class="invert-colors"
-          />
+          /> -->
+          <Icon name="tdesign:chevron-right" class="size-5" />
         </NuxtLink>
       </div>
     </div>

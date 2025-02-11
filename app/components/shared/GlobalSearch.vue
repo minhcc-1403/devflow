@@ -37,12 +37,16 @@ watch(isOpen, () => {
     <div
       class="bg-light800_darkgradient relative flex min-h-[56px] grow items-center gap-1 rounded-xl px-4"
     >
-      <NuxtImg
+      <!-- <NuxtImg
         src="https://devflow-rose.vercel.app/assets/icons/search.svg"
         alt="Search icon"
         width="24"
         height="24"
         class="cursor-pointer"
+      /> -->
+      <Icon
+        name="fluent:search-20-filled"
+        class="text-dark400_light800 size-6 cursor-pointer"
       />
 
       <Input

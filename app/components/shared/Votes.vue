@@ -38,18 +38,25 @@ const onSave = (saveAction: ActionEnum) => {
   <div class="flex gap-4">
     <div class="flex-center gap-2">
       <button
-        class="cursor-pointer"
+        class="flex cursor-pointer items-center"
         :disabled="isVoting"
         @click="
           onVote(hasUpvoted ? VoteActionEnum.Unvoted : VoteActionEnum.Upvote)
         "
       >
-        <NuxtImg
+        <!-- <NuxtImg
           :src="`${hasUpvoted ? 'https://devflow-rose.vercel.app/assets/icons/upvoted.svg' : 'https://devflow-rose.vercel.app/assets/icons/upvote.svg'}`"
           alt="upvote"
           width="18"
           height="18"
+        /> -->
+
+        <Icon
+          v-if="hasUpvoted"
+          name="icon-park-solid:up-two"
+          class="size-4 text-main-500"
         />
+        <Icon v-else name="icon-park-outline:up-two" class="size-4" />
       </button>
 
       <div class="flex-center bg-light700_dark400 min-w-[18px] rounded-sm p-1">
@@ -61,7 +68,7 @@ const onSave = (saveAction: ActionEnum) => {
 
     <div class="flex-center gap-2">
       <button
-        class="cursor-pointer"
+        class="flex cursor-pointer items-center"
         :disabled="isVoting"
         @click="
           onVote(
@@ -69,12 +76,18 @@ const onSave = (saveAction: ActionEnum) => {
           )
         "
       >
-        <NuxtImg
+        <!-- <NuxtImg
           :src="`${hasDownvoted ? 'https://devflow-rose.vercel.app/assets/icons/downvoted.svg' : 'https://devflow-rose.vercel.app/assets/icons/downvote.svg'}`"
           alt="downvote"
           width="18"
           height="18"
+        /> -->
+        <Icon
+          v-if="hasDownvoted"
+          name="icon-park-solid:down-two"
+          class="size-4 text-main-500"
         />
+        <Icon v-else name="icon-park-outline:down-two" class="size-4" />
       </button>
 
       <div class="flex-center bg-light700_dark400 min-w-[18px] rounded-sm p-1">
@@ -86,16 +99,22 @@ const onSave = (saveAction: ActionEnum) => {
 
     <button
       v-if="type === UserQuestionActivityTypeEnum.Question"
-      class="cursor-pointer"
+      class="flex cursor-pointer items-center"
       :disabled="isVoting"
       @click="onSave(hasSaved ? ActionEnum.Remove : ActionEnum.Add)"
     >
-      <NuxtImg
+      <!-- <NuxtImg
         :src="`${hasSaved ? 'https://devflow-rose.vercel.app/assets/icons/star-filled.svg' : 'https://devflow-rose.vercel.app/assets/icons/star-red.svg'}`"
         alt="star"
         width="18"
         height="18"
+      /> -->
+      <Icon
+        v-if="hasSaved"
+        name="flowbite:star-solid"
+        class="size-5 text-yellow-400"
       />
+      <Icon v-else name="flowbite:star-outline" class="size-5" />
     </button>
   </div>
 </template>

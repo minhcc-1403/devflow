@@ -22,13 +22,17 @@ const handleSearch = useDebounceFn((e: string | number) => {
   <div
     :class="`bg-light800_darkgradient flex min-h-[56px] grow items-center gap-4 rounded-[10px] px-4 ${otherClasses}`"
   >
-    <NuxtImg
+    <!-- <NuxtImg
       v-if="iconPosition === 'left'"
       :src="imgSrc"
       alt="Search icon"
       width="24"
       height="24"
       class="cursor-pointer"
+    /> -->
+    <Icon
+      name="fluent:search-20-filled"
+      class="text-dark400_light800 size-7 cursor-pointer"
     />
 
     <Input

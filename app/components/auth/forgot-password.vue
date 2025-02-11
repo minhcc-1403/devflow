@@ -82,7 +82,6 @@ const onSubmit = handleSubmit(async (formValues) => {
     <div class="flex w-full flex-row items-center py-2">
       <Button
         type="submit"
-        Button
         class="user-select-none primary-gradient w-full py-5"
         :disabled="errors.otpCode || !values.otpCode || isLoading"
       >

@@ -22,7 +22,7 @@ const { user } = storeToRefs(authStore);
 const { handleSubmit, errors, setFieldError, resetField, setFieldValue } =
   useForm({
     validationSchema: toTypedSchema(CreateAnswerSchema),
-    initialValues: { content: "", questionId: "" },
+    initialValues: { content: "", questionId: props.question._id },
   });
 
 watch(
@@ -92,13 +92,15 @@ const generateAIAnswer = async () => {
         <template v-if="isSubmittingAI">Generating...</template>
 
         <template v-else>
-          <NuxtImg
+          <!-- <NuxtImg
             src="https://devflow-rose.vercel.app/assets/icons/stars.svg"
             width="16"
             height="16"
             alt="star"
             class="object-contain"
-          />
+          /> -->
+          <Icon name="mdi:stars" class="size-4 text-main-500" />
+
           Generate an AI Answer
         </template>
       </Button>

@@ -28,9 +28,9 @@ html {
   .btn-tertiary {
     @apply bg-[#DCE3F1] dark:bg-[#151821] !important;
   }
-  .markdown {
+  /* .markdown {
     @apply prose max-w-full dark:prose dark:prose-p:text-[#DCE3F1];
-  }
+  } */
   .primary-gradient {
     background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%);
   }

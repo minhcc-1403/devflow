@@ -136,7 +136,7 @@ callOnce(
 
       <div class="mb-8 mt-5 flex flex-wrap gap-4">
         <Metric
-          img-url="https://devflow-rose.vercel.app/assets/icons/clock.svg"
+          icon="basil:clock-outline"
           alt="clock icon"
           :value="`asked ${formatDistanceToNowStrict(data.createdAt, { addSuffix: true })}`"
           title=" Asked"
@@ -144,7 +144,7 @@ callOnce(
         />
 
         <Metric
-          img-url="https://devflow-rose.vercel.app/assets/icons/message.svg"
+          icon="mage:message-round"
           alt="message"
           :value="formatAndDivideNumber(data.answerCount)"
           title="Answers"
@@ -152,7 +152,7 @@ callOnce(
         />
 
         <Metric
-          img-url="https://devflow-rose.vercel.app/assets/icons/eye.svg"
+          icon="famicons:eye-outline"
           alt="eye"
           :value="formatAndDivideNumber(data.views)"
           title="Views"

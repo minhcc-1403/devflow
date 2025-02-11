@@ -26,3 +26,4 @@ pnpm-lock.yaml
 
 # shadcn ui
 app/components/ui
+tailwind.config.js
