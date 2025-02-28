@@ -7,11 +7,11 @@ DevFlow is a developer-focused Q&A platform built with **Nuxt3**, **Vue3**, **Sh
 
 You can watch the intro video here:
 
-[![DevFlow Introduction Video](https://www.youtube.com/watch?v=kyQDnO-ckz0)
+[![DevFlow Introduction Video](https://youtu.be/e2NXVzUlibI)
 
 ## Website
 
-Check out our live website: [https://devflow.example.com](https://devflow.example.com)
+Check out our live website: ...
 
 ### Core Features
 
