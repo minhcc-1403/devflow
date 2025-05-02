@@ -100,7 +100,7 @@ const {
 
         <div class="flex justify-end max-sm:mb-5 max-sm:w-full sm:mt-3">
           <NuxtLink
-            v-if="user._id === profile._id"
+            v-if="user?._id === profile._id"
             :to="`/profile/edit/${userId}`"
           >
             <Button
