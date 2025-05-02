@@ -35,6 +35,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "firebase": "^10.13.2",
+    "lunar-typescript": "^1.8.6",
     "md-editor-v3": "^5.1.1",
     "nuxt": "^3.14.159",
     "prismjs": "^1.29.0",

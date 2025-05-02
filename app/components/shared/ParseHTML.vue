@@ -34,6 +34,6 @@ onMounted(() => {
 </script>
 
 <template>
-  /* eslint-disable vue/no-v-html */
+  <!-- eslint-disable vue/no-v-html -->
   <p v-html="data" />
 </template>

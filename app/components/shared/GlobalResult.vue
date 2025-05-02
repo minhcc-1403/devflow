@@ -53,7 +53,7 @@ const renderLink = (type: SearchableTypesEnum, id: string) => {
 
 <template>
   <div
-    class="absolute top-full z-10 mt-3 w-full rounded-xl bg-light-800 py-5 shadow-sm dark:bg-dark-400"
+    class="absolute top-full z-10 mt-3 w-full rounded-xl bg-gray-200 py-5 shadow-sm dark:bg-gray-600"
   >
     <GlobalFilters />
 
