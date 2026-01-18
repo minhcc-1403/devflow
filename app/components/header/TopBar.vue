@@ -36,7 +36,7 @@ const emit = defineEmits(["open-menu"]);
           src="https://futabus.vn/images/icons/vietnam.svg"
           alt="Vietnam"
           class="h-4 w-4"
-        />
+        >
         <span>VI</span>
         <svg
           class="h-4 w-4"
@@ -60,7 +60,7 @@ const emit = defineEmits(["open-menu"]);
         src="https://futabus.vn/_next/static/media/logo_new.8a0251b8.svg"
         alt="FUTA Bus Lines"
         class="h-8 object-contain sm:h-10"
-      />
+      >
     </div>
 
     <!-- RIGHT: Auth -->

@@ -57,9 +57,9 @@ onMounted(() => {
 
       <BookingFooter
         :amount="totalPrice"
+        :can-pay="canPay"
         @cancel="onCancel"
         @submit="onPayment"
-        :canPay="canPay"
       />
     </div>
 

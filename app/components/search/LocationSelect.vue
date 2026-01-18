@@ -86,13 +86,13 @@ onBeforeUnmount(() => {
         v-model="keyword"
         :placeholder="placeholder"
         class="w-full py-2 text-sm outline-none"
-      />
+      >
 
       <!-- Clear -->
       <button
         v-if="keyword"
-        @click.stop="clear"
         class="ml-2 text-gray-400 hover:text-gray-600"
+        @click.stop="clear"
       >
         ✕
       </button>
@@ -112,14 +112,14 @@ onBeforeUnmount(() => {
             v-model="keyword"
             placeholder="Chọn điểm đi"
             class="w-full rounded-lg border px-3 py-3 pr-10 outline-none focus:border-orange-500"
-          />
+          >
 
           <!-- Clear button -->
           <button
             v-if="keyword"
             type="button"
-            @click="clear"
             class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-orange-500"
+            @click="clear"
           >
             ✕
           </button>
@@ -157,8 +157,8 @@ onBeforeUnmount(() => {
           <button
             v-for="item in recent"
             :key="item"
-            @click="select(item)"
             class="rounded-lg border px-3 py-1 text-sm hover:border-orange-400"
+            @click="select(item)"
           >
             {{ item }}
           </button>

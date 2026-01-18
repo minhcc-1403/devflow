@@ -58,8 +58,8 @@
 
           <p class="mb-2 font-semibold text-green-700">Kết nối chúng tôi</p>
           <div class="flex gap-3">
-            <div class="h-8 w-8 rounded-full bg-blue-600"></div>
-            <div class="h-8 w-8 rounded-full bg-red-600"></div>
+            <div class="h-8 w-8 rounded-full bg-blue-600"/>
+            <div class="h-8 w-8 rounded-full bg-red-600"/>
           </div>
         </div>
       </div>

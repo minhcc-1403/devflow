@@ -4,7 +4,7 @@
     <input
       :placeholder="placeholder"
       class="w-full border-none text-sm outline-none"
-    />
+    >
   </div>
 </template>
 

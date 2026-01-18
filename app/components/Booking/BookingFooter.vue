@@ -31,9 +31,9 @@ defineEmits(["cancel", "submit"]);
         </button>
 
         <button
-          @click="$emit('submit')"
           :disabled="!canPay"
           class="rounded-full bg-orange-500 px-6 py-2 text-sm font-medium text-white disabled:cursor-not-allowed disabled:opacity-50"
+          @click="$emit('submit')"
         >
           Thanh toán
         </button>

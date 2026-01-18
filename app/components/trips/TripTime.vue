@@ -6,7 +6,7 @@
     </div>
 
     <div class="text-sm text-muted-foreground">
-      15 giờ <br />
+      15 giờ <br >
       (Asia/Ho Chi Minh)
     </div>
 

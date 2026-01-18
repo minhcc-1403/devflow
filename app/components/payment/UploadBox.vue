@@ -6,7 +6,7 @@ defineProps<{
 
 const emit = defineEmits(["change"]);
 
-function onChange(e) {
+function onChange(e: any) {
   emit("change", e.target.files[0]);
 }
 </script>

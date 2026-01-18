@@ -91,7 +91,7 @@ const gridClass = computed(() => ({
             v-for="seat in lowerSeats"
             :key="seat.code"
             :seat="seat"
-            :selectedSeats="selectedSeats"
+            :selected-seats="selectedSeats"
             @toggle="toggleSeat"
           />
         </div>
@@ -105,7 +105,7 @@ const gridClass = computed(() => ({
             v-for="seat in upperSeats"
             :key="seat.code"
             :seat="seat"
-            :selectedSeats="selectedSeats"
+            :selected-seats="selectedSeats"
             @toggle="toggleSeat"
           />
         </div>

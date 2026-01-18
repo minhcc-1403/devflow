@@ -44,16 +44,16 @@ const locations = [
         <div class="mb-3 flex gap-4 text-sm">
           <label class="flex items-center gap-1">
             <input
+              v-model="pickupType"
               type="radio"
               value="station"
-              v-model="pickupType"
               class="accent-orange-500"
-            />
+            >
             Bến xe/VP
           </label>
 
           <label class="flex items-center gap-1 text-gray-400">
-            <input type="radio" disabled />
+            <input type="radio" disabled >
             Trung chuyển
           </label>
         </div>
@@ -79,16 +79,16 @@ const locations = [
         <div class="mb-3 flex gap-4 text-sm">
           <label class="flex items-center gap-1">
             <input
+              v-model="dropoffType"
               type="radio"
               value="station"
-              v-model="dropoffType"
               class="accent-orange-500"
-            />
+            >
             Bến xe/VP
           </label>
 
           <label class="flex items-center gap-1 text-gray-400">
-            <input type="radio" disabled />
+            <input type="radio" disabled >
             Trung chuyển
           </label>
         </div>

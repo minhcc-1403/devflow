@@ -40,12 +40,12 @@ const methods = [
         class="flex cursor-pointer items-center gap-3 rounded-lg border p-3 hover:bg-gray-50"
       >
         <input
+          v-model="model"
           type="radio"
           class="accent-orange-500"
           :value="item.key"
-          v-model="model"
-        />
-        <img :src="item.icon" class="h-8 w-8" />
+        >
+        <img :src="item.icon" class="h-8 w-8" >
         <div>
           <div class="font-medium">{{ item.label }}</div>
           <div v-if="item.note" class="text-xs text-orange-500">

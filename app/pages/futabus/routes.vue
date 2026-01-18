@@ -92,7 +92,7 @@ const routes = [
         <div>Quãng đường</div>
         <div>Thời gian hành trình</div>
         <div>Giá vé</div>
-        <div></div>
+        <div/>
       </div>
 
       <!-- Routes -->

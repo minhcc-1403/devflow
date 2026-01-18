@@ -185,25 +185,21 @@ This repository demonstrates the design of multiple pages in the profile, with *
   We welcome contributions to the project! If you'd like to contribute, follow the steps below:
 
 1. **Fork the repository**
-
    - Click the "Fork" button in the top-right corner of the repository page to create a personal copy.
 
 2. **Create a new branch**
-
    - Create a new branch for your feature or bug fix:
      ```bash
      git checkout -b feature/your-feature-name
      ```
 
 3. **Commit your changes**
-
    - Make your changes and commit them:
      ```bash
      git commit -m "Description of your changes"
      ```
 
 4. **Push to your fork**
-
    - Push your changes to your forked repository:
      ```bash
      git push origin feature/your-feature-name
