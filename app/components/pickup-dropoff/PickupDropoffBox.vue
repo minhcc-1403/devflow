@@ -48,12 +48,12 @@ const locations = [
               type="radio"
               value="station"
               class="accent-green-500"
-            />
+            >
             Bến xe/VP
           </label>
 
           <label class="flex items-center gap-1 text-gray-400">
-            <input type="radio" disabled />
+            <input type="radio" disabled >
             Trung chuyển
           </label>
         </div>
@@ -83,12 +83,12 @@ const locations = [
               type="radio"
               value="station"
               class="accent-green-500"
-            />
+            >
             Bến xe/VP
           </label>
 
           <label class="flex items-center gap-1 text-gray-400">
-            <input type="radio" disabled />
+            <input type="radio" disabled >
             Trung chuyển
           </label>
         </div>

@@ -15,7 +15,7 @@ function onChange(e: any) {
   <label
     class="flex h-40 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed bg-white text-center hover:border-green-400"
   >
-    <input type="file" accept="image/*" class="hidden" @change="onChange" />
+    <input type="file" accept="image/*" class="hidden" @change="onChange" >
 
     <div class="mb-2 text-gray-400">
       <slot>

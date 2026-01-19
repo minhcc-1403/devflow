@@ -10,7 +10,7 @@
         <span>Phí thanh toán</span>
         <span>0đ</span>
       </div>
-      <hr />
+      <hr >
       <div class="flex justify-between font-semibold">
         <span>Tổng tiền</span>
         <span class="text-green-500">400.000đ</span>

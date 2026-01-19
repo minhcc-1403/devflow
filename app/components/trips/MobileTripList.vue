@@ -23,7 +23,7 @@ const emit = defineEmits(["openFilter", "select", "back"]);
           src="https://futabus.vn/images/icons/edit_filter.svg"
           alt="filter"
           class="h-6 w-6"
-        />
+        >
       </button>
     </div>
   </div>

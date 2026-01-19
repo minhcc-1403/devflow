@@ -118,7 +118,7 @@ const onCloseMobileTripList = () => {
         <MobileTripList
           :trips="trips"
           route-name="Đắk Lắk - Đà Nẵng"
-          @openFilter="openFilter = true"
+          @open-filter="openFilter = true"
           @select="selectedTrip = $event"
           @back="onCloseMobileTripList"
         />

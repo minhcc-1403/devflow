@@ -17,7 +17,7 @@ definePageMeta({ layout: "no-layout" });
               <p class="font-medium">▶ FUTA BUS LINES</p>
 
               <p class="font-semibold text-green-600">
-                CÔNG TY CỔ PHẦN XE KHÁCH <br />
+                CÔNG TY CỔ PHẦN XE KHÁCH <br >
                 PHƯƠNG TRANG - FUTA BUS LINES
               </p>
 
@@ -56,14 +56,14 @@ definePageMeta({ layout: "no-layout" });
                 <option>FUTA BUS LINES</option>
               </select>
 
-              <input class="input" placeholder="Họ và tên" />
+              <input class="input" placeholder="Họ và tên" >
 
-              <input class="input" placeholder="Email" />
-              <input class="input" placeholder="Số điện thoại" />
+              <input class="input" placeholder="Email" >
+              <input class="input" placeholder="Số điện thoại" >
             </div>
 
             <div class="mt-4 space-y-4">
-              <input class="input" placeholder="Nhập Tiêu đề" />
+              <input class="input" placeholder="Nhập Tiêu đề" >
 
               <textarea
                 rows="5"

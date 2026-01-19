@@ -16,7 +16,7 @@ const navRef = ref();
   <div class="min-h-screen bg-gray-100">
     <header
       class="relative z-30 h-56 bg-gradient-to-b from-green-300 via-green-400 to-green-500"
-      :class="{ 'z-50': isMenuOpen }"
+      :class="{ 'z-[999]': isMenuOpen }"
     >
       <TopBar @open-menu="navRef?.openMobileMenu()" />
 

@@ -41,13 +41,13 @@ function statusClass(status: string) {
             type="text"
             placeholder="Vui lòng nhập số điện thoại"
             class="w-full rounded-lg border px-4 py-3 text-sm outline-none focus:border-emerald-500"
-          />
+          >
 
           <input
             type="text"
             placeholder="Vui lòng nhập mã vé"
             class="w-full rounded-lg border px-4 py-3 text-sm outline-none focus:border-emerald-500"
-          />
+          >
 
           <!-- Button -->
           <div class="pt-4">

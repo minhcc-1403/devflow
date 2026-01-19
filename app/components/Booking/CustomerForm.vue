@@ -27,7 +27,7 @@ const form = ref({
               type="text"
               class="w-full rounded-md border px-3 py-2 pr-8 focus:border-green-500 focus:ring-green-500"
               placeholder="Nhập họ và tên"
-            />
+            >
             <button
               v-if="form.name"
               class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400"
@@ -49,7 +49,7 @@ const form = ref({
               type="tel"
               class="w-full rounded-md border px-3 py-2 pr-8 focus:border-green-500 focus:ring-green-500"
               placeholder="Nhập số điện thoại"
-            />
+            >
             <button
               v-if="form.phone"
               class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400"
@@ -71,7 +71,7 @@ const form = ref({
               type="email"
               class="w-full rounded-md border px-3 py-2 pr-8 focus:border-green-500 focus:ring-green-500"
               placeholder="Nhập email"
-            />
+            >
             <button
               v-if="form.email"
               class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400"
@@ -126,7 +126,7 @@ const form = ref({
         v-model="form.accepted"
         type="checkbox"
         class="mt-1 accent-green-500"
-      />
+      >
       <span>
         <span class="text-green-500">Chấp nhận điều khoản</span>
         đặt vé & chính sách bảo mật thông tin của FUTA Bus Lines

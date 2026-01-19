@@ -60,7 +60,7 @@ function select(item: Location) {
         v-model="keyword"
         placeholder="Nhập tên bến xe, văn phòng"
         class="mb-3 w-full rounded-md border px-3 py-2 text-sm"
-      />
+      >
 
       <div class="max-h-60 space-y-3 overflow-auto">
         <div
@@ -73,7 +73,7 @@ function select(item: Location) {
             type="radio"
             class="mt-1 accent-green-500"
             :checked="selected === item.id"
-          />
+          >
 
           <div class="flex-1">
             <div class="flex justify-between text-sm font-medium">

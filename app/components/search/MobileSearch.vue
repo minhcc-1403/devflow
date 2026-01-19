@@ -36,12 +36,12 @@ const onOpenSearchResult = () => {
       <!-- Trip type -->
       <div class="mb-4 flex items-center gap-6 text-sm">
         <label class="flex cursor-pointer items-center gap-2 text-green-600">
-          <input type="radio" checked class="accent-green-500" />
+          <input type="radio" checked class="accent-green-500" >
           Một chiều
         </label>
 
         <label class="flex cursor-pointer items-center gap-2 text-gray-600">
-          <input type="radio" class="accent-green-500" />
+          <input type="radio" class="accent-green-500" >
           Khứ hồi
         </label>
       </div>
@@ -76,7 +76,7 @@ const onOpenSearchResult = () => {
             src="https://futabus.vn/images/icons/switch_location.svg"
             alt="Swap"
             class="h-6 w-6 transition-all duration-300 active:rotate-180"
-          />
+          >
         </button>
       </div>
 

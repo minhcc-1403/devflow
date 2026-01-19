@@ -16,7 +16,7 @@ definePageMeta({ layout: "no-layout" });
             động kinh doanh chính trong lĩnh vực mua bán ô tô, vận tải hành
             khách, bất động sản và kinh doanh dịch vụ. Phương Trang dần trở
             thành cái tên quen thuộc trong ngành dịch vụ trên mọi miền đất nước.
-            <br /><br />
+            <br ><br >
             Trải qua hơn 25 năm hình thành và phát triển, Phương Trang tự hào
             trở thành doanh nghiệp vận tải hàng đầu Việt Nam với hệ thống chi
             nhánh rộng khắp cả nước.
@@ -35,7 +35,7 @@ definePageMeta({ layout: "no-layout" });
             src="https://cdn.futabus.vn/futa-busline-web-cms-prod/Artboard_3_3x_fb31ff2c98/Artboard_3_3x_fb31ff2c98.png"
             alt="Vision"
             class="mx-auto w-full max-w-md"
-          />
+          >
 
           <div>
             <h2 class="section-title">TẦM NHÌN VÀ SỨ MỆNH</h2>
@@ -87,7 +87,7 @@ definePageMeta({ layout: "no-layout" });
             src="https://cdn.futabus.vn/futa-busline-web-cms-prod/Artboard_4_3x_44277bbc3b/Artboard_4_3x_44277bbc3b.png"
             class="mx-auto w-full max-w-md rounded-lg object-cover"
             alt="Core Values"
-          />
+          >
         </section>
 
         <!-- TRIẾT LÝ -->
@@ -96,7 +96,7 @@ definePageMeta({ layout: "no-layout" });
             src="https://cdn.futabus.vn/futa-busline-web-cms-prod/Artboard_5_3x_cf15563d46/Artboard_5_3x_cf15563d46.png"
             class="mx-auto w-full max-w-md"
             alt="Philosophy"
-          />
+          >
 
           <div>
             <h2 class="section-title">TRIẾT LÝ</h2>
