@@ -20,7 +20,7 @@ const defaultRules: TransferRule[] = [
 </script>
 
 <template>
-  <div class="space-y-4 border-t pt-4 text-sm">
+  <div class="space-y-4 pt-4 text-sm">
     <div v-for="(rule, index) in rules || defaultRules" :key="index">
       <p class="mb-2 font-semibold">
         {{ rule.title }}

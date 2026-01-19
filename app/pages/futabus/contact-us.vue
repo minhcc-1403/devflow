@@ -16,8 +16,8 @@ definePageMeta({ layout: "no-layout" });
             <div class="space-y-2 text-sm">
               <p class="font-medium">▶ FUTA BUS LINES</p>
 
-              <p class="font-semibold text-orange-600">
-                CÔNG TY CỔ PHẦN XE KHÁCH <br >
+              <p class="font-semibold text-green-600">
+                CÔNG TY CỔ PHẦN XE KHÁCH <br />
                 PHƯƠNG TRANG - FUTA BUS LINES
               </p>
 
@@ -46,7 +46,7 @@ definePageMeta({ layout: "no-layout" });
 
           <!-- RIGHT: CONTACT FORM -->
           <div class="rounded-lg bg-gray-100 p-6">
-            <div class="mb-6 flex items-center gap-2 text-orange-600">
+            <div class="mb-6 flex items-center gap-2 text-green-600">
               <span class="text-xl">✉</span>
               <h3 class="font-semibold">Gửi thông tin liên hệ đến chúng tôi</h3>
             </div>
@@ -56,14 +56,14 @@ definePageMeta({ layout: "no-layout" });
                 <option>FUTA BUS LINES</option>
               </select>
 
-              <input class="input" placeholder="Họ và tên" >
+              <input class="input" placeholder="Họ và tên" />
 
-              <input class="input" placeholder="Email" >
-              <input class="input" placeholder="Số điện thoại" >
+              <input class="input" placeholder="Email" />
+              <input class="input" placeholder="Số điện thoại" />
             </div>
 
             <div class="mt-4 space-y-4">
-              <input class="input" placeholder="Nhập Tiêu đề" >
+              <input class="input" placeholder="Nhập Tiêu đề" />
 
               <textarea
                 rows="5"
@@ -73,7 +73,7 @@ definePageMeta({ layout: "no-layout" });
 
               <div class="text-center">
                 <button
-                  class="rounded-full bg-orange-500 px-10 py-2 text-sm font-semibold text-white transition hover:bg-orange-600"
+                  class="rounded-full bg-green-500 px-10 py-2 text-sm font-semibold text-white transition hover:bg-green-600"
                 >
                   Gửi
                 </button>
@@ -88,6 +88,6 @@ definePageMeta({ layout: "no-layout" });
 
 <style lang="css" scoped>
 .input {
-  @apply w-full rounded-lg border bg-white px-4 py-2 text-sm outline-none focus:border-orange-500;
+  @apply w-full rounded-lg border bg-white px-4 py-2 text-sm outline-none focus:border-green-500;
 }
 </style>

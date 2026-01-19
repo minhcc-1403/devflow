@@ -6,7 +6,7 @@
         <!-- Cột 1 -->
         <div>
           <p class="font-semibold text-green-700">TRUNG TÂM TỔNG ĐÀI & CSKH</p>
-          <p class="mt-1 text-2xl font-bold text-orange-600">1900 6067</p>
+          <p class="mt-1 text-2xl font-bold text-green-600">1900 6067</p>
 
           <p class="mt-4 font-semibold uppercase">
             Công ty Cổ phần Xe khách Phương Trang - FUTA Bus Lines
@@ -15,7 +15,7 @@
           <p class="mt-2">
             Địa chỉ: 468-468A Lê Văn Lương, Phường Tân Hưng, TPHCM, Việt Nam.
           </p>
-          <p>Email: <span class="text-orange-600">hotro@futa.vn</span></p>
+          <p>Email: <span class="text-green-600">hotro@futa.vn</span></p>
           <p>Điện thoại: 02838386852</p>
           <p>Fax: 02838386853</p>
         </div>
@@ -58,8 +58,8 @@
 
           <p class="mb-2 font-semibold text-green-700">Kết nối chúng tôi</p>
           <div class="flex gap-3">
-            <div class="h-8 w-8 rounded-full bg-blue-600"/>
-            <div class="h-8 w-8 rounded-full bg-red-600"/>
+            <div class="h-8 w-8 rounded-full bg-blue-600" />
+            <div class="h-8 w-8 rounded-full bg-red-600" />
           </div>
         </div>
       </div>
@@ -81,7 +81,7 @@
 
     <!-- CHAT FLOAT -->
     <div
-      class="fixed bottom-6 right-6 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-orange-500 text-white shadow-lg"
+      class="fixed bottom-6 right-6 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-green-500 text-white shadow-lg"
     >
       💬
     </div>

@@ -78,7 +78,7 @@ onBeforeUnmount(() => {
     <!-- Input box -->
     <div
       class="flex cursor-text items-center rounded-lg border bg-white px-4 py-3"
-      :class="open ? 'border-orange-500 ring-1 ring-orange-300' : ''"
+      :class="open ? 'border-green-500 ring-1 ring-green-300' : ''"
       @click.stop="openDropdown"
       @focus="openDropdown"
     >
@@ -86,7 +86,7 @@ onBeforeUnmount(() => {
         v-model="keyword"
         :placeholder="placeholder"
         class="w-full py-2 text-sm outline-none"
-      >
+      />
 
       <!-- Clear -->
       <button
@@ -111,14 +111,14 @@ onBeforeUnmount(() => {
           <input
             v-model="keyword"
             placeholder="Chọn điểm đi"
-            class="w-full rounded-lg border px-3 py-3 pr-10 outline-none focus:border-orange-500"
-          >
+            class="w-full rounded-lg border px-3 py-3 pr-10 outline-none focus:border-green-500"
+          />
 
           <!-- Clear button -->
           <button
             v-if="keyword"
             type="button"
-            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-orange-500"
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-green-500"
             @click="clear"
           >
             ✕
@@ -135,7 +135,7 @@ onBeforeUnmount(() => {
         <button
           v-for="item in filteredLocations"
           :key="item"
-          class="flex w-full items-center border-b border-gray-200 px-4 py-2 text-sm last:border-b-0 hover:bg-orange-50"
+          class="flex w-full items-center border-b border-gray-200 px-4 py-2 text-sm last:border-b-0 hover:bg-green-50"
           @click="select(item)"
         >
           {{ item }}
@@ -157,7 +157,7 @@ onBeforeUnmount(() => {
           <button
             v-for="item in recent"
             :key="item"
-            class="rounded-lg border px-3 py-1 text-sm hover:border-orange-400"
+            class="rounded-lg border px-3 py-1 text-sm hover:border-green-400"
             @click="select(item)"
           >
             {{ item }}

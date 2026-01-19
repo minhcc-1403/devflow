@@ -9,7 +9,9 @@ defineProps<{
 </script>
 
 <template>
-  <div class="sticky top-0 z-30 space-y-3 border-b bg-background">
+  <div
+    class="sticky top-0 z-30 space-y-3 rounded-xl border-b bg-background px-4 py-3"
+  >
     <!-- Title -->
     <div class="flex items-center justify-between">
       <h2 class="text-lg font-semibold">
@@ -23,7 +25,7 @@ defineProps<{
       <Button
         size="sm"
         variant="outline"
-        class="rounded-full border-orange-500 text-orange-500 hover:bg-orange-50"
+        class="rounded-full border-green-500 text-green-500 hover:bg-green-50"
       >
         <Zap class="mr-1 h-4 w-4" />
         Giá rẻ bất ngờ

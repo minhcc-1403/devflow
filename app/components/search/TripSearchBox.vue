@@ -30,25 +30,25 @@ const swapLocation = () => {
 };
 </script>
 <template>
-  <section class="relative mx-auto mt-6 max-w-7xl px-4">
-    <div class="rounded-2xl border border-orange-300 bg-white p-6 shadow-lg">
+  <section class="relative z-40 mx-auto -mt-40 max-w-7xl px-4 md:mt-6">
+    <div class="rounded-2xl border border-green-300 bg-white p-6 shadow-sm">
       <!-- TOP OPTIONS -->
       <div class="mb-6 flex items-center justify-between">
         <!-- Trip type -->
         <div class="flex items-center gap-6 text-sm">
-          <label class="flex cursor-pointer items-center gap-2 text-orange-600">
-            <input type="radio" checked class="accent-orange-500" >
+          <label class="flex cursor-pointer items-center gap-2 text-green-600">
+            <input type="radio" checked class="accent-green-500" />
             Một chiều
           </label>
 
           <label class="flex cursor-pointer items-center gap-2 text-gray-600">
-            <input type="radio" class="accent-orange-500" >
+            <input type="radio" class="accent-green-500" />
             Khứ hồi
           </label>
         </div>
 
         <!-- Guide -->
-        <button class="text-sm text-orange-500 hover:underline">
+        <button class="text-sm text-green-500 hover:underline">
           Hướng dẫn mua vé
         </button>
       </div>
@@ -85,25 +85,18 @@ const swapLocation = () => {
               src="https://futabus.vn/images/icons/switch_location.svg"
               alt="Swap"
               class="transition-all duration-300 ease-in-out group-hover:rotate-180 group-hover:scale-110"
-            >
+            />
           </button>
         </div>
 
         <!-- Ngày đi -->
         <DateSelect />
-        <!-- <div>
-          <label class="mb-1 block text-sm font-medium">Ngày đi</label>
-          <div class="rounded-lg border px-4 py-3">
-            <div class="font-semibold">15/01/2026</div>
-            <div class="text-xs text-gray-500">Thứ 5</div>
-          </div>
-        </div> -->
 
         <!-- Số vé -->
         <div>
           <label class="mb-1 block text-sm font-medium">Số vé</label>
           <select
-            class="w-full rounded-lg border px-4 py-[18px] outline-none focus:border-orange-500"
+            class="w-full rounded-lg border px-4 py-[18px] outline-none focus:border-green-500"
           >
             <option>1</option>
             <option>2</option>

@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="space-y-2 border-t pt-4">
+  <div class="space-y-2 pt-4">
     <TimelineItem v-for="(stop, index) in stops" :key="index" :stop="stop" />
 
     <!-- Note -->

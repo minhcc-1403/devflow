@@ -42,13 +42,13 @@ const methods = [
         <input
           v-model="model"
           type="radio"
-          class="accent-orange-500"
+          class="accent-green-500"
           :value="item.key"
-        >
-        <img :src="item.icon" class="h-8 w-8" >
+        />
+        <img :src="item.icon" class="h-8 w-8" />
         <div>
           <div class="font-medium">{{ item.label }}</div>
-          <div v-if="item.note" class="text-xs text-orange-500">
+          <div v-if="item.note" class="text-xs text-green-500">
             {{ item.note }}
           </div>
         </div>

@@ -15,7 +15,7 @@ defineProps<{
     <div class="flex gap-3 p-4">
       <!-- Index -->
       <div
-        class="flex h-8 w-8 items-center justify-center rounded bg-orange-500 font-bold text-white"
+        class="flex h-8 w-8 items-center justify-center rounded bg-green-500 font-bold text-white"
       >
         1
       </div>

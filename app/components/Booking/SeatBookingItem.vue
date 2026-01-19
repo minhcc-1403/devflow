@@ -12,7 +12,7 @@ defineEmits(["toggle"]);
     class="h-10 rounded-md border text-xs font-medium"
     :class="{
       'cursor-not-allowed bg-gray-300 text-gray-500': seat.status === 'sold',
-      'border-orange-400 bg-orange-100 text-orange-600': selectedSeats.includes(
+      'border-green-400 bg-green-100 text-green-600': selectedSeats.includes(
         seat.code,
       ),
       'border-blue-400 bg-blue-100 text-blue-700':

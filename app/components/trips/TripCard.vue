@@ -28,7 +28,7 @@ const timeline: TimelineStop[] = [
   },
 ];
 
-const activeTab = ref<"seat" | "timeline" | "transfer" | "policy">("seat");
+const activeTab = ref<"seat" | "timeline" | "transfer" | "policy" | null>(null);
 
 const policy = `<h3>Chính sách huỷ vé</h3>
 <ul>
@@ -64,68 +64,67 @@ const policy = `<h3>Chính sách huỷ vé</h3>
 
 <template>
   <div class="rounded-xl border bg-white p-4">
-    <div class="flex justify-between">
+    <div class="flex items-start gap-10">
       <TripTime />
       <TripMeta />
     </div>
+    <MobileTripMeta />
 
-    <div class="my-4 flex items-center justify-between border-t pt-4">
-      <div class="flex gap-4 text-sm text-muted-foreground">
-        <button
-          :class="
-            activeTab === 'seat'
-              ? 'border-b-2 border-orange-500 text-orange-500'
-              : 'text-muted-foreground'
-          "
-          @click="activeTab = 'seat'"
-        >
-          Chọn ghế
-        </button>
-        <button
-          :class="
-            activeTab === 'timeline'
-              ? 'border-b-2 border-orange-500 text-orange-500'
-              : 'text-muted-foreground'
-          "
-          @click="activeTab = 'timeline'"
-        >
-          Lịch trình
-        </button>
-        <button
-          :class="
-            activeTab === 'transfer'
-              ? 'border-b-2 border-orange-500 text-orange-500'
-              : 'text-muted-foreground'
-          "
-          @click="activeTab = 'transfer'"
-        >
-          Trung chuyển
-        </button>
-        <button
-          :html="policy"
-          :class="
-            activeTab === 'policy'
-              ? 'border-b-2 border-orange-500 text-orange-500'
-              : 'text-muted-foreground'
-          "
-          @click="activeTab = 'policy'"
-        >
-          Chính sách
-        </button>
+    <div
+      class="my-2 hidden items-center justify-between border-t md:flex md:flex-col"
+    >
+      <div class="flex w-full justify-between py-2">
+        <div class="flex gap-4 text-sm text-muted-foreground">
+          <button
+            :class="
+              activeTab === 'seat'
+                ? 'border-b-2 border-green-500 text-green-500'
+                : 'text-muted-foreground'
+            "
+            @click="activeTab = 'seat'"
+          >
+            Chọn ghế
+          </button>
+          <button
+            :class="
+              activeTab === 'timeline'
+                ? 'border-b-2 border-green-500 text-green-500'
+                : 'text-muted-foreground'
+            "
+            @click="activeTab = 'timeline'"
+          >
+            Lịch trình
+          </button>
+          <button
+            :class="
+              activeTab === 'transfer'
+                ? 'border-b-2 border-green-500 text-green-500'
+                : 'text-muted-foreground'
+            "
+            @click="activeTab = 'transfer'"
+          >
+            Trung chuyển
+          </button>
+          <button
+            :html="policy"
+            :class="
+              activeTab === 'policy'
+                ? 'border-b-2 border-green-500 text-green-500'
+                : 'text-muted-foreground'
+            "
+            @click="activeTab = 'policy'"
+          >
+            Chính sách
+          </button>
+        </div>
+        <TripActions />
       </div>
 
-      <TripActions />
+      <SeatSelector v-if="activeTab === 'seat'" />
+      <TripTimeline v-if="activeTab === 'timeline'" :stops="timeline" />
+      <TripTransfer v-if="activeTab === 'transfer'" />
+      <TripPolicy v-if="activeTab === 'policy'" :html="policy" />
     </div>
-
-    <!-- Seat selector -->
-    <SeatSelector v-if="activeTab === 'seat'" />
-
-    <!-- Content -->
-    <TripTimeline v-if="activeTab === 'timeline'" :stops="timeline" />
-
-    <TripTransfer v-if="activeTab === 'transfer'" />
-
-    <TripPolicy v-if="activeTab === 'policy'" :html="policy" />
   </div>
 </template>
 

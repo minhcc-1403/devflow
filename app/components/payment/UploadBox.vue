@@ -13,7 +13,7 @@ function onChange(e: any) {
 
 <template>
   <label
-    class="flex h-40 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed bg-white text-center hover:border-orange-400"
+    class="flex h-40 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed bg-white text-center hover:border-green-400"
   >
     <input type="file" accept="image/*" class="hidden" @change="onChange" />
 

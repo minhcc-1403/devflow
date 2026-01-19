@@ -1,9 +1,20 @@
 <script setup></script>
 
 <template>
-  <div class="space-y-1 text-right">
-    <Badge variant="outline">Limousine</Badge>
-    <p class="text-sm text-green-600">21 chỗ trống</p>
-    <p class="text-lg font-bold text-orange-500">400.000đ</p>
+  <div
+    class="text-gray hidden min-w-[200px] flex-wrap justify-end gap-x-2 md:flex"
+  >
+    <ul class="flex justify-end gap-x-2">
+      <li class="flex items-center gap-x-1 text-sm text-[#454647]">
+        <div class="h-[6px] w-[6px] rounded-full bg-[#C8CCD3]"></div>
+        Limousine
+      </li>
+      <li class="flex items-center gap-x-1 text-sm text-[#00613D]">
+        <div class="h-[6px] w-[6px] rounded-full bg-[#C8CCD3]"></div>
+        21 chỗ trống
+      </li>
+    </ul>
+
+    <p class="mt-5 text-lg font-bold text-green-600">400.000đ</p>
   </div>
 </template>

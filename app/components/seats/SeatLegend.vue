@@ -9,7 +9,7 @@
       Còn trống
     </div>
     <div class="flex items-center gap-2">
-      <span class="h-4 w-4 rounded border border-orange-500 bg-orange-100" />
+      <span class="h-4 w-4 rounded border border-green-500 bg-green-100" />
       Đang chọn
     </div>
   </div>

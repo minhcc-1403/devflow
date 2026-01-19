@@ -50,7 +50,7 @@ const getLunarDisplay = (date: Date) => {
         </div>
       </PopoverTrigger>
       <PopoverContent
-        class="w-auto rounded-lg bg-white p-0 shadow-lg md:w-96"
+        class="w-auto rounded-lg bg-white p-0 shadow-lg"
         side="bottom"
         align="start"
       >
@@ -94,6 +94,6 @@ const getLunarDisplay = (date: Date) => {
 <style lang="css" scoped>
 /* Customize selected date background to orange */
 .calendar .selected {
-  @apply rounded-full bg-orange-100 text-orange-900;
+  @apply rounded-full bg-green-100 text-green-900;
 }
 </style>

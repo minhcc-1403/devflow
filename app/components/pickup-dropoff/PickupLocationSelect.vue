@@ -38,7 +38,7 @@ function select(item: Location) {
     <!-- INPUT -->
     <button
       class="flex w-full items-center justify-between rounded-md border px-3 py-2 text-left"
-      :class="open ? 'border-orange-500' : ''"
+      :class="open ? 'border-green-500' : ''"
       @click="open = !open"
     >
       <span class="truncate">
@@ -60,7 +60,7 @@ function select(item: Location) {
         v-model="keyword"
         placeholder="Nhập tên bến xe, văn phòng"
         class="mb-3 w-full rounded-md border px-3 py-2 text-sm"
-      >
+      />
 
       <div class="max-h-60 space-y-3 overflow-auto">
         <div
@@ -71,14 +71,14 @@ function select(item: Location) {
         >
           <input
             type="radio"
-            class="mt-1 accent-orange-500"
+            class="mt-1 accent-green-500"
             :checked="selected === item.id"
-          >
+          />
 
           <div class="flex-1">
             <div class="flex justify-between text-sm font-medium">
               <span>{{ item.time }} - {{ item.label }}</span>
-              <span class="text-xs text-orange-500">Xem vị trí</span>
+              <span class="text-xs text-green-500">Xem vị trí</span>
             </div>
             <p class="text-xs text-gray-500">
               {{ item.address }}

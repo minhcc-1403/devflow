@@ -22,7 +22,7 @@ function toggleSeat(code: string) {
 </script>
 
 <template>
-  <div class="space-y-6 border-t pt-4">
+  <div class="space-y-6 pt-4">
     <SeatLegend />
 
     <div class="grid grid-cols-2 gap-10">

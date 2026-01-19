@@ -8,7 +8,7 @@ definePageMeta({ layout: "no-layout" });
       <div class="mx-auto max-w-6xl space-y-20 px-4 py-12">
         <!-- PHƯƠNG TRANG -->
         <section class="mx-auto max-w-4xl text-center">
-          <h1 class="text-2xl font-bold text-orange-600">PHƯƠNG TRANG</h1>
+          <h1 class="text-2xl font-bold text-green-600">PHƯƠNG TRANG</h1>
           <p class="mt-2 italic text-gray-600">“Chất lượng là danh dự”</p>
 
           <p class="mt-6 text-sm leading-relaxed text-gray-700">
@@ -16,14 +16,14 @@ definePageMeta({ layout: "no-layout" });
             động kinh doanh chính trong lĩnh vực mua bán ô tô, vận tải hành
             khách, bất động sản và kinh doanh dịch vụ. Phương Trang dần trở
             thành cái tên quen thuộc trong ngành dịch vụ trên mọi miền đất nước.
-            <br ><br >
+            <br /><br />
             Trải qua hơn 25 năm hình thành và phát triển, Phương Trang tự hào
             trở thành doanh nghiệp vận tải hàng đầu Việt Nam với hệ thống chi
             nhánh rộng khắp cả nước.
           </p>
 
           <button
-            class="mt-4 text-sm text-gray-500 transition hover:text-orange-500"
+            class="mt-4 text-sm text-gray-500 transition hover:text-green-500"
           >
             Xem thêm ⌄
           </button>
@@ -35,12 +35,12 @@ definePageMeta({ layout: "no-layout" });
             src="https://cdn.futabus.vn/futa-busline-web-cms-prod/Artboard_3_3x_fb31ff2c98/Artboard_3_3x_fb31ff2c98.png"
             alt="Vision"
             class="mx-auto w-full max-w-md"
-          >
+          />
 
           <div>
             <h2 class="section-title">TẦM NHÌN VÀ SỨ MỆNH</h2>
 
-            <p class="mt-4 font-semibold text-orange-600">
+            <p class="mt-4 font-semibold text-green-600">
               BẢO ĐẢM TỐC ĐỘ CÙNG MỘT VIỆT NAM HÙNG CƯỜNG.
             </p>
 
@@ -66,17 +66,17 @@ definePageMeta({ layout: "no-layout" });
 
             <div class="mt-4 space-y-4 text-sm text-gray-700">
               <p>
-                <strong class="text-orange-600">Phụng sự:</strong>
+                <strong class="text-green-600">Phụng sự:</strong>
                 Phương Trang nghĩa là Vương, với ý chí hết mình vì cộng đồng.
               </p>
 
               <p>
-                <strong class="text-orange-600">Trung thực:</strong>
+                <strong class="text-green-600">Trung thực:</strong>
                 Luôn minh bạch, công bằng trong mọi hoạt động kinh doanh.
               </p>
 
               <p>
-                <strong class="text-orange-600">Chính trực:</strong>
+                <strong class="text-green-600">Chính trực:</strong>
                 Biểu tượng của sự phát triển dựa trên những giá trị đạo đức tốt
                 đẹp.
               </p>
@@ -87,7 +87,7 @@ definePageMeta({ layout: "no-layout" });
             src="https://cdn.futabus.vn/futa-busline-web-cms-prod/Artboard_4_3x_44277bbc3b/Artboard_4_3x_44277bbc3b.png"
             class="mx-auto w-full max-w-md rounded-lg object-cover"
             alt="Core Values"
-          >
+          />
         </section>
 
         <!-- TRIẾT LÝ -->
@@ -96,7 +96,7 @@ definePageMeta({ layout: "no-layout" });
             src="https://cdn.futabus.vn/futa-busline-web-cms-prod/Artboard_5_3x_cf15563d46/Artboard_5_3x_cf15563d46.png"
             class="mx-auto w-full max-w-md"
             alt="Philosophy"
-          >
+          />
 
           <div>
             <h2 class="section-title">TRIẾT LÝ</h2>
@@ -116,6 +116,6 @@ definePageMeta({ layout: "no-layout" });
 
 <style lang="css" scoped>
 .section-title {
-  @apply text-xl font-bold text-orange-600;
+  @apply text-xl font-bold text-green-600;
 }
 </style>

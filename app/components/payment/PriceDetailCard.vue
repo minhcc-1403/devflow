@@ -4,16 +4,16 @@
     <div class="space-y-1 text-sm">
       <div class="flex justify-between">
         <span>Giá vé</span>
-        <span class="text-orange-500">400.000đ</span>
+        <span class="text-green-500">400.000đ</span>
       </div>
       <div class="flex justify-between">
         <span>Phí thanh toán</span>
         <span>0đ</span>
       </div>
-      <hr >
+      <hr />
       <div class="flex justify-between font-semibold">
         <span>Tổng tiền</span>
-        <span class="text-orange-500">400.000đ</span>
+        <span class="text-green-500">400.000đ</span>
       </div>
     </div>
   </div>

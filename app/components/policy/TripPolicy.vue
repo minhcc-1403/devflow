@@ -6,7 +6,7 @@ defineProps<{
 
 <template>
   <div
-    class="border-t pt-4 text-sm leading-relaxed [&_h3]:mb-2 [&_h3]:font-semibold [&_li]:mb-1 [&_p]:mb-2 [&_strong]:font-semibold [&_ul]:list-disc [&_ul]:pl-5"
+    class="pt-4 text-sm leading-relaxed [&_h3]:mb-2 [&_h3]:font-semibold [&_li]:mb-1 [&_p]:mb-2 [&_strong]:font-semibold [&_ul]:list-disc [&_ul]:pl-5"
   >
     <!-- eslint-disable vue/no-v-html -->
     <div v-if="html" v-html="html" />

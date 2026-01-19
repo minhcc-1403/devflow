@@ -16,7 +16,7 @@ const emit = defineEmits<{
     :class="{
       'cursor-not-allowed bg-gray-200 text-gray-400': status === 'sold',
       'border-blue-400 bg-blue-50 text-blue-600': status === 'available',
-      'border-orange-500 bg-orange-100 text-orange-600': status === 'selected',
+      'border-green-500 bg-green-100 text-green-600': status === 'selected',
     }"
     @click="emit('toggle')"
   >

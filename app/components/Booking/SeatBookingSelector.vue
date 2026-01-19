@@ -116,7 +116,7 @@ const gridClass = computed(() => ({
     <div class="mt-6 flex justify-end gap-6 text-xs text-gray-600">
       <BookingLegend color="bg-gray-300" label="Đã bán" />
       <BookingLegend color="bg-blue-100" label="Còn trống" />
-      <BookingLegend color="bg-orange-100" label="Đang chọn" />
+      <BookingLegend color="bg-green-100" label="Đang chọn" />
     </div>
   </div>
 </template>

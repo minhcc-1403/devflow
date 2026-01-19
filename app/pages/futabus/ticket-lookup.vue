@@ -41,18 +41,18 @@ function statusClass(status: string) {
             type="text"
             placeholder="Vui lòng nhập số điện thoại"
             class="w-full rounded-lg border px-4 py-3 text-sm outline-none focus:border-emerald-500"
-          >
+          />
 
           <input
             type="text"
             placeholder="Vui lòng nhập mã vé"
             class="w-full rounded-lg border px-4 py-3 text-sm outline-none focus:border-emerald-500"
-          >
+          />
 
           <!-- Button -->
           <div class="pt-4">
             <button
-              class="rounded-full bg-orange-100 px-10 py-2 text-sm font-medium text-orange-600 transition hover:bg-orange-200"
+              class="rounded-full bg-green-100 px-10 py-2 text-sm font-medium text-green-600 transition hover:bg-green-200"
             >
               Tra cứu
             </button>
@@ -65,7 +65,7 @@ function statusClass(status: string) {
       <!-- LOADING -->
       <div v-if="loading" class="py-10 text-center">
         <div
-          class="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-orange-500 border-t-transparent"
+          class="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-green-500 border-t-transparent"
         />
         <p class="mt-3 text-sm text-gray-500">Đang tra cứu thông tin vé...</p>
       </div>
@@ -114,7 +114,7 @@ function statusClass(status: string) {
         </div>
 
         <div class="flex items-center justify-between border-t pt-4">
-          <p class="font-semibold text-orange-600">
+          <p class="font-semibold text-green-600">
             Tổng tiền: {{ ticket.total }}đ
           </p>
 
@@ -130,7 +130,7 @@ function statusClass(status: string) {
 
 <style lang="css" scoped>
 .btn-outline {
-  @apply rounded-lg border border-orange-500 px-4 py-2 text-sm text-orange-500 hover:bg-orange-50;
+  @apply rounded-lg border border-green-500 px-4 py-2 text-sm text-green-500 hover:bg-green-50;
 }
 
 .btn-danger {

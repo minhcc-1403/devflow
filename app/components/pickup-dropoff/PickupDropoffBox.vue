@@ -33,7 +33,7 @@ const locations = [
   <div class="rounded-xl border border-t bg-white p-5 pt-6">
     <div class="mb-4 flex items-center gap-2">
       <h3 class="font-semibold">Thông tin đón trả</h3>
-      <span class="text-orange-500">ⓘ</span>
+      <span class="text-green-500">ⓘ</span>
     </div>
 
     <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
@@ -47,13 +47,13 @@ const locations = [
               v-model="pickupType"
               type="radio"
               value="station"
-              class="accent-orange-500"
-            >
+              class="accent-green-500"
+            />
             Bến xe/VP
           </label>
 
           <label class="flex items-center gap-1 text-gray-400">
-            <input type="radio" disabled >
+            <input type="radio" disabled />
             Trung chuyển
           </label>
         </div>
@@ -82,13 +82,13 @@ const locations = [
               v-model="dropoffType"
               type="radio"
               value="station"
-              class="accent-orange-500"
-            >
+              class="accent-green-500"
+            />
             Bến xe/VP
           </label>
 
           <label class="flex items-center gap-1 text-gray-400">
-            <input type="radio" disabled >
+            <input type="radio" disabled />
             Trung chuyển
           </label>
         </div>

@@ -21,7 +21,7 @@ defineProps<{
         :class="{
           'bg-green-600': stop.type === 'start',
           'bg-gray-400': stop.type === 'stop',
-          'bg-orange-500': stop.type === 'end',
+          'bg-green-500': stop.type === 'end',
         }"
       />
       <span class="mt-1 w-px flex-1 bg-gray-300" />
@@ -30,7 +30,7 @@ defineProps<{
     <!-- Content -->
     <div class="flex-1 pb-6">
       <div class="flex items-center gap-1 font-medium">
-        <MapPin v-if="stop.type === 'end'" class="h-4 w-4 text-orange-500" />
+        <MapPin v-if="stop.type === 'end'" class="h-4 w-4 text-green-500" />
         {{ stop.title }}
       </div>
       <div class="text-sm text-muted-foreground">

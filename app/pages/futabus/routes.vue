@@ -76,7 +76,7 @@ const routes = [
       <div class="flex items-center gap-3">
         <SearchInput placeholder="Nhập điểm đi" />
         <div
-          class="flex h-8 w-8 items-center justify-center rounded-full border bg-white text-orange-500"
+          class="flex h-8 w-8 items-center justify-center rounded-full border bg-white text-green-500"
         >
           ⇄
         </div>
@@ -92,7 +92,7 @@ const routes = [
         <div>Quãng đường</div>
         <div>Thời gian hành trình</div>
         <div>Giá vé</div>
-        <div/>
+        <div />
       </div>
 
       <!-- Routes -->
@@ -107,7 +107,7 @@ const routes = [
           class="grid grid-cols-6 items-center gap-2 border-t px-4 py-3 text-sm first:border-t-0"
         >
           <!-- Route -->
-          <div class="font-medium text-orange-500">
+          <div class="font-medium text-green-500">
             {{ route.from }}
             <span class="mx-1">⇒</span>
             <span class="text-gray-900">{{ route.to }}</span>
@@ -120,7 +120,7 @@ const routes = [
 
           <div class="text-right">
             <button
-              class="rounded-full bg-orange-100 px-4 py-1 text-orange-600 hover:bg-orange-200"
+              class="rounded-full bg-green-100 px-4 py-1 text-green-600 hover:bg-green-200"
             >
               Tìm tuyến xe
             </button>
